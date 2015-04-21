@@ -43,8 +43,7 @@
 					<li class="">						
 						<a href="<?php echo base_url(); ?>index.php/admin/signup" class="">
 							Don't have an account?
-						</a>
-						
+						</a>	
 					</li>
 				</ul>
 				
@@ -80,13 +79,13 @@
 					<input type="password" id="password" name="password" value="" placeholder="Password" class="login password-field"/>
 				</div> <!-- /password -->
 				<?php
-                if(isset($message_error) && $message_error){
-                      echo '<div class="alert">';
-                        echo '<button type="button" class="close" data-dismiss="alert">&times;</button>';
-                        echo '<strong>Username or Password</strong> is not valid';
-                      echo '</div>';             
-                }
-                ?>
+                                    if(isset($message_error) && $message_error){
+                                          echo '<div class="alert">';
+                                            echo '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+                                            echo '<strong>Username or Password</strong> is not valid';
+                                          echo '</div>';             
+                                    }
+                                ?>
 			</div> <!-- /login-fields -->
 			
 			<div class="login-actions">

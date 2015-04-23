@@ -157,8 +157,13 @@ class Admin_noticeboards extends CI_Controller {
     public function delete()
     {
         $id = $this->uri->segment(4);
-        $this->noticeboards_model->delete($id);
-        redirect('admin/noticeboards');
+        //$this->noticeboards_model->delete($id);
+        $data_to_store = array('status' => 0);
+        //if the insert has returned true then we show the flash message
+        if($this->noticeboards_model->update($id, $data_to_store) == TRUE)
+        {
+            redirect('admin/noticeboards'); 
+        }
     }//delete
 
 

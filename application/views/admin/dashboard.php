@@ -24,7 +24,7 @@
                     
                     <div class="stat"> <i class="icon-bullhorn"></i> <span class="value">25%</span> </div>
                     <!-- .stat --> 
-                  </div>
+                  </div> 
                 </div>
                 <!-- /widget-content --> 
                 

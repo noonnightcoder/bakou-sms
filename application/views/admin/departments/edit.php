@@ -12,7 +12,7 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3><a href="<?php echo base_url(); ?>index.php/admin/departments/<?php echo $this->uri->segment(4); ?>">Departments</a></h3>
+                        <h3><a href="<?php echo base_url(); ?>index.php/admin/departments/<?php echo $this->uri->segment(4); ?>">Departments</a> / Update</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">

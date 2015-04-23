@@ -39,6 +39,7 @@ class Classes_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('classes');
         $this->db->where('department_id', $department_id);
+        $this->db->where('classes.status', 1);
         if($search_string){
             $this->db->like('lower(class_name)', strtolower($search_string));
         }
@@ -55,7 +56,7 @@ class Classes_model extends CI_Model {
         $this->db->from('classes');
         $this->db->join('departments', 'classes.department_id = departments.id');
         $this->db->join('faculties', 'departments.faculty_id = faculties.id');
-        
+        $this->db->where('classes.status', 1);
         $this->db->group_by('id');
 
         $query = $this->db->get();
@@ -73,6 +74,7 @@ class Classes_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('classes');
+        $this->db->where('classes.status', 1);
         if($search_string){
             $this->db->like('lower(class_name)', strtolower($search_string));
         }

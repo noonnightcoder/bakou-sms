@@ -156,8 +156,13 @@ class Admin_staffs extends CI_Controller {
     public function delete()
     {
         $id = $this->uri->segment(4);
-        $this->staffs_model->delete($id);
-        redirect('admin/staffs');
+        //$this->staffs_model->delete($id);
+        $data_to_store = array('status' => 0);
+        //if the insert has returned true then we show the flash message
+        if($this->staffs_model->update($id, $data_to_store) == TRUE)
+        {
+            redirect('admin/staffs'); 
+        }
     }//delete
 
 

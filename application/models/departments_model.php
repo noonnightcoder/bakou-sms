@@ -40,6 +40,7 @@ class Departments_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('departments');
         $this->db->where('faculty_id', $faculty_id);
+        $this->db->where('departments.status', 1);
         if($search_string){
             $this->db->like('lower(department_name)', strtolower($search_string));
         }
@@ -61,6 +62,7 @@ class Departments_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('departments');
         $this->db->where('faculty_id', $faculty_id);
+        $this->db->where('departments.status', 1);
         if($search_string){
             $this->db->like('lower(department_name)', strtolower($search_string));
         }

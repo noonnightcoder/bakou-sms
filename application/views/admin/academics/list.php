@@ -64,7 +64,7 @@
                                 <td class="td-actions">
                                     <a href="<?php echo base_url(); ?>index.php/admin/academic_programs/<?php echo $res['id']; ?>"><button class="btn btn-info">Academic Program</button></a>
                                     <a href="<?php echo base_url(); ?>index.php/admin/academics/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
-                                    <a href="<?php echo base_url(); ?>index.php/admin/academics/delete/<?php echo $res['id']; ?>"><button class="btn btn-danger">Remove</button></a>
+                                    <a onclick="confirm_delete('admin/academics/delete/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
                                 </td>
                             </tr>
                             <?php } ?>  

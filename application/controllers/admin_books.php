@@ -148,8 +148,13 @@ class Admin_books extends CI_Controller {
     {
         $subject_id = $this->uri->segment(4);
         $id = $this->uri->segment(5);
-        $this->books_model->delete($id);
-        redirect('admin/books/'.$subject_id);
+        //$this->books_model->delete($id);
+        $data_to_store = array('status' => 0);
+        //if the insert has returned true then we show the flash message
+        if($this->books_model->update($id, $data_to_store) == TRUE)
+        {
+            redirect('admin/books/'.$subject_id); 
+        }
     }//delete
 
 
@@ -302,8 +307,13 @@ class Admin_books extends CI_Controller {
     public function delete_book()
     {
         $id = $this->uri->segment(4);
-        $this->books_model->delete($id);
-        redirect('admin/library');
+        //$this->books_model->delete($id);
+        $data_to_store = array('status' => 0);
+        //if the insert has returned true then we show the flash message
+        if($this->books_model->update($id, $data_to_store) == TRUE)
+        {
+            redirect('admin/library');
+        }
     }//delete
     
 }                 

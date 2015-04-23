@@ -12,7 +12,7 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3><a href="<?php echo base_url(); ?>index.php/admin/services">Services</a></h3>
+                        <h3><a href="<?php echo base_url(); ?>index.php/admin/services">Services</a> / Update</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">
@@ -48,7 +48,7 @@
                                 </div> <!-- /control-group -->
                                 
                                 <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Service Price</label>
+                                    <label class="control-label" for="firstname">Price</label>
                                     <div class="controls">
                                         <input type="text" class="span6" id="service_price" name="service_price" value="<?php echo $result['service_price']; ?>">
                                     </div> <!-- /controls -->               

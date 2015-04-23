@@ -48,7 +48,6 @@ class Admin_services extends CI_Controller {
         $data['result'] = $this->services_model->get_all($search, $config['per_page'], $limit_end);        
         $config['total_rows'] = $data['counts'];
 
-
         //initializate the panination helper 
         $this->pagination->initialize($config);   
 
@@ -81,9 +80,7 @@ class Admin_services extends CI_Controller {
                 }else{
                     $data['flash_message'] = FALSE; 
                 }
-
             }
-
         }
         //load the view
         $data['main_content'] = 'admin/services/add';
@@ -105,7 +102,6 @@ class Admin_services extends CI_Controller {
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
-
                 $data_to_store = array('service_name' => $this->input->post('service_name'),
                                        'service_price' => $this->input->post('service_price'),
                                        'service_description' => $this->input->post('service_description'));
@@ -116,9 +112,7 @@ class Admin_services extends CI_Controller {
                 }else{
                     $data['flash_message'] = FALSE;
                 }
-
             }//validation run
-
         } 
         //if we are updating, and the data did not pass trough the validation
         //the code below wel reload the current data
@@ -134,8 +128,14 @@ class Admin_services extends CI_Controller {
     public function delete()
     {
         $id = $this->uri->segment(4);
-        $this->services_model->delete($id);
-        redirect('admin/services');
+        //$this->services_model->delete($id);
+        $data_to_store = array('status' => 0);
+        //if the insert has returned true then we show the flash message
+        if($this->services_model->update($id, $data_to_store) == TRUE)
+        {
+            redirect('admin/services'); 
+        }
+        
     }//delete
 
 

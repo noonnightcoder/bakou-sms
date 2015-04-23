@@ -86,7 +86,7 @@
                                 <td class="td-actions">
                                     <a href="<?php echo base_url(); ?>index.php/admin/books/detail/<?php echo $res['id']; ?>"><button class="btn btn-info">Detail</button></a>
                                     <a href="<?php echo base_url(); ?>index.php/admin/library/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
-                                    <a href="<?php echo base_url(); ?>index.php/admin/library/delete/<?php echo $res['id']; ?>"><button class="btn btn-danger">Remove</button></a>
+                                    <a onclick="confirm_delete('admin/library/delete/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
                                 </td>
                             </tr>
                             <?php } ?>  

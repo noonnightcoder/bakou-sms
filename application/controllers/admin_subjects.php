@@ -86,9 +86,7 @@ class Admin_subjects extends CI_Controller {
                 }else{
                     $data['flash_message'] = FALSE;
                 }
-
             }//validation run
-
         } 
         //if we are updating, and the data did not pass trough the validation
         //the code below wel reload the current data
@@ -105,8 +103,13 @@ class Admin_subjects extends CI_Controller {
     {
         $class_id = $this->uri->segment(4);
         $id = $this->uri->segment(5);
-        $this->subjects_model->delete($id);
-        redirect('admin/subjects/'.$class_id);
+        //$this->subjects_model->delete($id);
+        $data_to_store = array('status' => 0);
+        //if the insert has returned true then we show the flash message
+        if($this->subjects_model->update($id, $data_to_store) == TRUE)
+        {
+            redirect('admin/subjects/'.$class_id);
+        }
     }//delete
 
 

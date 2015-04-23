@@ -107,7 +107,6 @@ class Admin_transports extends CI_Controller {
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
-
                 $data_to_store = array('route_name' => $this->input->post('route_name'),
                                        'route_fare' => $this->input->post('route_fare'),
                                        'number_of_vehicle' => $this->input->post('number_of_vehicle'),
@@ -119,7 +118,6 @@ class Admin_transports extends CI_Controller {
                 }else{
                     $data['flash_message'] = FALSE;
                 }
-
             }//validation run
         } 
         //if we are updating, and the data did not pass trough the validation
@@ -136,8 +134,13 @@ class Admin_transports extends CI_Controller {
     public function delete()
     {
         $id = $this->uri->segment(4);
-        $this->transports_model->delete($id);
-        redirect('admin/transports');
+        //$this->transports_model->delete($id);
+        $data_to_store = array('status' => 0);
+        //if the insert has returned true then we show the flash message
+        if($this->transports_model->update($id, $data_to_store) == TRUE)
+        {
+            redirect('admin/transports'); 
+        }
     }//delete
 
 

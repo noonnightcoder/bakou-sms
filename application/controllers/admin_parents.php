@@ -47,22 +47,53 @@ class Admin_parents extends CI_Controller {
             $this->form_validation->set_rules('phone2', 'phone2', 'numeric');
             $this->form_validation->set_rules('parent_description', 'parent_description', '');
             $this->form_validation->set_rules('profession', 'profession', 'required');
+            $this->form_validation->set_rules('birthplace', 'birthplace', '');
+            $this->form_validation->set_rules('photo', 'photo', '');
             $this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
 
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
-                $data_to_store = array('relationship' => $this->input->post('relationship'),
-                                       'fullname' => $this->input->post('fullname'),
-                                       'fullname_in_khmer' => $this->input->post('fullname_in_khmer'),
-                                       'birthday' => $this->input->post('birthday'),
-                                       'sex' => $this->input->post('sex'),
-                                       'address' => $this->input->post('address'),
-                                       'phone1' => $this->input->post('phone1'),
-                                       'phone2' => $this->input->post('phone2'),
-                                       'parent_description' => $this->input->post('parent_description'),
-                                       'profession' => $this->input->post('profession'),
-                                       'student_id' => $student_id);
+                // upload file configuration
+                $config['upload_path'] = './attachments/';
+                $config['allowed_types'] = 'pdf|zip|xls|xlsx|txt|csv|gif|jpg|png|doc|docx';
+                $config['max_size'] = '5000';
+                $config['file_name'] = 'upload'.time();
+                $this->load->library('upload', $config);
+                // upload file name in the form
+                $file = 'photo';
+                // start to upload
+                if( !$this->upload->do_upload($file) )
+                {
+                    $data_to_store = array('relationship' => $this->input->post('relationship'),
+                                           'fullname' => $this->input->post('fullname'),
+                                           'fullname_in_khmer' => $this->input->post('fullname_in_khmer'),
+                                           'birthday' => $this->input->post('birthday'),
+                                           'sex' => $this->input->post('sex'),
+                                           'address' => $this->input->post('address'),
+                                           'phone1' => $this->input->post('phone1'),
+                                           'phone2' => $this->input->post('phone2'),
+                                           'parent_description' => $this->input->post('parent_description'),
+                                           'profession' => $this->input->post('profession'),
+                                           'student_id' => $student_id,
+                                           'birthplace' => $this->input->post('birthplace'),
+                                           'photo' => '/sms/attachments/index.png');
+                }else{
+                    $file_root = $this->upload->data();
+                    $data_to_store = array('relationship' => $this->input->post('relationship'),
+                                           'fullname' => $this->input->post('fullname'),
+                                           'fullname_in_khmer' => $this->input->post('fullname_in_khmer'),
+                                           'birthday' => $this->input->post('birthday'),
+                                           'sex' => $this->input->post('sex'),
+                                           'address' => $this->input->post('address'),
+                                           'phone1' => $this->input->post('phone1'),
+                                           'phone2' => $this->input->post('phone2'),
+                                           'parent_description' => $this->input->post('parent_description'),
+                                           'profession' => $this->input->post('profession'),
+                                           'student_id' => $student_id,
+                                           'birthplace' => $this->input->post('birthplace'),
+                                           'photo' => '/sms'.substr($config['upload_path'],1).$file_root['file_name']);
+                }
                 //if the insert has returned true then we show the flash message
                 if($this->parents_model->store_data($data_to_store))
                 {
@@ -96,21 +127,50 @@ class Admin_parents extends CI_Controller {
             $this->form_validation->set_rules('phone2', 'phone2', 'numeric');
             $this->form_validation->set_rules('parent_description', 'parent_description', '');
             $this->form_validation->set_rules('profession', 'profession', 'required');
+            $this->form_validation->set_rules('birthplace', 'birthplace', '');
+            $this->form_validation->set_rules('photo', 'photo', '');
             $this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
-
-                $data_to_store = array('relationship' => $this->input->post('relationship'),
-                                       'fullname' => $this->input->post('fullname'),
-                                       'fullname_in_khmer' => $this->input->post('fullname_in_khmer'),
-                                       'birthday' => $this->input->post('birthday'),
-                                       'sex' => $this->input->post('sex'),
-                                       'address' => $this->input->post('address'),
-                                       'phone1' => $this->input->post('phone1'),
-                                       'phone2' => $this->input->post('phone2'),
-                                       'parent_description' => $this->input->post('parent_description'),
-                                       'profession' => $this->input->post('profession'));
+                // upload file configuration
+                $config['upload_path'] = './attachments/';
+                $config['allowed_types'] = 'pdf|zip|xls|xlsx|txt|csv|gif|jpg|png|doc|docx';
+                $config['max_size'] = '5000';
+                $config['file_name'] = 'upload'.time();
+                $this->load->library('upload', $config);
+                // upload file name in the form
+                $file = 'photo';
+                
+                if( !$this->upload->do_upload($file) )
+                {
+                    $data_to_store = array('relationship' => $this->input->post('relationship'),
+                                           'fullname' => $this->input->post('fullname'),
+                                           'fullname_in_khmer' => $this->input->post('fullname_in_khmer'),
+                                           'birthday' => $this->input->post('birthday'),
+                                           'sex' => $this->input->post('sex'),
+                                           'address' => $this->input->post('address'),
+                                           'phone1' => $this->input->post('phone1'),
+                                           'phone2' => $this->input->post('phone2'),
+                                           'parent_description' => $this->input->post('parent_description'),
+                                           'profession' => $this->input->post('profession'),
+                                           'birthplace' => $this->input->post('birthplace'));
+                }else{
+                    $file_root = $this->upload->data();
+                    $data_to_store = array('relationship' => $this->input->post('relationship'),
+                                           'fullname' => $this->input->post('fullname'),
+                                           'fullname_in_khmer' => $this->input->post('fullname_in_khmer'),
+                                           'birthday' => $this->input->post('birthday'),
+                                           'sex' => $this->input->post('sex'),
+                                           'address' => $this->input->post('address'),
+                                           'phone1' => $this->input->post('phone1'),
+                                           'phone2' => $this->input->post('phone2'),
+                                           'parent_description' => $this->input->post('parent_description'),
+                                           'profession' => $this->input->post('profession'),
+                                           'birthplace' => $this->input->post('birthplace'),
+                                           'photo' => '/sms'.substr($config['upload_path'],1).$file_root['file_name']);
+                }
+                
                 //if the insert has returned true then we show the flash message
                 if($this->parents_model->update($id, $data_to_store) == TRUE)
                 {
@@ -147,8 +207,13 @@ class Admin_parents extends CI_Controller {
     {
         $student_id = $this->uri->segment(4);
         $id = $this->uri->segment(5);
-        $this->parents_model->delete($id);
-        redirect('admin/parents/'.$student_id);
+        //$this->parents_model->delete($id);
+        $data_to_store = array('status' => 0);
+        //if the insert has returned true then we show the flash message
+        if($this->parents_model->update($id, $data_to_store) == TRUE)
+        {
+            redirect('admin/parents/'.$student_id);
+        }
     }//delete
 
 

@@ -38,7 +38,7 @@ class Noticeboards_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('noticeboards');
-
+        $this->db->where('status', 1);
         if($search_string){
             $this->db->like('lower(notice_title)', strtolower($search_string));
         }
@@ -67,6 +67,7 @@ class Noticeboards_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('noticeboards');
+        $this->db->where('status', 1);
         if($search_string){
             $this->db->like('lower(notice_title)', strtolower($search_string));
         }

@@ -12,7 +12,7 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3><a href="<?php echo base_url(); ?>index.php/admin/staffs">Staffs</a></h3>
+                        <h3><a href="<?php echo base_url(); ?>index.php/admin/staffs">Staffs</a> / Add New</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">

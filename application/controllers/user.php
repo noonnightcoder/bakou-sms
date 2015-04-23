@@ -2,19 +2,32 @@
 
 class User extends CI_Controller {
 
+    
+    /**
+    * Responsable for auto load the model
+    * @return void
+    */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Users_model');
+        $this->load->model('noticeboards_model');
+
+    }
+    
     /**
     * Check if the user is logged in, if he's not, 
     * send him to the login page
     * @return void
     */	
-	function index()
-	{
-		if($this->session->userdata('is_logged_in')){
-			redirect('admin/dashboard');
+    function index()
+    {
+        if($this->session->userdata('is_logged_in')){
+            redirect('admin/dashboard');
         }else{
-        	$this->load->view('admin/login');	
+            $this->load->view('admin/login');	
         }
-	}
+    }
 
     /**
     * encript the password 
@@ -28,104 +41,99 @@ class User extends CI_Controller {
     * check the username and the password with the database
     * @return void
     */
-	function validate_credentials()
-	{	
+    function validate_credentials()
+    {	
+        $user_name = $this->input->post('user_name');
+        $password = $this->__encrip_password($this->input->post('password'));
 
-		$this->load->model('Users_model');
+        $is_valid = $this->Users_model->validate($user_name, $password);
 
-		$user_name = $this->input->post('user_name');
-		$password = $this->__encrip_password($this->input->post('password'));
-
-		$is_valid = $this->Users_model->validate($user_name, $password);
-		
-		if($is_valid)
-		{
-			$data = array(
-				'user_name' => $user_name,
-				'is_logged_in' => true
-			);
-			$this->session->set_userdata($data);
-			redirect('admin/dashboard');
-		}
-		else // incorrect username or password
-		{
-			$data['message_error'] = TRUE;
-			$this->load->view('admin/login', $data);	
-		}
-	}	
+        if($is_valid)
+        {
+            $data = array(
+                    'user_name' => $user_name,
+                    'is_logged_in' => true
+            );
+            $this->session->set_userdata($data);
+            redirect('admin/dashboard');
+        }
+        else // incorrect username or password
+        {
+            $data['message_error'] = TRUE;
+            $this->load->view('admin/login', $data);	
+        }
+    }	
 
     /**
     * The method just loads the signup view
     * @return void
     */
-	function signup()
-	{
-		$this->load->view('admin/signup_form');	
-	}
+    function signup()
+    {
+        $this->load->view('admin/signup_form');	
+    }
 	
     /**
     * The method just loads the signup view
     * @return void
     */
-	function error()
-	{
-		$this->load->view('admin/error');	
-	}
+    function error()
+    {
+        $this->load->view('admin/error');	
+    }
 
     /**
     * Create new user and store it in the database
     * @return void
     */	
-	function create_member()
-	{
-		$this->load->library('form_validation');
-		
-		// field name, error message, validation rules
-		$this->form_validation->set_rules('first_name', 'First Name', 'trim|required');
-		$this->form_validation->set_rules('last_name', 'Last Name', 'trim|required');
-		$this->form_validation->set_rules('email_address', 'Email Address', 'trim|required|valid_email');
-		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]');
-		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[32]');
-		$this->form_validation->set_rules('password2', 'Password Confirmation', 'trim|required|matches[password]');
-		$this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
-		
-		if($this->form_validation->run() == FALSE)
-		{
-			$this->load->view('admin/signup_form');
-		}
-		
-		else
-		{			
-			$this->load->model('Users_model');
-			
-			if($query = $this->Users_model->create_member())
-			{
-				$this->load->view('admin/signup_successful');			
-			}
-			else
-			{
-				$this->load->view('admin/signup_form');			
-			}
-		}
-		
-	}
+    function create_member()
+    {
+        $this->load->library('form_validation');
+
+        // field name, error message, validation rules
+        $this->form_validation->set_rules('first_name', 'First Name', 'trim|required');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required');
+        $this->form_validation->set_rules('email_address', 'Email Address', 'trim|required|valid_email');
+        $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[32]');
+        $this->form_validation->set_rules('password2', 'Password Confirmation', 'trim|required|matches[password]');
+        $this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $this->load->view('admin/signup_form');
+        }
+        else
+        {			
+            $this->load->model('Users_model');
+
+            if($query = $this->Users_model->create_member())
+            {
+                $this->load->view('admin/signup_successful');			
+            }
+            else
+            {
+                $this->load->view('admin/signup_form');			
+            }
+        }
+    }
 	
     function dashboard()
-	{
-		//load the view
+    {
+        $data['notices'] = $this->noticeboards_model->get_all();
+        //load the view
         $data['main_content'] = 'admin/dashboard';
         $this->load->view('includes/template', $data);
-	}
+    }
     
-    
-	/**
+    /**
     * Destroy the session, and logout the user.
     * @return void
     */		
-	function logout()
-	{
-		$this->session->sess_destroy();
-		redirect('admin');
-	}
+    function logout()
+    {
+        $this->session->sess_destroy();
+        redirect('admin');
+    }
 
 }

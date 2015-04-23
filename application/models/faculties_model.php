@@ -38,7 +38,7 @@ class Faculties_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('faculties');
-
+        $this->db->where('status', 1);
         if($search_string){
             $this->db->like('lower(faculty_name)', strtolower($search_string));
         }
@@ -67,6 +67,7 @@ class Faculties_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('faculties');
+        $this->db->where('status', 1);
         if($search_string){
             $this->db->like(lower('faculty_name'), strtolower($search_string));
         }

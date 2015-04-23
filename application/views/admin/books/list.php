@@ -67,7 +67,7 @@
                                 <td class="td-actions">
                                     <a href="<?php echo base_url(); ?>index.php/admin/books/detail/<?php echo $res['id']; ?>"><button class="btn btn-info">Detail</button></a>
                                     <a href="<?php echo base_url(); ?>index.php/admin/books/update/<?php echo $this->uri->segment(3).'/'.$res['id']; ?>"><button class="btn btn-success">Update</button></a>
-                                    <a href="<?php echo base_url(); ?>index.php/admin/books/delete/<?php echo $this->uri->segment(3).'/'.$res['id']; ?>"><button class="btn btn-danger">Remove</button></a>
+                                    <a onclick="confirm_delete('admin/books/delete/<?php echo $this->uri->segment(3).'/'.$res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
                                 </td>
                             </tr>
                             <?php } ?>  

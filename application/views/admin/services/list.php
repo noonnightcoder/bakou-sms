@@ -48,9 +48,9 @@
                         <table class="table table-striped table-bordered">
                             <thead>
                             <tr>
-                                <th>Service_name</th>
-                                <th>Service_price</th>
-                                <th>Service_description</th>
+                                <th>Service</th>
+                                <th>Price</th>
+                                <th>Description</th>
                                 <th class="td-actions">Action</th></tr>
                             </thead>
                             <tbody>
@@ -61,7 +61,7 @@
                                 <td><?php echo $res['service_description']; ?></td>
                                 <td class="td-actions">
                                     <a href="<?php echo base_url(); ?>index.php/admin/services/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
-                                    <a href="<?php echo base_url(); ?>index.php/admin/services/delete/<?php echo $res['id']; ?>"><button class="btn btn-danger">Remove</button></a>
+                                    <a onclick="confirm_delete('admin/services/delete/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
                                 </td>
                             </tr>
                             <?php } ?>  

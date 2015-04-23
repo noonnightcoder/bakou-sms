@@ -59,7 +59,8 @@
                                 <td><?php echo $res['classroom_type_description']; ?></td>
                                 <td class="td-actions">
                                     <a href="<?php echo base_url(); ?>index.php/admin/classroom_types/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
-                                    <a href="<?php echo base_url(); ?>index.php/admin/classroom_types/delete/<?php echo $res['id']; ?>"><button class="btn btn-danger">Remove</button></a>
+                                    <!-- <a href="<?php //echo base_url(); ?>index.php/admin/classroom_types/delete/<?php echo $res['id']; ?>"><button class="btn btn-danger">Remove</button></a> -->
+                                    <a onclick="confirm_delete('admin/classroom_types/delete/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
                                 </td>
                             </tr>
                             <?php } ?>  
@@ -79,4 +80,3 @@
     </div> <!-- /main-inner -->
 
 </div> <!-- /main -->                 
-                    

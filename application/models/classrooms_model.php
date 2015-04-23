@@ -41,6 +41,7 @@ class Classrooms_model extends CI_Model {
         $this->db->from('classrooms');
         $this->db->join('classroom_types', 'classrooms.classroom_type_id = classroom_types.id');
         $this->db->where('building_id', $building_id);
+        $this->db->where('classrooms.status', 1);
         
         if($search_string){
             $this->db->like('lower(classroom_name)', strtolower($search_string));
@@ -64,7 +65,7 @@ class Classrooms_model extends CI_Model {
         $this->db->from('classrooms');
         
         $this->db->where('building_id', $building_id);
-        
+        $this->db->where('classrooms.status', 1);
         if($search_string){
             $this->db->like('lower(classroom_name)', strtolower($search_string));
         }

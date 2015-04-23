@@ -37,10 +37,10 @@ class Staffs_model extends CI_Model {
     */
     public function get_all($search_string=null, $limit_start=null, $limit_end=null)
     {
-
         $this->db->select('staffs.*, positions.position');
         $this->db->from('staffs');
         $this->db->join('positions', 'staffs.position_id = positions.id');
+        $this->db->where('staffs.status', 1);
         if($search_string){
             $this->db->like('lower(staffs.fullname)', strtolower($search_string));
         }
@@ -69,6 +69,7 @@ class Staffs_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('staffs');
+        $this->db->where('staffs.status', 1);
         if($search_string){
             $this->db->like('lower(staffs.fullname)', strtolower($search_string));
         }

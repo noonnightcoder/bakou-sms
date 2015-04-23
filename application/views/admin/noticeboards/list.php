@@ -60,13 +60,13 @@
                             <tr>
                                 <td><?php echo $res['notice_title']; ?></td>
                                 <td><?php echo $res['start_date']; ?></td>
-                                <td><?php echo $res['end_date']; ?></td>
                                 <td><?php echo $res['start_time']; ?></td>
+                                <td><?php echo $res['end_date']; ?></td>
                                 <td><?php echo $res['end_time']; ?></td>
                                 <td class="td-actions">
                                     <a href="<?php echo base_url(); ?>index.php/admin/noticeboards/detail/<?php echo $res['id']; ?>"><button class="btn btn-info">Detail</button></a>
                                     <a href="<?php echo base_url(); ?>index.php/admin/noticeboards/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
-                                    <a href="<?php echo base_url(); ?>index.php/admin/noticeboards/delete/<?php echo $res['id']; ?>"><button class="btn btn-danger">Remove</button></a>
+                                    <a onclick="confirm_delete('admin/noticeboards/delete/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
                                 </td>
                             </tr>
                             <?php } ?>  

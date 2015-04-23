@@ -64,7 +64,7 @@
                                 <td class="td-actions">
                                     <a href="<?php echo base_url(); ?>index.php/admin/vehicles/<?php echo $res['id']; ?>"><button class="btn btn-info">Vehicle</button></a>
                                     <a href="<?php echo base_url(); ?>index.php/admin/transports/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
-                                    <a href="<?php echo base_url(); ?>index.php/admin/transports/delete/<?php echo $res['id']; ?>"><button class="btn btn-danger">Remove</button></a>
+                                    <a onclick="confirm_delete('admin/transports/delete/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
                                 </td>
                             </tr>
                             <?php } ?>  

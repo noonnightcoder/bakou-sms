@@ -189,8 +189,8 @@ $route['admin/parents/add'] = 'admin_parents/add';
 $route['admin/parents/add/(:any)'] = 'admin_parents/add/$1';
 $route['admin/parents/update'] = 'admin_parents/update';
 $route['admin/parents/update/(:any)'] = 'admin_parents/update/$1';
-$route['admin/parents/update'] = 'admin_parents/detail';
-$route['admin/parents/update/(:any)'] = 'admin_parents/detail/$1';
+$route['admin/parents/detail'] = 'admin_parents/detail';
+$route['admin/parents/detail/(:any)'] = 'admin_parents/detail/$1';
 $route['admin/parents/delete/(:any)'] = 'admin_parents/delete/$1';
 $route['admin/parents/(:any)'] = 'admin_parents/index/$1'; //$1 = page number
                     

@@ -68,9 +68,8 @@
                                 <td><?php echo $res['phone1']; ?></td>
                                 <td><?php echo $res['parent_description']; ?></td>
                                 <td class="td-actions">
-                                    <a href="<?php echo base_url(); ?>index.php/admin/parents/update/<?php echo $this->uri->segment(3).'/'.$res['id']; ?>"><button class="btn btn-info">Detail</button></a>
                                     <a href="<?php echo base_url(); ?>index.php/admin/parents/update/<?php echo $this->uri->segment(3).'/'.$res['id']; ?>"><button class="btn btn-success">Update</button></a>
-                                    <a href="<?php echo base_url(); ?>index.php/admin/parents/delete/<?php echo $this->uri->segment(3).'/'.$res['id']; ?>"><button class="btn btn-danger">Remove</button></a>
+                                    <a onclick="confirm_delete('admin/parents/delete/<?php echo $this->uri->segment(3).'/'.$res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
                                 </td>
                             </tr>
                             <?php } ?>  

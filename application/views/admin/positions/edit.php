@@ -12,7 +12,7 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3><a href="<?php echo base_url(); ?>index.php/admin/positions">Positions</a></h3>
+                        <h3><a href="<?php echo base_url(); ?>index.php/admin/positions">Positions</a> / Update</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">
@@ -41,14 +41,14 @@
                                     echo validation_errors(); 
                                 ?>
                                 <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">position</label>
+                                    <label class="control-label" for="firstname">Position</label>
                                     <div class="controls">
                                         <input type="text" class="span6" id="position" name="position" value="<?php echo $result['position']; ?>">
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
 
                                 <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">position_description</label>
+                                    <label class="control-label" for="firstname">Description</label>
                                     <div class="controls">
                                         <textarea class="span6" id="position_description" name="position_description"><?php echo $result['position_description']; ?></textarea>
                                     </div> <!-- /controls -->               

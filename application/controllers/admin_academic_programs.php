@@ -33,7 +33,6 @@ class Admin_academic_programs extends CI_Controller {
         //load the view
         $data['main_content'] = 'admin/academic_programs/list';
         $this->load->view('includes/template', $data);  
-
     }//index
 
     public function add()
@@ -110,7 +109,6 @@ class Admin_academic_programs extends CI_Controller {
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
-
                 $data_to_store = array('start_date' => $this->input->post('start_date'),
                                        'end_date' => $this->input->post('end_date'),
                                        'academic_program_description' => $this->input->post('academic_program_description'),
@@ -128,7 +126,6 @@ class Admin_academic_programs extends CI_Controller {
                 }else{
                     $data['flash_message'] = FALSE;
                 }
-
             }//validation run
 
         } 
@@ -210,6 +207,8 @@ class Admin_academic_programs extends CI_Controller {
         $data['classes'] = $this->classes_model->get_all_classes();
         // find subject
         $data['subjects'] = $this->subjects_model->get_all('', $academic_program['class_id']);
+        // find subject related to this academic program
+        $data['all_subjects'] = $this->academic_programs_model->get_all_subjects($id);
         // find staffs
         $data['staffs'] = $this->staffs_model->get_all();
         // find subjects
@@ -231,8 +230,12 @@ class Admin_academic_programs extends CI_Controller {
         $academic_id = $this->uri->segment(4);
         $academic_program_id = $this->uri->segment(5);
         $id = $this->uri->segment(6);
-        $this->academic_programs_model->delete_subject($id);
-        redirect('admin/academic_programs/detail/'.$academic_id.'/'.$academic_program_id);
+        //$this->academic_programs_model->delete_subject($id);
+        $data_to_store = array('status' => 0);
+        if($this->academic_programs_model->update_subject($id, $data_to_store) == TRUE)
+        {
+            redirect('admin/academic_programs/detail/'.$academic_id.'/'.$academic_program_id); 
+        }
     }//delete
     
     
@@ -240,8 +243,13 @@ class Admin_academic_programs extends CI_Controller {
     {
         $academic_id = $this->uri->segment(4);
         $id = $this->uri->segment(5);
-        $this->academic_programs_model->delete($id);
-        redirect('admin/academic_programs/'.$academic_id);
+        $data_to_store = array('status' => 0);
+        //if the insert has returned true then we show the flash message
+        if($this->academic_programs_model->update($id, $data_to_store) == TRUE)
+        {
+            redirect('admin/academic_programs/'.$academic_id); 
+        }
+        //$this->academic_programs_model->delete($id);
     }//delete
 
 

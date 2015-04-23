@@ -39,7 +39,7 @@ class Parents_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('parents');
         $this->db->where('student_id', $student_id);
-
+        $this->db->where('status', 1);
         if($search_string){
             $this->db->like('lower(fullname)', strtolower($search_string));
         }
@@ -59,6 +59,7 @@ class Parents_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('parents');
+        $this->db->where('status', 1);
         if($search_string){
             $this->db->like('lower(fullname)', strtolower($search_string));
         }

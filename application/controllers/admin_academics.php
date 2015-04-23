@@ -117,7 +117,6 @@ class Admin_academics extends CI_Controller {
                 }else{
                     $data['flash_message'] = FALSE;
                 }
-
             }//validation run
 
         } 
@@ -135,10 +134,14 @@ class Admin_academics extends CI_Controller {
     public function delete()
     {
         $id = $this->uri->segment(4);
-        $this->academics_model->delete($id);
-        redirect('admin/academics');
+        //$this->academics_model->delete($id);
+        $data_to_store = array('status' => 0);
+        //if the insert has returned true then we show the flash message
+        if($this->academics_model->update($id, $data_to_store) == TRUE)
+        {
+            redirect('admin/academics'); 
+        }
     }//delete
-
 
 }                 
                     

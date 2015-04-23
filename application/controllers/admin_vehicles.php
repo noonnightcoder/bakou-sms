@@ -42,7 +42,7 @@ class Admin_vehicles extends CI_Controller {
             $this->form_validation->set_rules('vehicle_identity_number', 'vehicle_identity_number', 'required');
             $this->form_validation->set_rules('vehicle_capacity', 'vehicle_capacity', 'numeric');
             $this->form_validation->set_rules('driver_name', 'driver_name', 'required');
-            $this->form_validation->set_rules('driver_contact', 'driver_contact', '');
+            $this->form_validation->set_rules('driver_contact', 'driver_contact', 'numeric');
             $this->form_validation->set_rules('vehicle_description', 'vehicle_description', '');
             $this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
 
@@ -83,7 +83,7 @@ class Admin_vehicles extends CI_Controller {
             $this->form_validation->set_rules('vehicle_identity_number', 'vehicle_identity_number', 'required');
             $this->form_validation->set_rules('vehicle_capacity', 'vehicle_capacity', 'numeric');
             $this->form_validation->set_rules('driver_name', 'driver_name', 'required');
-            $this->form_validation->set_rules('driver_contact', 'driver_contact', '');
+            $this->form_validation->set_rules('driver_contact', 'driver_contact', 'numeric');
             $this->form_validation->set_rules('vehicle_description', 'vehicle_description', '');
             $this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
             //if the form has passed through the validation
@@ -120,8 +120,13 @@ class Admin_vehicles extends CI_Controller {
     {
         $vehicle_id = $this->uri->segment(4);
         $id = $this->uri->segment(5);
-        $this->vehicles_model->delete($id);
-        redirect('admin/vehicles/'.$vehicle_id);
+        //$this->vehicles_model->delete($id);
+        $data_to_store = array('status' => 0);
+        //if the insert has returned true then we show the flash message
+        if($this->vehicles_model->update($id, $data_to_store) == TRUE)
+        {
+            redirect('admin/vehicles/'.$vehicle_id); 
+        }
     }//delete
 
 

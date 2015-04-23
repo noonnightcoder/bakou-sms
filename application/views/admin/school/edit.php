@@ -12,7 +12,7 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3>School</h3>
+                        <h3>School Information</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">

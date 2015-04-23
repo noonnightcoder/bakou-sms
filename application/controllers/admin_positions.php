@@ -62,13 +62,15 @@ class Admin_positions extends CI_Controller {
         //if save button was clicked, get the data sent via post
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
-            $this->form_validation->set_rules('position', 'position', '');$this->form_validation->set_rules('position_description', 'position_description', '');
+            $this->form_validation->set_rules('position', 'position', 'required');
+            $this->form_validation->set_rules('position_description', 'position_description', '');
             $this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
 
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
-                $data_to_store = array('position' => $this->input->post('position'),'position_description' => $this->input->post('position_description'),);
+                $data_to_store = array('position' => $this->input->post('position'),
+                                       'position_description' => $this->input->post('position_description'));
                 //if the insert has returned true then we show the flash message
                 if($this->positions_model->store_data($data_to_store)){
                     $data['flash_message'] = TRUE; 
@@ -92,22 +94,21 @@ class Admin_positions extends CI_Controller {
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
             //form validation
-            $this->form_validation->set_rules('position', 'position', '');$this->form_validation->set_rules('position_description', 'position_description', '');
+            $this->form_validation->set_rules('position', 'position', 'required');
+            $this->form_validation->set_rules('position_description', 'position_description', '');
             $this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
-
-                $data_to_store = array('position' => $this->input->post('position'),'position_description' => $this->input->post('position_description'),);
+                $data_to_store = array('position' => $this->input->post('position'),
+                                       'position_description' => $this->input->post('position_description'));
                 //if the insert has returned true then we show the flash message
                 if($this->positions_model->update($id, $data_to_store) == TRUE){
                     $data['flash_message'] = TRUE; 
                 }else{
                     $data['flash_message'] = FALSE;
                 }
-
             }//validation run
-
         } 
         //if we are updating, and the data did not pass trough the validation
         //the code below wel reload the current data
@@ -123,8 +124,12 @@ class Admin_positions extends CI_Controller {
     public function delete()
     {
         $id = $this->uri->segment(4);
-        $this->positions_model->delete($id);
-        redirect('admin/positions');
+        //$this->positions_model->delete($id);
+        $data_to_store = array('status' => 0);
+        //if the insert has returned true then we show the flash message
+        if($this->positions_model->update($id, $data_to_store) == TRUE){
+            redirect('admin/positions'); 
+        }
     }//delete
 
 

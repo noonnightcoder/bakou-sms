@@ -12,7 +12,7 @@
                     <div class="widget-content">
 
                         <a href="<?php echo site_url("admin").'/'.$this->uri->segment(2); ?>/add" class="btn btn-large btn-success btn-support-ask">Add New</a> 
-                        <a href="<?php echo site_url("admin").'/positions'; ?>" class="btn btn-large btn-info btn-support-ask">Show Position</a>
+                        <a target="_blank" href="<?php echo site_url("admin").'/positions'; ?>" class="btn btn-large btn-info btn-support-ask">Show Position</a>
                         
                     </div> <!-- /widget-content -->
 
@@ -73,8 +73,8 @@
                                 <td><?php echo $res['email']; ?></td>
                                 <td><?php echo $res['staff_description']; ?></td>
                                 <td class="td-actions">
-                                    <a href="<?php echo base_url(); ?>index.php/admin/staffs/update/<?php echo $this->uri->segment(3).'/'.$res['id']; ?>"><button class="btn btn-success">Update</button></a>
-                                    <a href="<?php echo base_url(); ?>index.php/admin/staffs/delete/<?php echo $this->uri->segment(3).'/'.$res['id']; ?>"><button class="btn btn-danger">Remove</button></a>
+                                    <a href="<?php echo base_url(); ?>index.php/admin/staffs/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
+                                    <a onclick="confirm_delete('admin/staffs/delete/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
                                 </td>
                             </tr>
                             <?php } ?>  

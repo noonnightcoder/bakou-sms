@@ -143,8 +143,14 @@ class Admin_faculties extends CI_Controller {
     public function delete()
     {
         $id = $this->uri->segment(4);
-        $this->faculties_model->delete($id);
-        redirect('admin/faculties');
+        //$this->faculties_model->delete($id);
+        $data_to_store = array('status' => 0);
+        //if the insert has returned true then we show the flash message
+        if($this->faculties_model->update($id, $data_to_store) == TRUE)
+        {
+            redirect('admin/faculties'); 
+        }
+        
     }//delete
 
 

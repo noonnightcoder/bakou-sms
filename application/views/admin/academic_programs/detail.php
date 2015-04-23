@@ -12,7 +12,7 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3><a href="<?php echo base_url(); ?>index.php/admin/academic_programs/<?php echo $this->uri->segment(4); ?>">Academic Programs</a></h3>
+                        <h3><a href="<?php echo base_url(); ?>index.php/admin/academic_programs/<?php echo $this->uri->segment(4); ?>">Academic Programs</a> / Detail</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">
@@ -149,6 +149,7 @@
                                     <a href="#timetable" data-toggle="tab">Timetable</a>
                                 </li>
                                 <li><a href="#newsubject" data-toggle="tab">Add New Subject</a></li>
+                                <li><a href="#subjects" data-toggle="tab">All Subjects</a></li>
                             </ul>
 
                             <div class="tab-content">
@@ -162,7 +163,10 @@
                                                 <a class="btn btn-primary"><i class="icon-calendar icon-white"></i> <?php echo $row['subject_name'].' ('.$row['sunday_time_start'].' - '.$row['sunday_time_end'].') by '.$row['fullname']; ?></a>
                                                 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="<?php echo base_url(); ?>index.php/admin/academic_programs/delete_subject/<?php echo $this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$row['id']; ?>"><i class="icon-trash"></i> Delete</a></li>
+                                                    <li>
+                                                        <a onclick="confirm_delete('admin/academic_programs/delete_subject/<?php echo $this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$row['id']; ?>')">Remove</a>
+                                                        <!-- <a href="<?php //echo base_url(); ?>index.php/admin/academic_programs/delete_subject/<?php //echo $this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$row['id']; ?>"><i class="icon-trash"></i> Delete</a>-->
+                                                    </li>
                                                 </ul>
                                             </div><br/>
                                             <?php } ?>
@@ -176,7 +180,9 @@
                                                 <a class="btn btn-primary"><i class="icon-calendar icon-white"></i> <?php echo $row['subject_name'].' ('.$row['monday_time_start'].' - '.$row['monday_time_end'].') by '.$row['fullname']; ?></a>
                                                 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="<?php echo base_url(); ?>index.php/admin/academic_programs/delete_subject/<?php echo $this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$row['id']; ?>"><i class="icon-trash"></i> Delete</a></li>
+                                                    <li>
+                                                        <a onclick="confirm_delete('admin/academic_programs/delete_subject/<?php echo $this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$row['id']; ?>')">Remove</a>
+                                                    </li>
                                                 </ul>
                                             </div><br/>
                                             <?php } ?>
@@ -190,7 +196,9 @@
                                                 <a class="btn btn-primary"><i class="icon-calendar icon-white"></i> <?php echo $row['subject_name'].' ('.$row['tuesday_time_start'].' - '.$row['tuesday_time_end'].') by '.$row['fullname']; ?></a>
                                                 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="<?php echo base_url(); ?>index.php/admin/academic_programs/delete_subject/<?php echo $this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$row['id']; ?>"><i class="icon-trash"></i> Delete</a></li>
+                                                    <li>
+                                                        <a onclick="confirm_delete('admin/academic_programs/delete_subject/<?php echo $this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$row['id']; ?>')">Remove</a>
+                                                    </li>
                                                 </ul>    
                                             </div><br/>
                                             <?php } ?>
@@ -204,7 +212,9 @@
                                                 <a class="btn btn-primary"><i class="icon-calendar icon-white"></i> <?php echo $row['subject_name'].' ('.$row['wednesday_time_start'].' - '.$row['wednesday_time_end'].') by '.$row['fullname']; ?></a>
                                                 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="<?php echo base_url(); ?>index.php/admin/academic_programs/delete_subject/<?php echo $this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$row['id']; ?>"><i class="icon-trash"></i> Delete</a></li>
+                                                    <li>
+                                                        <a onclick="confirm_delete('admin/academic_programs/delete_subject/<?php echo $this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$row['id']; ?>')">Remove</a>
+                                                    </li>
                                                 </ul>
                                             </div><br/>
                                             <?php } ?>
@@ -218,7 +228,9 @@
                                                 <a class="btn btn-primary"><i class="icon-calendar icon-white"></i> <?php echo $row['subject_name'].' ('.$row['thursday_time_start'].' - '.$row['thursday_time_end'].') by '.$row['fullname']; ?></a>
                                                 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="<?php echo base_url(); ?>index.php/admin/academic_programs/delete_subject/<?php echo $this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$row['id']; ?>"><i class="icon-trash"></i> Delete</a></li>
+                                                    <li>
+                                                        <a onclick="confirm_delete('admin/academic_programs/delete_subject/<?php echo $this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$row['id']; ?>')">Remove</a>
+                                                    </li>
                                                 </ul>
                                             </div><br/>
                                             <?php } ?>
@@ -232,7 +244,9 @@
                                                 <a class="btn btn-primary"><i class="icon-calendar icon-white"></i> <?php echo $row['subject_name'].' ('.$row['friday_time_start'].' - '.$row['friday_time_end'].') by '.$row['fullname']; ?></a>
                                                 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="<?php echo base_url(); ?>index.php/admin/academic_programs/delete_subject/<?php echo $this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$row['id']; ?>"><i class="icon-trash"></i> Delete</a></li>
+                                                    <li>
+                                                        <a onclick="confirm_delete('admin/academic_programs/delete_subject/<?php echo $this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$row['id']; ?>')">Remove</a>
+                                                    </li>
                                                 </ul>
                                             </div><br/>
                                             <?php } ?>
@@ -246,7 +260,9 @@
                                                 <a class="btn btn-primary"><i class="icon-calendar icon-white"></i> <?php echo $row['subject_name'].' ('.$row['saturday_time_start'].' - '.$row['saturday_time_end'].') by '.$row['fullname']; ?></a>
                                                 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="<?php echo base_url(); ?>index.php/admin/academic_programs/delete_subject/<?php echo $this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$row['id']; ?>"><i class="icon-trash"></i> Delete</a></li>
+                                                    <li>
+                                                        <a onclick="confirm_delete('admin/academic_programs/delete_subject/<?php echo $this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$row['id']; ?>')">Remove</a>
+                                                    </li>
                                                 </ul>
                                             </div><br/>
                                             <?php } ?>
@@ -934,7 +950,27 @@
                                     </fieldset>
                                     </form>
                                 </div>
-
+                                <div class="tab-pane " id="subjects">
+                                    <table class="table table-striped table-bordered">
+                                        <tr>
+                                            <th>Subject</th>
+                                            <th>Taught By</th>
+                                            <th>Number of Session</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                        </tr>
+                                        <?php foreach($all_subjects as $row){ ?>
+                                        <tr>
+                                            <td><?php echo $row['subject_name']; ?></td>
+                                            <td><?php echo $row['fullname']; ?></td>
+                                            <td><?php echo $row['number_of_session']; ?></td>
+                                            <td><?php echo $row['academic_program_subject_description']; ?></td>
+                                            <td><?php echo ($row['status']== 0) ? 'Not Available' : 'Available'; ?></td>
+                                        </tr>
+                                        <?php } ?>
+                                    </table>
+                                    
+                                </div>
                             </div>
                         </div>
                     </div> <!-- /widget-content -->

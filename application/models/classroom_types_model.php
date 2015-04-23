@@ -36,10 +36,9 @@ class Classroom_types_model extends CI_Model {
     */
     public function get_all($search_string=null, $limit_start=null, $limit_end=null)
     {
-
         $this->db->select('*');
         $this->db->from('classroom_types');
-
+        $this->db->where('status', 1);
         if($search_string){
             $this->db->like('lower(classroom_type)', strtolower($search_string));
         }
@@ -68,10 +67,10 @@ class Classroom_types_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('classroom_types');
+        $this->db->where('status', 1);
         if($search_string){
             $this->db->like('lower(classroom_type)', strtolower($search_string));
         }
-
         $query = $this->db->get();
         return $query->num_rows();        
     }

@@ -35,7 +35,7 @@
 
                         <form action="<?php echo base_url(); ?>index.php/admin/buildings" method="post" class="form-horizontal">
                             <div class="control-group">
-                                <label class="control-label" for="radiobtns">Buildings Name: </label>                                            
+                                <label class="control-label" for="radiobtns">Building Name: </label>                                            
                                 <div class="controls">
                                    <div class="input-append">
                                       <input class="span2 m-wrap" id="appendedInputButton" type="text" name="search" value="<?php echo @$search; ?>">
@@ -61,7 +61,8 @@
                                 <td class="td-actions">
                                     <a href="<?php echo base_url(); ?>index.php/admin/classrooms/<?php echo $res['id']; ?>"><button class="btn btn-info">Room</button></a>
                                     <a href="<?php echo base_url(); ?>index.php/admin/buildings/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
-                                    <a href="<?php echo base_url(); ?>index.php/admin/buildings/delete/<?php echo $res['id']; ?>"><button class="btn btn-danger">Remove</button></a>
+                                    <!-- <a href="<?php //echo base_url(); ?>index.php/admin/buildings/delete/<?php echo $res['id']; ?>"><button class="btn btn-danger">Remove</button></a> -->
+                                    <a onclick="confirm_delete('admin/buildings/delete/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
                                 </td>
                             </tr>
                             <?php } ?>  

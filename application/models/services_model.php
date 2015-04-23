@@ -39,7 +39,7 @@ class Services_model extends CI_Model {
 
         $this->db->select('*');
         $this->db->from('services');
-
+        $this->db->where('status', 1);
         if($search_string){
             $this->db->like('lower(service_name)', strtolower($search_string));
         }
@@ -68,6 +68,7 @@ class Services_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('services');
+        $this->db->where('status', 1);
         if($search_string){
             $this->db->like('lower(service_name)', strtolower($search_string));
         }

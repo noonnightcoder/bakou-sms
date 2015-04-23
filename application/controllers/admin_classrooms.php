@@ -96,7 +96,6 @@ class Admin_classrooms extends CI_Controller {
                 }else{
                     $data['flash_message'] = FALSE;
                 }
-
             }//validation run
 
         } 
@@ -115,8 +114,13 @@ class Admin_classrooms extends CI_Controller {
     {
         $building_id = $this->uri->segment(4);
         $id = $this->uri->segment(5);
-        $this->classrooms_model->delete($id);
-        redirect('admin/classrooms/'.$building_id);
+        //$this->classrooms_model->delete($id);
+        $data_to_store = array('status' => 0);
+        //if the insert has returned true then we show the flash message
+        if($this->classrooms_model->update($id, $data_to_store) == TRUE)
+        {
+            redirect('admin/classrooms/'.$building_id); 
+        } 
     }//delete
 
 

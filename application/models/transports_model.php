@@ -36,10 +36,9 @@ class Transports_model extends CI_Model {
     */
     public function get_all($search_string=null, $limit_start=null, $limit_end=null)
     {
-
         $this->db->select('*');
         $this->db->from('transports');
-
+        $this->db->where('status', 1);
         if($search_string){
             $this->db->like('lower(route_name)', strtolower($search_string));
         }
@@ -68,6 +67,7 @@ class Transports_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('transports');
+        $this->db->where('status', 1);
         if($search_string){
             $this->db->like('lower(route_name)', strtolower($search_string));
         }

@@ -78,7 +78,6 @@ class Admin_classes extends CI_Controller {
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
-
                 $data_to_store = array('class_name' => $this->input->post('class_name'),
                                        'class_description' => $this->input->post('class_description'));
                 //if the insert has returned true then we show the flash message
@@ -88,7 +87,6 @@ class Admin_classes extends CI_Controller {
                 }else{
                     $data['flash_message'] = FALSE;
                 }
-
             }//validation run
 
         } 
@@ -107,8 +105,13 @@ class Admin_classes extends CI_Controller {
     {
         $department_id = $this->uri->segment(4);
         $id = $this->uri->segment(5);
-        $this->classes_model->delete($id);
-        redirect('admin/classes/'.$department_id);
+        //$this->classes_model->delete($id);
+        $data_to_store = array('status' => 0);
+        //if the insert has returned true then we show the flash message
+        if($this->classes_model->update($id, $data_to_store) == TRUE)
+        {
+            redirect('admin/classes/'.$department_id); 
+        }
     }//delete
 
 

@@ -7,6 +7,22 @@
 <script src="<?php echo base_url(); ?>assets/js/bootstrap.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/base.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/faq.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/bootbox.min.js"></script>
+<script>
+    /*$(document).on("click", ".alert", function(e) {
+        bootbox.confirm("Are you sure?", function(result) {
+            if(result)
+                alert("Confirm result: "+result);
+        });
+    });*/
+    
+    function confirm_delete(url){
+        bootbox.confirm("Are you sure to do this?", function(result) {
+            if(result)
+                location.href = '<?php echo base_url(); ?>index.php/' + url;
+        });
+    }
+</script>
 <script src="<?php echo base_url(); ?>assets/js/bootstrap-datepicker.js"></script>
 <script language="javascript" type="text/javascript" src="<?php echo base_url(); ?>assets/js/full-calendar/fullcalendar.min.js"></script>
  
@@ -24,41 +40,40 @@
     var lineChartData = {
         labels: ["January", "February", "March", "April", "May", "June", "July"],
         datasets: [
-                            {
-                                fillColor: "rgba(220,220,220,0.5)",
-                                strokeColor: "rgba(220,220,220,1)",
-                                pointColor: "rgba(220,220,220,1)",
-                                pointStrokeColor: "#fff",
-                                data: [65, 59, 90, 81, 56, 55, 40]
-                            },
-                            {
-                                fillColor: "rgba(151,187,205,0.5)",
-                                strokeColor: "rgba(151,187,205,1)",
-                                pointColor: "rgba(151,187,205,1)",
-                                pointStrokeColor: "#fff",
-                                data: [28, 48, 40, 19, 96, 27, 100]
-                            }
-                    ]
+                    {
+                        fillColor: "rgba(220,220,220,0.5)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        pointColor: "rgba(220,220,220,1)",
+                        pointStrokeColor: "#fff",
+                        data: [65, 59, 90, 81, 56, 55, 40]
+                    },
+                    {
+                        fillColor: "rgba(151,187,205,0.5)",
+                        strokeColor: "rgba(151,187,205,1)",
+                        pointColor: "rgba(151,187,205,1)",
+                        pointStrokeColor: "#fff",
+                        data: [28, 48, 40, 19, 96, 27, 100]
+                    }
+                  ]
 
     }
 
     var myLine = new Chart(document.getElementById("area-chart").getContext("2d")).Line(lineChartData);
 
-
     var barChartData = {
         labels: ["January", "February", "March", "April", "May", "June", "July"],
         datasets: [
-                            {
-                                fillColor: "rgba(220,220,220,0.5)",
-                                strokeColor: "rgba(220,220,220,1)",
-                                data: [65, 59, 90, 81, 56, 55, 40]
-                            },
-                            {
-                                fillColor: "rgba(151,187,205,0.5)",
-                                strokeColor: "rgba(151,187,205,1)",
-                                data: [28, 48, 40, 19, 96, 27, 100]
-                            }
-                    ]
+                    {
+                        fillColor: "rgba(220,220,220,0.5)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        data: [65, 59, 90, 81, 56, 55, 40]
+                    },
+                    {
+                        fillColor: "rgba(151,187,205,0.5)",
+                        strokeColor: "rgba(151,187,205,1)",
+                        data: [28, 48, 40, 19, 96, 27, 100]
+                    }
+                  ]
 
     }    
 
@@ -73,7 +88,7 @@
         center: 'title',
         right: 'month,agendaWeek,agendaDay'
       },
-      selectable: true,
+      selectable: false,
       selectHelper: true,
       select: function(start, end, allDay) {
         var title = prompt('Event Title:');
@@ -85,57 +100,27 @@
               end: end,
               allDay: allDay
             },
-            true // make the event "stick"
+            //true // make the event "stick"
+            false
           );
         }
         calendar.fullCalendar('unselect');
       },
-      editable: true,
-      events: [
+      editable: false,
+      events: 
+      [
+        <?php if(isset($notices)) { ?>
+        <?php foreach($notices as $notice){ ?>
         {
-          title: 'All Day Event',
-          start: new Date(y, m, 1)
+          title: '<?php echo $notice['notice_title'];?>',
+          start: new Date(<?php echo date('Y',strtotime($notice['start_date']));?>, <?php echo date('m',strtotime($notice['start_date'])) -1;?>, <?php echo date('d',strtotime($notice['start_date']));?>),
+          //start: new Date(y, m, 28),
+          end: new Date(<?php echo date('Y',strtotime($notice['end_date']));?>, <?php echo date('m',strtotime($notice['end_date'])) -1;?>, <?php echo date('d',strtotime($notice['end_date']));?>),
+          //end: new Date(y, m, 29),
+          url: '<?php echo base_url(); ?>index.php/admin/noticeboards/detail/<?php echo $notice['id']; ?>'
         },
-        {
-          title: 'Long Event',
-          start: new Date(y, m, d+5),
-          end: new Date(y, m, d+7)
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: new Date(y, m, d-3, 16, 0),
-          allDay: false
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: new Date(y, m, d+4, 16, 0),
-          allDay: false
-        },
-        {
-          title: 'Meeting',
-          start: new Date(y, m, d, 10, 30),
-          allDay: false
-        },
-        {
-          title: 'Lunch',
-          start: new Date(y, m, d, 12, 0),
-          end: new Date(y, m, d, 14, 0),
-          allDay: false
-        },
-        {
-          title: 'Birthday Party',
-          start: new Date(y, m, d+1, 19, 0),
-          end: new Date(y, m, d+1, 22, 30),
-          allDay: false
-        },
-        {
-          title: 'EGrappler.com',
-          start: new Date(y, m, 28),
-          end: new Date(y, m, 29),
-          url: 'http://EGrappler.com/'
-        }
+        <?php } ?>  
+        <?php } ?>
       ]
     });
     });

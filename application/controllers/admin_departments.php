@@ -1,7 +1,6 @@
  <?php
 class Admin_departments extends CI_Controller {
 
-
     /**
     * Responsable for auto load the model
     * @return void
@@ -87,7 +86,6 @@ class Admin_departments extends CI_Controller {
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
-
                 $data_to_store = array('department_name' => $this->input->post('department_name'),
                                        'department_phone1' => $this->input->post('department_phone1'),
                                        'department_phone2' => $this->input->post('department_phone2'),
@@ -100,7 +98,6 @@ class Admin_departments extends CI_Controller {
                 }else{
                     $data['flash_message'] = FALSE;
                 }
-
             }//validation run
 
         } 
@@ -119,8 +116,14 @@ class Admin_departments extends CI_Controller {
     {
         $faculty_id = $this->uri->segment(4);
         $id = $this->uri->segment(5);
-        $this->departments_model->delete($id);
-        redirect('admin/departments/'.$faculty_id);
+        //$this->departments_model->delete($id);
+        $data_to_store = array('status' => 0);
+        //if the insert has returned true then we show the flash message
+        if($this->departments_model->update($id, $data_to_store) == TRUE)
+        {
+            redirect('admin/departments/'.$faculty_id); 
+        }
+        
     }//delete
 
 

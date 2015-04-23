@@ -48,7 +48,6 @@ class Admin_classroom_types extends CI_Controller {
         $data['result'] = $this->classroom_types_model->get_all($search, $config['per_page'], $limit_end);        
         $config['total_rows'] = $data['counts'];
 
-
         //initializate the panination helper 
         $this->pagination->initialize($config);   
 
@@ -63,22 +62,22 @@ class Admin_classroom_types extends CI_Controller {
         //if save button was clicked, get the data sent via post
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
-            $this->form_validation->set_rules('classroom_type', 'classroom_type', '');$this->form_validation->set_rules('classroom_type_description', 'classroom_type_description', '');
+            $this->form_validation->set_rules('classroom_type', 'classroom_type', 'required');
+            $this->form_validation->set_rules('classroom_type_description', 'classroom_type_description', '');
             $this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
 
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
-                $data_to_store = array('classroom_type' => $this->input->post('classroom_type'),'classroom_type_description' => $this->input->post('classroom_type_description'),);
+                $data_to_store = array('classroom_type' => $this->input->post('classroom_type'),
+                                       'classroom_type_description' => $this->input->post('classroom_type_description'));
                 //if the insert has returned true then we show the flash message
                 if($this->classroom_types_model->store_data($data_to_store)){
                     $data['flash_message'] = TRUE; 
                 }else{
                     $data['flash_message'] = FALSE; 
                 }
-
             }
-
         }
         //load the view
         $data['main_content'] = 'admin/classroom_types/add';
@@ -93,22 +92,21 @@ class Admin_classroom_types extends CI_Controller {
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
             //form validation
-            $this->form_validation->set_rules('classroom_type', 'classroom_type', '');$this->form_validation->set_rules('classroom_type_description', 'classroom_type_description', '');
+            $this->form_validation->set_rules('classroom_type', 'classroom_type', 'required');
+            $this->form_validation->set_rules('classroom_type_description', 'classroom_type_description', '');
             $this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
-
-                $data_to_store = array('classroom_type' => $this->input->post('classroom_type'),'classroom_type_description' => $this->input->post('classroom_type_description'),);
+                $data_to_store = array('classroom_type' => $this->input->post('classroom_type'),
+                                       'classroom_type_description' => $this->input->post('classroom_type_description'));
                 //if the insert has returned true then we show the flash message
                 if($this->classroom_types_model->update($id, $data_to_store) == TRUE){
                     $data['flash_message'] = TRUE; 
                 }else{
                     $data['flash_message'] = FALSE;
                 }
-
             }//validation run
-
         } 
         //if we are updating, and the data did not pass trough the validation
         //the code below wel reload the current data
@@ -118,14 +116,17 @@ class Admin_classroom_types extends CI_Controller {
         //load the view
         $data['main_content'] = 'admin/classroom_types/edit';
         $this->load->view('includes/template', $data);            
-
     }//update   
 
     public function delete()
     {
         $id = $this->uri->segment(4);
-        $this->classroom_types_model->delete($id);
-        redirect('admin/classroom_types');
+        //$this->classroom_types_model->delete($id);
+        $data_to_store = array('status' => 0);
+         //if the insert has returned true then we show the flash message
+        if($this->classroom_types_model->update($id, $data_to_store) == TRUE){
+            redirect('admin/classroom_types');
+        }
     }//delete
 
 

@@ -28,7 +28,7 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3>Academic_programs</h3>
+                        <h3>Academic Programs</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">
@@ -69,7 +69,7 @@
                                 <td class="td-actions">
                                     <a href="<?php echo base_url(); ?>index.php/admin/academic_programs/detail/<?php echo $this->uri->segment(3).'/'.$res['id']; ?>"><button class="btn btn-info">Detail</button></a>
                                     <a href="<?php echo base_url(); ?>index.php/admin/academic_programs/update/<?php echo $this->uri->segment(3).'/'.$res['id']; ?>"><button class="btn btn-success">Update</button></a>
-                                    <a href="<?php echo base_url(); ?>index.php/admin/academic_programs/delete/<?php echo $this->uri->segment(3).'/'.$res['id']; ?>"><button class="btn btn-danger">Remove</button></a>
+                                    <a onclick="confirm_delete('admin/academic_programs/delete/<?php echo $this->uri->segment(3).'/'.$res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
                                 </td>
                             </tr>
                             <?php } ?>  

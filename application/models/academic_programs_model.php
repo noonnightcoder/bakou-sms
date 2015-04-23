@@ -44,11 +44,13 @@ class Academic_programs_model extends CI_Model {
         $this->db->join('classes', 'academic_programs.class_id = classes.id');
         $this->db->join('departments', 'classes.department_id = departments.id');
         $this->db->join('faculties', 'departments.faculty_id = faculties.id');
-        $this->db->where('academic_programs.id', $academic_id);
+        $this->db->where('academic_programs.academic_id', $academic_id);
+        $this->db->where('academic_programs.status', 1);
+        
         if($search_string){
             $this->db->like('lower(classes.class_name)', strtolower($search_string));
         }
-        $this->db->group_by('id');
+        $this->db->group_by('academic_programs.id');
 
         $query = $this->db->get();
 
@@ -66,6 +68,7 @@ class Academic_programs_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('academic_programs');
         $this->db->where('academic_programs.academic_id', $academic_id);
+        $this->db->where('academic_programs.status', 1);
         if($search_string){
             $this->db->like('lower(classes.class_name)', strtolower($search_string));
         }
@@ -98,6 +101,7 @@ class Academic_programs_model extends CI_Model {
         $this->db->join('subjects', 'academic_program_subjects.subject_id = subjects.id');
         $this->db->join('staffs', 'academic_program_subjects.taught_by = staffs.id');
         $this->db->where('academic_program_subjects.academic_program_id', $academic_program_id);
+        $this->db->where('academic_program_subjects.status', 1);
         
         if($day == 'monday')
         {
@@ -141,6 +145,20 @@ class Academic_programs_model extends CI_Model {
         return $query->result_array();  
     }
     
+    public function get_all_subjects($academic_program_id)
+    {
+        $this->db->select('academic_program_subjects.*, subjects.subject_name, staffs.fullname');
+        $this->db->from('academic_program_subjects');
+        $this->db->join('subjects', 'academic_program_subjects.subject_id = subjects.id');
+        $this->db->join('staffs', 'academic_program_subjects.taught_by = staffs.id');
+        $this->db->where('academic_program_subjects.academic_program_id', $academic_program_id);
+        
+        $this->db->group_by('academic_program_subjects.id');
+        $query = $this->db->get();
+
+        return $query->result_array();  
+    }
+    
     /**
     * Update manufacture
     * @param array $data - associative array with data to store
@@ -160,6 +178,20 @@ class Academic_programs_model extends CI_Model {
         }
     }
 
+    function update_subject($id, $data)
+    {
+        $this->db->where('id', $id);
+        $this->db->update('academic_program_subjects', $data);
+        $report = array();
+        $report['error'] = $this->db->_error_number();
+        $report['message'] = $this->db->_error_message();
+        if($report !== 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
     /**
     * Delete manufacturer
     * @param int $id - manufacture id

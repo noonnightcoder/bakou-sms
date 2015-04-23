@@ -39,6 +39,7 @@ class Vehicles_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('vehicles');
         $this->db->where('transport_id', $transport_id);
+        $this->db->where('vehicles.status', 1);
         if($search_string){
             $this->db->like('lower(vehicle_brand)', strtolower($search_string));
         }
@@ -60,6 +61,7 @@ class Vehicles_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('vehicles');
         $this->db->where('transport_id', $transport_id);
+        $this->db->where('vehicles.status', 1);
         if($search_string){
             $this->db->like('lower(vehicle_brand)', strtolower($search_string));
         }

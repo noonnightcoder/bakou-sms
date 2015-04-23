@@ -39,6 +39,7 @@ class Subjects_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('subjects');
         $this->db->where('class_id', $class_id);
+        $this->db->where('subjects.status', 1);
         if($search_string){
             $this->db->like('lower(subject_name)', strtolower($search_string));
         }
@@ -53,7 +54,7 @@ class Subjects_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('subjects');
-        
+        $this->db->where('subjects.status', 1);
         $this->db->group_by('id');
 
         $query = $this->db->get();
@@ -71,6 +72,7 @@ class Subjects_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('subjects');
+        $this->db->where('subjects.status', 1);
         if($search_string){
             $this->db->like('lower(subject_name)', strtolower($search_string));
         }

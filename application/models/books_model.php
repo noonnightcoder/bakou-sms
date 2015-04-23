@@ -39,6 +39,7 @@ class Books_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('books');
         $this->db->where('subject_id', $subject_id);
+        $this->db->where('books.status', 1);
         if($search_string){
             $this->db->like('lower(book_name)', strtolower($search_string));
         }
@@ -54,7 +55,7 @@ class Books_model extends CI_Model {
         $this->db->select('books.*, subjects.subject_name');
         $this->db->from('books');
         $this->db->join('subjects', 'books.subject_id = subjects.id');
-
+        $this->db->where('books.status', 1);
         if($search_string){
             $this->db->like('lower(book_name)', strtolower($search_string));
         }
@@ -87,6 +88,7 @@ class Books_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('books');
+        $this->db->where('books.status', 1);
         if($search_string){
             $this->db->like('lower(book_name)', strtolower($search_string));
         }

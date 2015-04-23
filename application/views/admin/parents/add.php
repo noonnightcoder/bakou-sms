@@ -12,12 +12,12 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3><a href="<?php echo base_url(); ?>index.php/admin/parents/<?php echo $this->uri->segment(4); ?>">Parents</a></h3>
+                        <h3><a href="<?php echo base_url(); ?>index.php/admin/parents/<?php echo $this->uri->segment(4); ?>">Parents</a> / Add New</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">
 
-                        <form action="<?php echo base_url(); ?>index.php/admin/parents/add/<?php echo $this->uri->segment(4); ?>" method="post" id="edit-profile" class="form-horizontal">
+                        <form action="<?php echo base_url(); ?>index.php/admin/parents/add/<?php echo $this->uri->segment(4); ?>" method="post" id="edit-profile" class="form-horizontal" enctype="multipart/form-data">
                             <fieldset>
                                 <?php
                                     //flash messages
@@ -40,6 +40,13 @@
                                     //form validation
                                     echo validation_errors(); 
                                 ?>
+                                <div class="control-group">                                         
+                                    <label class="control-label" for="firstname">Photo</label>
+                                    <div class="controls">
+                                        <input type="file" class="span6" id="photo" name="photo" >
+                                    </div> <!-- /controls -->               
+                                </div> <!-- /control-group -->
+                                
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Relationship</label>
                                     <div class="controls">
@@ -65,6 +72,16 @@
                                 </div> <!-- /control-group -->
                                 
                                 <div class="control-group">                                         
+                                    <label class="control-label" for="firstname">Sex</label>
+                                    <div class="controls">
+                                        <select id="sex" name="sex">
+                                            <option value="Male" <?php if(set_value('sex') == 'Male'){ ?> selected="selected" <?php } ?>>Male</option>
+                                            <option value="Female" <?php if(set_value('sex') == 'Female'){ ?> selected="selected" <?php } ?>>Female</option>
+                                        </select>
+                                    </div> <!-- /controls -->               
+                                </div> <!-- /control-group -->
+                                
+                                <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Birthday</label>
                                     <div class="controls">
                                         <div class="input-append date" id="dp3" data-date="2000-01-01" data-date-format="yyyy-mm-dd">
@@ -76,12 +93,9 @@
                                 </div> <!-- /control-group -->
                                 
                                 <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Sex</label>
+                                    <label class="control-label" for="firstname">Place of Birth</label>
                                     <div class="controls">
-                                        <select id="sex" name="sex">
-                                            <option value="Male" <?php if(set_value('sex') == 'Male'){ ?> selected="selected" <?php } ?>>Male</option>
-                                            <option value="Female" <?php if(set_value('sex') == 'Female'){ ?> selected="selected" <?php } ?>>Female</option>
-                                        </select>
+                                        <textarea class="span6" id="address" name="birthplace"><?php echo set_value('birthplace'); ?></textarea>
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
                                 

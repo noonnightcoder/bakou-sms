@@ -11,10 +11,6 @@
 
                     <div class="widget-content">
 
-                        <a href="<?php echo site_url("admin").'/'.$this->uri->segment(2); ?>/add" class="btn btn-large btn-success btn-support-ask">Add New Book</a>
-                        <a href="<?php echo site_url("admin").'/'.$this->uri->segment(2); ?>/return" class="btn btn-large btn-danger btn-support-ask">Return Book</a>
-                        <a target="_blank" href="<?php echo site_url("admin").'/memberships'; ?>" class="btn btn-large btn-info btn-support-ask">Show Membership</a>
-
                     </div> <!-- /widget-content -->
 
                 </div> <!-- /widget -->
@@ -30,17 +26,11 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3>Library</h3>
+                        <h3><a href="<?php echo base_url(); ?>index.php/admin/library">Library</a> / Return Book</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">
-                        <?php
-                        $options_subject = array('' => "Select");
-                        foreach ($subjects as $row)
-                        {
-                          $options_subject[$row['id']] = $row['subject_name'];
-                        }
-                        ?>
+                        
                         <form action="<?php echo base_url(); ?>index.php/admin/library" method="post" class="form-horizontal">
                             <div class="control-group">
                                 <label class="control-label" for="radiobtns">Book Name: </label>                                            
@@ -51,15 +41,6 @@
                                     </div>
                                 </div>  <!-- /controls -->          
                             </div> <!-- /control-group -->
-                            <?php
-                                echo '<div class="control-group">';
-                                  echo '<label for="manufacture_id" class="control-label">Subject</label>';
-                                  echo '<div class="controls">';
-                                    echo form_dropdown('subject_id', $options_subject, @$subject_id, 'class="span2"');
-                                    echo '<button class="btn" type="submit">Search</button>';
-                                  echo '</div>';
-                                echo '</div>';
-                            ?>
                         </form>         
 
                         <table class="table table-striped table-bordered">
@@ -67,12 +48,9 @@
                             <tr>
                                 <th>Subject</th>
                                 <th>Book Name</th>
-                                <th>ISBN</th>
-                                <th>Author</th>
-                                <th>Edition</th>
-                                <th>Book Position</th>
-                                <th>Shelf Number</th>
-                                <th>Copy</th>
+                                <th>Borrower</th>
+                                <th>Start Date</th>
+                                <th>Return Date</th>
                                 <th class="td-actions">Action</th>
                             </tr>
                             </thead>
@@ -81,17 +59,11 @@
                             <tr>
                                 <td><?php echo $res['subject_name']; ?></td>
                                 <td><?php echo $res['book_name']; ?></td>
-                                <td><?php echo $res['isbn']; ?></td>
-                                <td><?php echo $res['author']; ?></td>
-                                <td><?php echo $res['edition']; ?></td>
-                                <td><?php echo $res['book_position']; ?></td>
-                                <td><?php echo $res['shelf_no']; ?></td>
-                                <td><?php echo $res['copy']; ?></td>
+                                <td><?php echo $res['fullname']; ?></td>
+                                <td><?php echo $res['start_date']; ?></td>
+                                <td><?php echo $res['return_date']; ?></td>
                                 <td class="td-actions">
-                                    <a href="<?php echo base_url(); ?>index.php/admin/library/borrow/<?php echo $res['id']; ?>"><button class="btn btn-warning">Borrow</button></a>
-                                    <a href="<?php echo base_url(); ?>index.php/admin/books/detail/<?php echo $res['id']; ?>"><button class="btn btn-info">Detail</button></a>
-                                    <a href="<?php echo base_url(); ?>index.php/admin/library/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
-                                    <a onclick="confirm_delete('admin/library/delete/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
+                                    <a onclick="confirm_delete('admin/library/return/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Return</button></a>
                                 </td>
                             </tr>
                             <?php } ?>  

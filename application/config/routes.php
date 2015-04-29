@@ -141,8 +141,21 @@ $route['admin/library'] = 'admin_books/library';
 $route['admin/library/add'] = 'admin_books/add_book';
 $route['admin/library/update'] = 'admin_books/update_book';
 $route['admin/library/update/(:any)'] = 'admin_books/update_book/$1';
+$route['admin/library/borrow'] = 'admin_books/borrow_book';
+$route['admin/library/borrow/(:any)'] = 'admin_books/borrow_book/$1';
+$route['admin/library/return'] = 'admin_books/return_book';
+$route['admin/library/return/(:any)'] = 'admin_books/return_book/$1';
 $route['admin/library/delete/(:any)'] = 'admin_books/delete_book/$1';
 $route['admin/library/(:any)'] = 'admin_books/library/$1'; //$1 = page number
+// membership
+$route['admin/memberships'] = 'admin_books/memberships';
+$route['admin/memberships/add'] = 'admin_books/add_membership';
+$route['admin/memberships/update'] = 'admin_books/update_membership';
+$route['admin/memberships/update/(:any)'] = 'admin_books/update_membership/$1';
+$route['admin/memberships/detail'] = 'admin_books/detail_membership';
+$route['admin/memberships/detail/(:any)'] = 'admin_books/detail_membership/$1';
+$route['admin/memberships/delete/(:any)'] = 'admin_books/delete_membership/$1';
+$route['admin/memberships/(:any)'] = 'admin_books/memberships/$1'; //$1 = page number
                     
 $route['admin/transports'] = 'admin_transports/index';
 $route['admin/transports/add'] = 'admin_transports/add';
@@ -156,6 +169,14 @@ $route['admin/vehicles/add'] = 'admin_vehicles/add';
 $route['admin/vehicles/add/(:any)'] = 'admin_vehicles/add/$1';
 $route['admin/vehicles/update'] = 'admin_vehicles/update';
 $route['admin/vehicles/update/(:any)'] = 'admin_vehicles/update/$1';
+$route['admin/vehicles/detail'] = 'admin_vehicles/detail';
+$route['admin/vehicles/detail/(:any)'] = 'admin_vehicles/detail/$1';
+$route['admin/vehicles/update_membership'] = 'admin_vehicles/update_membership';
+$route['admin/vehicles/update_membership/(:any)'] = 'admin_vehicles/update_membership/$1';
+$route['admin/vehicles/detail_membership'] = 'admin_vehicles/detail_membership';
+$route['admin/vehicles/detail_membership/(:any)'] = 'admin_vehicles/detail_membership/$1';
+$route['admin/vehicles/delete_membership'] = 'admin_vehicles/delete_membership';
+$route['admin/vehicles/delete_membership/(:any)'] = 'admin_vehicles/delete_membership/$1';
 $route['admin/vehicles/delete/(:any)'] = 'admin_vehicles/delete/$1';
 $route['admin/vehicles/(:any)'] = 'admin_vehicles/index/$1'; //$1 = page number
                     

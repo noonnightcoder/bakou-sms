@@ -56,6 +56,20 @@
                                 ?>
                                 
                                 <div class="control-group">                                         
+                                    <label class="control-label" for="firstname">Description</label>
+                                    <div class="controls">
+                                        <textarea class="span6" id="academic_program_description" name="academic_program_description"><?php echo $result['academic_program_description']; ?></textarea>
+                                    </div> <!-- /controls -->               
+                                </div> <!-- /control-group -->
+                                
+                                <div class="control-group">                                         
+                                    <label class="control-label" for="firstname">Full Price (USD)</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6" id="full_program_price" name="full_program_price" value="<?php echo $result['full_program_price']; ?>">
+                                    </div> <!-- /controls -->               
+                                </div> <!-- /control-group -->
+                                
+                                <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Start Date</label>
                                     <div class="controls">
                                         <div class="input-append date" id="dp3" data-date="2015-01-01" data-date-format="yyyy-mm-dd">
@@ -74,14 +88,7 @@
                                         </div>
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
-                                
-                                <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Description</label>
-                                    <div class="controls">
-                                        <textarea class="span6" id="academic_program_description" name="academic_program_description"><?php echo $result['academic_program_description']; ?></textarea>
-                                    </div> <!-- /controls -->               
-                                </div> <!-- /control-group -->
-                                
+                               
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Number of Semester</label>
                                     <div class="controls">
@@ -90,7 +97,7 @@
                                 </div> <!-- /control-group -->
                                 
                                 <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Price Per Semester</label>
+                                    <label class="control-label" for="firstname">Price Per Semester (USD)</label>
                                     <div class="controls">
                                         <input type="text" class="span6" id="price_per_semester" name="price_per_semester" value="<?php echo $result['price_per_semester']; ?>">
                                     </div> <!-- /controls -->               
@@ -104,7 +111,7 @@
                                 </div> <!-- /control-group -->
                                 
                                 <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Price per Term</label>
+                                    <label class="control-label" for="firstname">Price per Term (USD)</label>
                                     <div class="controls">
                                         <input type="text" class="span6" id="price_per_term" name="price_per_term" value="<?php echo $result['price_per_term']; ?>">
                                     </div> <!-- /controls -->               
@@ -118,7 +125,7 @@
                                 </div> <!-- /control-group -->
                                 
                                 <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Price per Month</label>
+                                    <label class="control-label" for="firstname">Price per Month (USD)</label>
                                     <div class="controls">
                                         <input type="text" class="span6" id="price_per_month" name="price_per_month" value="<?php echo $result['price_per_month']; ?>">
                                     </div> <!-- /controls -->               

@@ -49,6 +49,30 @@ class Vehicles_model extends CI_Model {
 
         return $query->result_array();  
     }
+    
+    public function get_all_memberships($vehicle_id)
+    {
+        $this->db->select('student_vehicle.*, students.fullname');
+        $this->db->from('student_vehicle');
+        $this->db->join('students', 'student_vehicle.student_id = students.id');
+        $this->db->where('student_vehicle.vehicle_id', $vehicle_id);
+        $this->db->where('student_vehicle.status', 1);
+        
+        $this->db->group_by('student_vehicle.id');
+
+        $query = $this->db->get();
+
+        return $query->result_array();  
+    }
+    
+    public function get_membership($id)
+    {
+        $this->db->select('*');
+        $this->db->from('student_vehicle');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        return $query->row_array();  
+    }
 
     /**
     * Count the number of rows
@@ -99,6 +123,20 @@ class Vehicles_model extends CI_Model {
             return false;
         }
     }
+    
+    function update_membership($id, $data)
+    {
+        $this->db->where('id', $id);
+        $this->db->update('student_vehicle', $data);
+        $report = array();
+        $report['error'] = $this->db->_error_number();
+        $report['message'] = $this->db->_error_message();
+        if($report !== 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     /**
     * Delete manufacturer
@@ -110,6 +148,12 @@ class Vehicles_model extends CI_Model {
         $this->db->delete('vehicles'); 
     }
 
+    public function add_membership($p_student_id, $p_vehicle_id, $p_amount, $p_effective_from, $p_effective_end, $p_student_vehicle_description)
+    {
+    	$sql = "CALL add_vehicle_membership($p_student_id, $p_vehicle_id, $p_amount, '".$p_effective_from."', '".$p_effective_end."', '".$p_student_vehicle_description."')";
+    	return $this->db->query($sql);
+    }
+    
 }
 ?>                 
                     

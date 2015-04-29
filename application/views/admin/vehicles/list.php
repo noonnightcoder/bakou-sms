@@ -5,13 +5,13 @@
         <div class="container">
 
         <div class="row">
-        <div class="span12">
+            <div class="span12">
 
                 <div class="widget widget-plain">
 
                     <div class="widget-content">
 
-                        <a href="<?php echo site_url("admin").'/'.$this->uri->segment(2); ?>/add/<?php echo $this->uri->segment(3); ?>" class="btn btn-large btn-success btn-support-ask">Add New</a> 
+                        <a href="<?php echo site_url("admin").'/'.$this->uri->segment(2); ?>/add/<?php echo $this->uri->segment(3); ?>" class="btn btn-large btn-success btn-support-ask">Add New</a>
 
                     </div> <!-- /widget-content -->
 
@@ -66,6 +66,7 @@
                                 <td><?php echo $res['driver_contact']; ?></td>
                                 <td><?php echo $res['vehicle_description']; ?></td>
                                 <td class="td-actions">
+                                    <a href="<?php echo base_url(); ?>index.php/admin/vehicles/detail/<?php echo $this->uri->segment(3).'/'.$res['id']; ?>"><button class="btn btn-info">Detail</button></a>
                                     <a href="<?php echo base_url(); ?>index.php/admin/vehicles/update/<?php echo $this->uri->segment(3).'/'.$res['id']; ?>"><button class="btn btn-success">Update</button></a>
                                     <a onclick="confirm_delete('admin/vehicles/delete/<?php echo $this->uri->segment(3).'/'.$res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
                                 </td>

@@ -10,6 +10,7 @@ class Admin_books extends CI_Controller {
         parent::__construct();
         $this->load->model('books_model');
         $this->load->model('subjects_model');
+        $this->load->model('students_model');
 
         if(!$this->session->userdata('is_logged_in')){
             redirect('admin/login');
@@ -156,7 +157,6 @@ class Admin_books extends CI_Controller {
             redirect('admin/books/'.$subject_id); 
         }
     }//delete
-
 
     public function library()
     {
@@ -315,6 +315,212 @@ class Admin_books extends CI_Controller {
             redirect('admin/library');
         }
     }//delete
+    
+    public function memberships()
+    {
+        //all the posts sent by the view
+        $search = $this->input->post('search');        
+        $data['search'] = $search;
+        
+        //pagination settings
+        $config['per_page'] = 10;
+
+        $config['base_url'] = base_url().'index.php/admin/memberships';
+        $config['use_page_numbers'] = TRUE;
+        $config['num_links'] = 20;
+        $config['full_tag_open'] = '<ul>';
+        $config['full_tag_close'] = '</ul>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="active"><a>';
+        $config['cur_tag_close'] = '</a></li>';
+
+        //limit end
+        $page = $this->uri->segment(3);
+
+        //math to get the initial record to be select in the database
+        $limit_end = ($page * $config['per_page']) - $config['per_page'];
+        if ($limit_end < 0){
+            $limit_end = 0;
+        } 
+
+        //fetch sql data into arrays
+        $data['counts']= $this->books_model->count_all_memberships($search);
+        $data['result'] = $this->books_model->get_all_memberships($search, $config['per_page'], $limit_end);        
+        $config['total_rows'] = $data['counts'];
+
+        //initializate the panination helper 
+        $this->pagination->initialize($config);   
+
+        //load the view
+        $data['main_content'] = 'admin/books/membership';
+        $this->load->view('includes/template', $data);   
+
+    }//index
+    
+    public function add_membership()
+    {
+        $data['students'] = $this->students_model->get_all();
+        //if save button was clicked, get the data sent via post
+        if ($this->input->server('REQUEST_METHOD') === 'POST')
+        {
+            $this->form_validation->set_rules('student_id', 'student_id', 'required');
+            $this->form_validation->set_rules('amount', 'amount', 'required|numeric');
+            $this->form_validation->set_rules('effective_from', 'effective_from', 'required');
+            $this->form_validation->set_rules('effective_end', 'effective_end', 'required');
+            $this->form_validation->set_rules('student_library_description', 'student_library_description', '');
+            $this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
+
+            //if the form has passed through the validation
+            if ($this->form_validation->run())
+            {
+                $data_to_store = array('student_id' => $this->input->post('student_id'),
+                                       'amount' => $this->input->post('amount'),
+                                       'effective_from' => $this->input->post('effective_from'),
+                                       'effective_end' => $this->input->post('effective_end'),
+                                       'student_library_description' => $this->input->post('student_library_description'));
+                //if the insert has returned true then we show the flash message
+                //if($this->books_model->store_membership($data_to_store))
+                if($this->books_model->add_membership($this->input->post('student_id'), $this->input->post('amount'),
+                                                      $this->input->post('effective_from'), $this->input->post('effective_end'),
+                                                      $this->input->post('student_library_description')))
+                {
+                    $data['flash_message'] = TRUE; 
+                }else{
+                    $data['flash_message'] = FALSE; 
+                }
+            }
+        }
+        //load the view
+        $data['main_content'] = 'admin/books/add_membership';
+        $this->load->view('includes/template', $data);  
+    }
+    
+    public function update_membership()
+    {
+        $id = $this->uri->segment(4);
+        $data['students'] = $this->students_model->get_all();
+        //if save button was clicked, get the data sent via post
+        if ($this->input->server('REQUEST_METHOD') === 'POST')
+        {
+            $this->form_validation->set_rules('student_id', 'student_id', 'required');
+            $this->form_validation->set_rules('amount', 'amount', 'required|numeric');
+            $this->form_validation->set_rules('effective_from', 'effective_from', 'required');
+            $this->form_validation->set_rules('effective_end', 'effective_end', 'required');
+            $this->form_validation->set_rules('student_library_description', 'student_library_description', '');
+            $this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
+
+            //if the form has passed through the validation
+            if ($this->form_validation->run())
+            {
+                $data_to_store = array('student_id' => $this->input->post('student_id'),
+                                       'amount' => $this->input->post('amount'),
+                                       'effective_from' => $this->input->post('effective_from'),
+                                       'effective_end' => $this->input->post('effective_end'),
+                                       'student_library_description' => $this->input->post('student_library_description'));
+                //if the insert has returned true then we show the flash message
+                if($this->books_model->update_membership($id, $data_to_store))
+                {
+                    $data['flash_message'] = TRUE; 
+                }else{
+                    $data['flash_message'] = FALSE; 
+                }
+            }
+        }
+        //product data 
+        $data['result'] = $this->books_model->get_membership($id);
+        //load the view
+        $data['main_content'] = 'admin/books/edit_membership';
+        $this->load->view('includes/template', $data);  
+    }
+    
+    public function detail_membership()
+    {
+        $id = $this->uri->segment(4);
+        //product data 
+        $data['result'] = $this->books_model->get_membership($id);
+        $membership = $data['result'];
+        $data['student'] = $this->students_model->get_by_id($membership['student_id']);
+        //fetch sql data into arrays
+        $data['return_books'] = $this->books_model->get_all_return_books_by_student($membership['student_id']);
+        //load the view
+        $data['main_content'] = 'admin/books/detail_membership';
+        $this->load->view('includes/template', $data);  
+    }
+    
+    public function delete_membership()
+    {
+        $id = $this->uri->segment(4);
+        //$this->books_model->delete($id);
+        $data_to_store = array('status' => 0);
+        //if the insert has returned true then we show the flash message
+        if($this->books_model->update_membership($id, $data_to_store) == TRUE)
+        {
+            redirect('admin/memberships');
+        }
+    }//delete
+    
+    public function borrow_book()
+    {
+        $id = $this->uri->segment(4);
+        $data['subjects'] = $this->subjects_model->get_all_subjects();
+        
+        if ($this->input->server('REQUEST_METHOD') === 'POST')
+        {
+            $this->form_validation->set_rules('book_id', 'book_id', 'required');
+            $this->form_validation->set_rules('student_id', 'student_id', 'required');
+            $this->form_validation->set_rules('start_date', 'start_date', 'required');
+            $this->form_validation->set_rules('return_date', 'return_date', 'required');
+            $this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
+
+            //if the form has passed through the validation
+            if ($this->form_validation->run())
+            {
+                $data_to_store = array('student_id' => $this->input->post('student_id'),
+                                       'book_id' => $this->input->post('book_id'),
+                                       'start_date' => $this->input->post('start_date'),
+                                       'return_date' => $this->input->post('return_date'));
+                //if the insert has returned true then we show the flash message
+                if($this->books_model->borrow_book($this->input->post('book_id'), $this->input->post('student_id'), $this->input->post('start_date'), $this->input->post('return_date')))
+                {
+                    $data['flash_message'] = TRUE; 
+                }else{
+                    $data['flash_message'] = FALSE; 
+                }
+            }
+        }
+
+        //product data 
+        $data['result'] = $this->books_model->get_by_id($id);
+        // membership
+        $data['students'] = $this->books_model->get_all_memberships();
+        
+        //load the view
+        $data['main_content'] = 'admin/books/borrow';
+        $this->load->view('includes/template', $data);            
+
+    }//update
+    
+    public function return_book()
+    {
+        //all the posts sent by the view
+        $search = $this->input->post('search');        
+        $data['search'] = $search;
+
+        //fetch sql data into arrays
+        $data['result'] = $this->books_model->get_all_return_books($search);           
+        
+        $id = $this->uri->segment(4);
+        if($id != '')
+        {
+            $this->books_model->return_book($id);
+            redirect('admin/library');
+        }
+        //load the view
+        $data['main_content'] = 'admin/books/return';
+        $this->load->view('includes/template', $data);   
+
+    }//index
     
 }                 
                     

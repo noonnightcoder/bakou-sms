@@ -46,13 +46,14 @@ class Admin_academic_programs extends CI_Controller {
             $this->form_validation->set_rules('class_id', 'class_id', 'required');
             $this->form_validation->set_rules('start_date', 'start_date', 'required');
             $this->form_validation->set_rules('end_date', 'end_date', 'required');
+            $this->form_validation->set_rules('full_program_price', 'full_program_price', 'required|numeric');
             $this->form_validation->set_rules('academic_program_description', 'academic_program_description', '');
-            $this->form_validation->set_rules('number_of_semester', 'number_of_semester', 'required|numeric');
-            $this->form_validation->set_rules('price_per_semester', 'price_per_semester', 'required|numeric');
-            $this->form_validation->set_rules('number_of_term', 'number_of_term', 'required|numeric');
-            $this->form_validation->set_rules('price_per_term', 'price_per_term', 'required|numeric');
-            $this->form_validation->set_rules('number_of_month', 'number_of_month', '');
-            $this->form_validation->set_rules('price_per_month', 'price_per_month', '');
+            $this->form_validation->set_rules('number_of_semester', 'number_of_semester', 'numeric');
+            $this->form_validation->set_rules('price_per_semester', 'price_per_semester', 'numeric');
+            $this->form_validation->set_rules('number_of_term', 'number_of_term', 'numeric');
+            $this->form_validation->set_rules('price_per_term', 'price_per_term', 'numeric');
+            $this->form_validation->set_rules('number_of_month', 'number_of_month', 'numeric');
+            $this->form_validation->set_rules('price_per_month', 'price_per_month', 'numeric');
             $this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
 
             //if the form has passed through the validation
@@ -68,7 +69,8 @@ class Admin_academic_programs extends CI_Controller {
                                        'number_of_month' => $this->input->post('number_of_month'),
                                        'price_per_month' => $this->input->post('price_per_month'),
                                        'class_id' => $this->input->post('class_id'),
-                                       'academic_id' => $academic_id);
+                                       'academic_id' => $academic_id,
+                                       'full_program_price' => $this->input->post('full_program_price'));
                 //if the insert has returned true then we show the flash message
                 if($this->academic_programs_model->store_data($data_to_store))
                 {
@@ -76,9 +78,7 @@ class Admin_academic_programs extends CI_Controller {
                 }else{
                     $data['flash_message'] = FALSE; 
                 }
-
             }
-
         }
         //load the view
         $data['main_content'] = 'admin/academic_programs/add';
@@ -98,13 +98,14 @@ class Admin_academic_programs extends CI_Controller {
             $this->form_validation->set_rules('class_id', 'class_id', 'required');
             $this->form_validation->set_rules('start_date', 'start_date', 'required');
             $this->form_validation->set_rules('end_date', 'end_date', 'required');
+            $this->form_validation->set_rules('full_program_price', 'full_program_price', 'required|numeric');
             $this->form_validation->set_rules('academic_program_description', 'academic_program_description', '');
-            $this->form_validation->set_rules('number_of_semester', 'number_of_semester', 'required|numeric');
-            $this->form_validation->set_rules('price_per_semester', 'price_per_semester', 'required|numeric');
-            $this->form_validation->set_rules('number_of_term', 'number_of_term', 'required|numeric');
-            $this->form_validation->set_rules('price_per_term', 'price_per_term', 'required|numeric');
-            $this->form_validation->set_rules('number_of_month', 'number_of_month', '');
-            $this->form_validation->set_rules('price_per_month', 'price_per_month', '');
+            $this->form_validation->set_rules('number_of_semester', 'number_of_semester', 'numeric');
+            $this->form_validation->set_rules('price_per_semester', 'price_per_semester', 'numeric');
+            $this->form_validation->set_rules('number_of_term', 'number_of_term', 'numeric');
+            $this->form_validation->set_rules('price_per_term', 'price_per_term', 'numeric');
+            $this->form_validation->set_rules('number_of_month', 'number_of_month', 'numeric');
+            $this->form_validation->set_rules('price_per_month', 'price_per_month', 'numeric');
             $this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
             //if the form has passed through the validation
             if ($this->form_validation->run())
@@ -118,7 +119,8 @@ class Admin_academic_programs extends CI_Controller {
                                        'price_per_term' => $this->input->post('price_per_term'),
                                        'number_of_month' => $this->input->post('number_of_month'),
                                        'price_per_month' => $this->input->post('price_per_month'),
-                                       'class_id' => $this->input->post('class_id'));
+                                       'class_id' => $this->input->post('class_id'),
+                                       'full_program_price' => $this->input->post('full_program_price'));
                 //if the insert has returned true then we show the flash message
                 if($this->academic_programs_model->update($id, $data_to_store) == TRUE)
                 {
@@ -127,7 +129,6 @@ class Admin_academic_programs extends CI_Controller {
                     $data['flash_message'] = FALSE;
                 }
             }//validation run
-
         } 
         //if we are updating, and the data did not pass trough the validation
         //the code below wel reload the current data

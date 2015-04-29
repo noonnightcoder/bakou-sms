@@ -78,6 +78,73 @@ class Books_model extends CI_Model {
         return $query->result_array();  
     }
     
+    public function get_all_return_books($search_string=null)
+    {
+        $this->db->select('book_borrowings.*, students.fullname, books.book_name, subjects.subject_name');
+        $this->db->from('book_borrowings');
+        $this->db->join('students', 'book_borrowings.student_id = students.id');
+        $this->db->join('books', 'book_borrowings.book_id = books.id');
+        $this->db->join('subjects', 'books.subject_id = subjects.id');
+        $this->db->where('book_borrowings.status', 1);
+        
+        if($search_string){
+            $this->db->like('lower(books.book_name)', strtolower($search_string));
+        }
+        
+        $query = $this->db->get();
+
+        return $query->result_array();  
+    }
+    
+    public function get_all_return_books_by_student($student_id)
+    {
+        $this->db->select('book_borrowings.*, students.fullname, books.book_name, subjects.subject_name');
+        $this->db->from('book_borrowings');
+        $this->db->join('students', 'book_borrowings.student_id = students.id');
+        $this->db->join('books', 'book_borrowings.book_id = books.id');
+        $this->db->join('subjects', 'books.subject_id = subjects.id');
+        $this->db->where('book_borrowings.student_id', $student_id);
+        
+        $query = $this->db->get();
+
+        return $query->result_array();  
+    }
+    
+    public function get_all_memberships($search_string=null, $limit_start=null, $limit_end=null)
+    {
+        $this->db->select('student_library.*, students.fullname');
+        $this->db->from('student_library');
+        $this->db->join('students', 'student_library.student_id = students.id');
+        $this->db->where('student_library.status', 1);
+        
+        if($search_string){
+            $this->db->like('lower(students.fullname)', strtolower($search_string));
+        }
+        
+        $this->db->group_by('student_library.id');
+
+        if($limit_start && $limit_end){
+          $this->db->limit($limit_start, $limit_end);   
+        }
+
+        if($limit_start != null){
+          $this->db->limit($limit_start, $limit_end);    
+        }
+
+        $query = $this->db->get();
+
+        return $query->result_array();  
+    }
+    
+    public function get_membership($id)
+    {
+        $this->db->select('*');
+        $this->db->from('student_library');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        return $query->row_array(); 
+    }
+    
     /**
     * Count the number of rows
     * @param int $search_string
@@ -96,6 +163,20 @@ class Books_model extends CI_Model {
         return $query->num_rows();        
     }
 
+    function count_all_memberships($search_string=null)
+    {
+        $this->db->select('student_library.*, students.fullname');
+        $this->db->from('student_library');
+        $this->db->join('students', 'student_library.student_id = students.id');
+        $this->db->where('student_library.status', 1);
+        if($search_string){
+            $this->db->like('lower(students.fullname)', strtolower($search_string));
+        }
+        $query = $this->db->get();
+        return $query->num_rows();        
+    }
+    
+    
     /**
     * Store the new item into the database
     * @param array $data - associative array with data to store
@@ -106,7 +187,18 @@ class Books_model extends CI_Model {
         $insert = $this->db->insert('books', $data);
         return $insert;
     }
+    
+    function store_membership($data)
+    {
+        $insert = $this->db->insert('student_library', $data);
+        return $insert;
+    }
 
+    public function add_membership($p_student_id, $p_amount, $p_effective_from, $p_effective_end, $p_student_library_description)
+    {
+    	$sql = "CALL add_library_membership($p_student_id, $p_amount, '".$p_effective_from."', '".$p_effective_end."', '".$p_student_library_description."')";
+    	return $this->db->query($sql);
+    }
     /**
     * Update manufacture
     * @param array $data - associative array with data to store
@@ -116,6 +208,20 @@ class Books_model extends CI_Model {
     {
         $this->db->where('id', $id);
         $this->db->update('books', $data);
+        $report = array();
+        $report['error'] = $this->db->_error_number();
+        $report['message'] = $this->db->_error_message();
+        if($report !== 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    function update_membership($id, $data)
+    {
+        $this->db->where('id', $id);
+        $this->db->update('student_library', $data);
         $report = array();
         $report['error'] = $this->db->_error_number();
         $report['message'] = $this->db->_error_message();
@@ -136,6 +242,18 @@ class Books_model extends CI_Model {
         $this->db->delete('books'); 
     }
 
+    public function borrow_book($p_book_id, $p_student_id, $p_start_date, $p_return_date)
+    {
+    	$sql = "CALL borrow_book($p_book_id, $p_student_id, '".$p_start_date."', '".$p_return_date."')";
+    	return $this->db->query($sql);
+    }
+    
+    public function return_book($p_id)
+    {
+    	$sql = "CALL return_book($p_id)";
+    	return $this->db->query($sql);
+    }
+    
 }
 ?>                 
                     

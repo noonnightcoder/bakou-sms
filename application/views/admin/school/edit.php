@@ -110,6 +110,13 @@
                                         <textarea class="span6" id="school_description" name="school_description"><?php echo $result['school_description']; ?></textarea>
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
+                                
+                                <div class="control-group">                                         
+                                    <label class="control-label" for="firstname">Last Modified Date</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6" id="modified_date" name="modified_date" value="<?php echo $result['modified_date']; ?>">
+                                    </div> <!-- /controls -->               
+                                </div> <!-- /control-group -->
 
                                 <div class="form-actions">
                                     <button type="submit" class="btn btn-primary">Update</button> 

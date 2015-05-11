@@ -5,7 +5,7 @@
         <div class="container">
 
         <div class="row">
-        <div class="span12">
+            <div class="span12">
 
                 <div class="widget widget-plain">
 
@@ -64,6 +64,8 @@
                                 <td><?php echo $res['effective_end']; ?></td>
                                 <td><?php echo $res['student_library_description']; ?></td>
                                 <td class="td-actions">
+                                    <a href="<?php echo base_url(); ?>index.php/admin/memberships/purchase/<?php echo $res['student_id']; ?>"><button class="btn btn-invert">Purchase</button></a>
+                                    <a href="<?php echo base_url(); ?>index.php/admin/memberships/borrow/<?php echo $res['student_id']; ?>"><button class="btn btn-warning">Borrow</button></a>
                                     <a href="<?php echo base_url(); ?>index.php/admin/memberships/detail/<?php echo $res['id']; ?>"><button class="btn btn-info">Detail</button></a>
                                     <a href="<?php echo base_url(); ?>index.php/admin/memberships/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
                                     <a onclick="confirm_delete('admin/memberships/delete/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>

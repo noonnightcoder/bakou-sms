@@ -52,6 +52,26 @@ class Academic_programs_model extends CI_Model {
         }
         $this->db->group_by('academic_programs.id');
 
+        $this->db->order_by('academic_programs.id', 'desc');
+        
+        $query = $this->db->get();
+
+        return $query->result_array();  
+    }
+    
+    public function get_all_academic_programs()
+    {
+        $this->db->select('academic_programs.*, classes.class_name, departments.department_name, faculties.faculty_name');
+        $this->db->from('academic_programs');
+        $this->db->join('classes', 'academic_programs.class_id = classes.id');
+        $this->db->join('departments', 'classes.department_id = departments.id');
+        $this->db->join('faculties', 'departments.faculty_id = faculties.id');
+        $this->db->where('academic_programs.academic_id in (select id from academics where academics.status = 1) ');
+        $this->db->where('academic_programs.status', 1);
+        
+        
+        $this->db->group_by('academic_programs.id');
+
         $query = $this->db->get();
 
         return $query->result_array();  
@@ -147,13 +167,29 @@ class Academic_programs_model extends CI_Model {
     
     public function get_all_subjects($academic_program_id)
     {
-        $this->db->select('academic_program_subjects.*, subjects.subject_name, staffs.fullname');
+        $this->db->select('academic_program_subjects.*, books.book_name, subjects.subject_name, staffs.fullname');
         $this->db->from('academic_program_subjects');
         $this->db->join('subjects', 'academic_program_subjects.subject_id = subjects.id');
+        $this->db->join('books', 'subjects.id = books.subject_id');
         $this->db->join('staffs', 'academic_program_subjects.taught_by = staffs.id');
         $this->db->where('academic_program_subjects.academic_program_id', $academic_program_id);
         
-        $this->db->group_by('academic_program_subjects.id');
+        //$this->db->group_by('academic_program_subjects.id');
+        $this->db->group_by('books.id');
+        //$this->db->group_by('academic_program_subjects.id');
+        $query = $this->db->get();
+
+        return $query->result_array();  
+    }
+    
+    public function get_all_students($academic_program_id)
+    {
+        $this->db->select('student_academic_program.*, students.fullname, students.fullname_in_khmer, students.sex');
+        $this->db->from('student_academic_program');
+        $this->db->join('students', 'student_academic_program.student_id = students.id');
+        $this->db->where('student_academic_program.academic_program_id', $academic_program_id);
+        
+        $this->db->group_by('student_academic_program.id');
         $query = $this->db->get();
 
         return $query->result_array();  

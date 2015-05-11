@@ -109,7 +109,8 @@ class Admin_academics extends CI_Controller {
                 $data_to_store = array('academic_name' => $this->input->post('academic_name'),
                                        'start_date' => $this->input->post('start_date'),
                                        'end_date' => $this->input->post('end_date'),
-                                       'academic_description' => $this->input->post('academic_description'));
+                                       'academic_description' => $this->input->post('academic_description'),
+                                       'modified_date' => date('Y-m-d H:i:s'));
                 //if the insert has returned true then we show the flash message
                 if($this->academics_model->update($id, $data_to_store) == TRUE)
                 {

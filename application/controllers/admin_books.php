@@ -20,6 +20,7 @@ class Admin_books extends CI_Controller {
     public function index()
     {
         $subject_id = $this->uri->segment(3);
+        $data['subject'] = $this->subjects_model->get_by_id($subject_id);
         //all the posts sent by the view
         $search = $this->input->post('search');        
         $data['search'] = $search;
@@ -112,7 +113,8 @@ class Admin_books extends CI_Controller {
                                        'publisher' => $this->input->post('publisher'),
                                        'copy' => $this->input->post('copy'),
                                        'book_position' => $this->input->post('book_position'),
-                                       'shelf_no' => $this->input->post('shelf_no'));
+                                       'shelf_no' => $this->input->post('shelf_no'),
+                                       'modified_date' => date('Y-m-d H:i:s'));
                 //if the insert has returned true then we show the flash message
                 if($this->books_model->update($id, $data_to_store) == TRUE)
                 {
@@ -283,7 +285,8 @@ class Admin_books extends CI_Controller {
                                        'copy' => $this->input->post('copy'),
                                        'book_position' => $this->input->post('book_position'),
                                        'shelf_no' => $this->input->post('shelf_no'),
-                                       'subject_id' => $this->input->post('subject_id'));
+                                       'subject_id' => $this->input->post('subject_id'),
+                                       'modified_date' => date('Y-m-d H:i:s'));
                 //if the insert has returned true then we show the flash message
                 if($this->books_model->update($id, $data_to_store) == TRUE)
                 {
@@ -417,7 +420,8 @@ class Admin_books extends CI_Controller {
                                        'amount' => $this->input->post('amount'),
                                        'effective_from' => $this->input->post('effective_from'),
                                        'effective_end' => $this->input->post('effective_end'),
-                                       'student_library_description' => $this->input->post('student_library_description'));
+                                       'student_library_description' => $this->input->post('student_library_description'),
+                                       'modified_date' => date('Y-m-d H:i:s'));
                 //if the insert has returned true then we show the flash message
                 if($this->books_model->update_membership($id, $data_to_store))
                 {
@@ -443,6 +447,7 @@ class Admin_books extends CI_Controller {
         $data['student'] = $this->students_model->get_by_id($membership['student_id']);
         //fetch sql data into arrays
         $data['return_books'] = $this->books_model->get_all_return_books_by_student($membership['student_id']);
+        $data['purchase_books'] = $this->books_model->get_all_purchase_books_by_student($membership['student_id']);
         //load the view
         $data['main_content'] = 'admin/books/detail_membership';
         $this->load->view('includes/template', $data);  
@@ -514,13 +519,91 @@ class Admin_books extends CI_Controller {
         if($id != '')
         {
             $this->books_model->return_book($id);
-            redirect('admin/library');
+            redirect('admin/library/return');
         }
         //load the view
         $data['main_content'] = 'admin/books/return';
         $this->load->view('includes/template', $data);   
 
     }//index
+    
+    public function membership_borrow_book()
+    {
+        $student_id = $this->uri->segment(4);
+        
+        if ($this->input->server('REQUEST_METHOD') === 'POST')
+        {
+            $this->form_validation->set_rules('book_id', 'book_id', 'required');
+            $this->form_validation->set_rules('start_date', 'start_date', 'required');
+            $this->form_validation->set_rules('return_date', 'return_date', 'required');
+            $this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
+
+            //if the form has passed through the validation
+            if ($this->form_validation->run())
+            {
+                $book_id = $this->input->post('book_id');
+                
+                foreach($book_id as $b_id)
+                {
+                    //if the insert has returned true then we show the flash message
+                    if($this->books_model->borrow_book($b_id, $student_id, $this->input->post('start_date'), $this->input->post('return_date')))
+                    {
+                        $data['flash_message'] = TRUE; 
+                    }else{
+                        $data['flash_message'] = FALSE; 
+                    }
+                }
+            }
+        }
+
+        //product data 
+        $data['result'] = $this->books_model->get_all_books();
+        
+        //load the view
+        $data['main_content'] = 'admin/books/borrow_book';
+        $this->load->view('includes/template', $data);            
+
+    }//update
+    
+    public function membership_purchase_book()
+    {
+        $student_id = $this->uri->segment(4);
+        
+        if ($this->input->server('REQUEST_METHOD') === 'POST')
+        {
+            $this->form_validation->set_rules('book_id', 'book_id', 'required');
+            $this->form_validation->set_rules('purchased_date', 'purchased_date', 'required');
+            $this->form_validation->set_rules('student_book_purchase_description', 'student_book_purchase_description', '');
+            $this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
+
+            //if the form has passed through the validation
+            if ($this->form_validation->run())
+            {
+                $book_id = $this->input->post('book_id');
+                
+                foreach($book_id as $b_id)
+                {
+                    // find book detail
+                    $book = $this->books_model->get_by_id($b_id);
+                    //if the insert has returned true then we show the flash message
+                    if($this->books_model->purchase_book($b_id, $student_id, $book['price'], $this->input->post('purchased_date'), $this->input->post('student_book_purchase_description')))
+                    {
+                        $data['flash_message'] = TRUE; 
+                    }else{
+                        $data['flash_message'] = FALSE; 
+                    }
+                }
+            }
+        }
+
+        //product data 
+        $data['result'] = $this->books_model->get_all_books();
+        
+        //load the view
+        $data['main_content'] = 'admin/books/purchase_book';
+        $this->load->view('includes/template', $data);            
+
+    }//update
     
 }                 
                     

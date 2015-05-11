@@ -52,6 +52,8 @@ class Students_model extends CI_Model {
           $this->db->limit($limit_start, $limit_end);    
         }
 
+        $this->db->order_by('students.id', 'desc');
+        
         $query = $this->db->get();
 
         return $query->result_array();  
@@ -116,6 +118,12 @@ class Students_model extends CI_Model {
         $this->db->delete('students'); 
     }
 
+    public function admission($p_student_id, $p_academic_program_id, $p_amount, $p_effective_from, $p_effective_end, $p_student_academic_program_description)
+    {
+    	$sql = "CALL admission($p_student_id, $p_academic_program_id, $p_amount, '".$p_effective_from."', '".$p_effective_end."', '".$p_student_academic_program_description."')";
+    	return $this->db->query($sql);
+    }
+    
 }
 ?>                 
                     

@@ -53,6 +53,8 @@ class Staffs_model extends CI_Model {
         if($limit_start != null){
           $this->db->limit($limit_start, $limit_end);    
         }
+        
+        $this->db->order_by('staffs.id', 'desc');
 
         $query = $this->db->get();
 

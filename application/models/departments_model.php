@@ -46,6 +46,8 @@ class Departments_model extends CI_Model {
         }
         $this->db->group_by('id');
 
+        $this->db->order_by('departments.id', 'desc');
+        
         $query = $this->db->get();
 
         return $query->result_array();  

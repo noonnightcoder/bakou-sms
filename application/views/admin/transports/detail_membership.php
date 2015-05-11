@@ -12,7 +12,7 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3><a href="<?php echo base_url(); ?>index.php/admin/memberships">Membership</a> / Student Detail</h3>
+                        <h3><a href="<?php echo base_url(); ?>index.php/admin/transport_memberships">Membership</a> / Student Detail</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">
@@ -112,15 +112,13 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3><a href="<?php echo base_url(); ?>index.php/admin/memberships">Membership</a> / Membership Detail</h3>
+                        <h3><a href="<?php echo base_url(); ?>index.php/admin/transport_memberships">Membership</a> / Membership Detail</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">
                         <div class="tabbable">				
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#membership" data-toggle="tab">Membership</a></li>
-                                <li><a href="#history" data-toggle="tab">History</a></li>
-                                <li><a href="#purchase" data-toggle="tab">Purchase</a></li>
                             </ul>
 
                             <div class="tab-content">
@@ -134,7 +132,7 @@
                                     <tr>
                                         <td><?php echo $result['effective_from']; ?></td>
                                         <td><?php echo $result['effective_end']; ?></td>
-                                        <td><?php echo $result['student_library_description']; ?></td>
+                                        <td><?php echo $result['student_vehicle_description']; ?></td>
                                     </tr>
                                 </table>    
                                 </div>
@@ -154,27 +152,6 @@
                                             <td><?php echo $row['start_date']; ?></td>
                                             <td><?php echo $row['return_date']; ?></td>
                                             <td><?php echo ($row['status']==0) ? 'Return' : 'On Borrowing'; ?></td>
-                                        </tr>
-                                        <?php } ?>
-                                    </table>
-                                    
-                                </div>
-                                <div class="tab-pane " id="purchase">
-                                    <table class="table table-striped table-bordered">
-                                        <tr>
-                                            <th>Subject</th>
-                                            <th>Book Name</th>
-                                            <th>Price</th>
-                                            <th>Purchased Date</th>
-                                            <th>Description</th>
-                                        </tr>
-                                        <?php foreach($purchase_books as $row){ ?>
-                                        <tr>
-                                            <td><?php echo $row['subject_name']; ?></td>
-                                            <td><?php echo $row['book_name']; ?></td>
-                                            <td><?php echo $row['amount']; ?></td>
-                                            <td><?php echo $row['purchased_date']; ?></td>
-                                            <td><?php echo $row['student_book_purchase_description']; ?></td>
                                         </tr>
                                         <?php } ?>
                                     </table>

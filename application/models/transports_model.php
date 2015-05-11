@@ -52,6 +52,37 @@ class Transports_model extends CI_Model {
           $this->db->limit($limit_start, $limit_end);    
         }
 
+        $this->db->order_by('transports.id', 'desc');
+        
+        $query = $this->db->get();
+
+        return $query->result_array();  
+    }
+    
+    public function get_all_memberships($search_string=null, $limit_start=null, $limit_end=null)
+    {
+        $this->db->select('student_vehicle.*, students.fullname, vehicles.vehicle_brand, vehicles.vehicle_identity_number');
+        $this->db->select('transports.route_name');
+        $this->db->from('student_vehicle');
+        $this->db->join('students', 'student_vehicle.student_id = students.id');
+        $this->db->join('vehicles', 'student_vehicle.vehicle_id = vehicles.id');
+        $this->db->join('transports', 'vehicles.transport_id = transports.id');
+        $this->db->where('student_vehicle.status', 1);
+        
+        if($search_string){
+            $this->db->like('lower(students.fullname)', strtolower($search_string));
+        }
+        
+        $this->db->group_by('student_vehicle.id');
+
+        if($limit_start && $limit_end){
+          $this->db->limit($limit_start, $limit_end);   
+        }
+
+        if($limit_start != null){
+          $this->db->limit($limit_start, $limit_end);    
+        }
+
         $query = $this->db->get();
 
         return $query->result_array();  
@@ -72,6 +103,19 @@ class Transports_model extends CI_Model {
             $this->db->like('lower(route_name)', strtolower($search_string));
         }
 
+        $query = $this->db->get();
+        return $query->num_rows();        
+    }
+    
+    function count_all_memberships($search_string=null)
+    {
+        $this->db->select('student_vehicle.*, students.fullname');
+        $this->db->from('student_vehicle');
+        $this->db->join('students', 'student_vehicle.student_id = students.id');
+        $this->db->where('student_vehicle.status', 1);
+        if($search_string){
+            $this->db->like('lower(students.fullname)', strtolower($search_string));
+        }
         $query = $this->db->get();
         return $query->num_rows();        
     }

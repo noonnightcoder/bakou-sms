@@ -104,7 +104,8 @@ class Admin_services extends CI_Controller {
             {
                 $data_to_store = array('service_name' => $this->input->post('service_name'),
                                        'service_price' => $this->input->post('service_price'),
-                                       'service_description' => $this->input->post('service_description'));
+                                       'service_description' => $this->input->post('service_description'),
+                                       'modified_date' => date('Y-m-d H:i:s'));
                 //if the insert has returned true then we show the flash message
                 if($this->services_model->update($id, $data_to_store) == TRUE)
                 {

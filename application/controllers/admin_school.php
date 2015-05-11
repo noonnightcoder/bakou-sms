@@ -173,7 +173,8 @@ class Admin_school extends CI_Controller {
                                            'school_fax' => $this->input->post('school_fax'),
                                            'school_email' => $this->input->post('school_email'),
                                            'school_website' => $this->input->post('school_website'),
-                                           'school_description' => $this->input->post('school_description'));
+                                           'school_description' => $this->input->post('school_description'),
+                                           'modified_date' => date('Y-m-d H:i:s'));
                     
                     //if the insert has returned true then we show the flash message
                     if($this->school_model->update($id, $data_to_store) == TRUE)

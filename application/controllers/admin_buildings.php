@@ -105,7 +105,8 @@ class Admin_buildings extends CI_Controller {
             {
                 $data_to_store = array('building_name' => $this->input->post('building_name'),
                                        'number_of_room' => $this->input->post('number_of_room'),
-                                       'building_description' => $this->input->post('building_description'));
+                                       'building_description' => $this->input->post('building_description'),
+                                       'modified_date' => date('Y-m-d H:i:s'));
                 //if the insert has returned true then we show the flash message
                 if($this->buildings_model->update($id, $data_to_store) == TRUE){
                     $data['flash_message'] = TRUE; 

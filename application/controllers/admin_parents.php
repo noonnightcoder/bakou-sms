@@ -154,7 +154,8 @@ class Admin_parents extends CI_Controller {
                                            'phone2' => $this->input->post('phone2'),
                                            'parent_description' => $this->input->post('parent_description'),
                                            'profession' => $this->input->post('profession'),
-                                           'birthplace' => $this->input->post('birthplace'));
+                                           'birthplace' => $this->input->post('birthplace'),
+                                           'modified_date' => date('Y-m-d H:i:s'));
                 }else{
                     $file_root = $this->upload->data();
                     $data_to_store = array('relationship' => $this->input->post('relationship'),
@@ -168,7 +169,8 @@ class Admin_parents extends CI_Controller {
                                            'parent_description' => $this->input->post('parent_description'),
                                            'profession' => $this->input->post('profession'),
                                            'birthplace' => $this->input->post('birthplace'),
-                                           'photo' => '/sms'.substr($config['upload_path'],1).$file_root['file_name']);
+                                           'photo' => '/sms'.substr($config['upload_path'],1).$file_root['file_name'],
+                                           'modified_date' => date('Y-m-d H:i:s'));
                 }
                 
                 //if the insert has returned true then we show the flash message

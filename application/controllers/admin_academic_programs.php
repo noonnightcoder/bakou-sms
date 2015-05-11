@@ -26,9 +26,7 @@ class Admin_academic_programs extends CI_Controller {
         $data['search'] = $search;
 
         //fetch sql data into arrays
-        $data['counts']= $this->academic_programs_model->count_all($search, $academic_id);
-        $data['result'] = $this->academic_programs_model->get_all($search, $academic_id);        
-        $config['total_rows'] = $data['counts'];   
+        $data['result'] = $this->academic_programs_model->get_all($search, $academic_id);     
 
         //load the view
         $data['main_content'] = 'admin/academic_programs/list';
@@ -120,7 +118,8 @@ class Admin_academic_programs extends CI_Controller {
                                        'number_of_month' => $this->input->post('number_of_month'),
                                        'price_per_month' => $this->input->post('price_per_month'),
                                        'class_id' => $this->input->post('class_id'),
-                                       'full_program_price' => $this->input->post('full_program_price'));
+                                       'full_program_price' => $this->input->post('full_program_price'),
+                                       'modified_date' => date('Y-m-d H:i:s'));
                 //if the insert has returned true then we show the flash message
                 if($this->academic_programs_model->update($id, $data_to_store) == TRUE)
                 {
@@ -210,6 +209,8 @@ class Admin_academic_programs extends CI_Controller {
         $data['subjects'] = $this->subjects_model->get_all('', $academic_program['class_id']);
         // find subject related to this academic program
         $data['all_subjects'] = $this->academic_programs_model->get_all_subjects($id);
+        // find students related to this academic program
+        $data['all_students'] = $this->academic_programs_model->get_all_students($id);
         // find staffs
         $data['staffs'] = $this->staffs_model->get_all();
         // find subjects

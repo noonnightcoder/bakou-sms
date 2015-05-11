@@ -9,6 +9,7 @@ class Admin_classes extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('classes_model');
+        $this->load->model('departments_model');
 
         if(!$this->session->userdata('is_logged_in')){
             redirect('admin/login');
@@ -18,6 +19,8 @@ class Admin_classes extends CI_Controller {
     public function index()
     {
         $department_id = $this->uri->segment(3);
+        // get department detail
+        $data['department'] = $this->departments_model->get_by_id($department_id);
         //all the posts sent by the view
         $search = $this->input->post('search');        
         $data['search'] = $search;
@@ -79,7 +82,8 @@ class Admin_classes extends CI_Controller {
             if ($this->form_validation->run())
             {
                 $data_to_store = array('class_name' => $this->input->post('class_name'),
-                                       'class_description' => $this->input->post('class_description'));
+                                       'class_description' => $this->input->post('class_description'),
+                                       'modified_date' => date('Y-m-d H:i:s'));
                 //if the insert has returned true then we show the flash message
                 if($this->classes_model->update($id, $data_to_store) == TRUE)
                 {

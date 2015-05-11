@@ -45,6 +45,8 @@ class Books_model extends CI_Model {
         }
         $this->db->group_by('id');
 
+        $this->db->order_by('id', 'desc');
+        
         $query = $this->db->get();
 
         return $query->result_array();  
@@ -73,6 +75,8 @@ class Books_model extends CI_Model {
           $this->db->limit($limit_start, $limit_end);    
         }
 
+        $this->db->order_by('id', 'desc');
+        
         $query = $this->db->get();
 
         return $query->result_array();  
@@ -110,6 +114,20 @@ class Books_model extends CI_Model {
         return $query->result_array();  
     }
     
+    public function get_all_purchase_books_by_student($student_id)
+    {
+        $this->db->select('student_book_purchase.*, students.fullname, books.book_name, subjects.subject_name');
+        $this->db->from('student_book_purchase');
+        $this->db->join('students', 'student_book_purchase.student_id = students.id');
+        $this->db->join('books', 'student_book_purchase.book_id = books.id');
+        $this->db->join('subjects', 'books.subject_id = subjects.id');
+        $this->db->where('student_book_purchase.student_id', $student_id);
+        
+        $query = $this->db->get();
+
+        return $query->result_array();  
+    }
+    
     public function get_all_memberships($search_string=null, $limit_start=null, $limit_end=null)
     {
         $this->db->select('student_library.*, students.fullname');
@@ -131,6 +149,8 @@ class Books_model extends CI_Model {
           $this->db->limit($limit_start, $limit_end);    
         }
 
+        $this->db->order_by('student_library.id', 'desc');
+        
         $query = $this->db->get();
 
         return $query->result_array();  
@@ -251,6 +271,12 @@ class Books_model extends CI_Model {
     public function return_book($p_id)
     {
     	$sql = "CALL return_book($p_id)";
+    	return $this->db->query($sql);
+    }
+    
+    public function purchase_book($p_book_id, $p_student_id, $p_amount, $p_purchased_date, $p_description)
+    {
+    	$sql = "CALL purchase_book($p_book_id, $p_student_id, $p_amount, '".$p_purchased_date."', '".$p_description."')";
     	return $this->db->query($sql);
     }
     

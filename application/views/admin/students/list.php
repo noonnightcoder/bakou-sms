@@ -64,6 +64,7 @@
                                 <td><?php echo $res['phone1']; ?></td>
                                 <td><?php echo $res['student_description']; ?></td>
                                 <td class="td-actions">
+                                    <a href="<?php echo base_url(); ?>index.php/admin/admission/<?php echo $res['id']; ?>"><button class="btn btn-invert">Admission</button></a>
                                     <a href="<?php echo base_url(); ?>index.php/admin/parents/<?php echo $res['id']; ?>"><button class="btn btn-info">Parent</button></a>
                                     <a href="<?php echo base_url(); ?>index.php/admin/students/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
                                     <a onclick="confirm_delete('admin/students/delete/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>

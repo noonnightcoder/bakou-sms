@@ -152,11 +152,10 @@
                     <div class="widget-content">
                         <div class="tabbable">				
                             <ul class="nav nav-tabs">
-                                <li class="active">
-                                    <a href="#timetable" data-toggle="tab">Timetable</a>
-                                </li>
+                                <li class="active"><a href="#timetable" data-toggle="tab">Timetable</a></li>
                                 <li><a href="#newsubject" data-toggle="tab">Add New Subject</a></li>
-                                <li><a href="#subjects" data-toggle="tab">All Subjects</a></li>
+                                <li><a href="#subjects" data-toggle="tab">Subjects</a></li>
+                                <li><a href="#students" data-toggle="tab">Students</a></li>
                             </ul>
 
                             <div class="tab-content">
@@ -962,19 +961,66 @@
                                         <tr>
                                             <th>Subject</th>
                                             <th>Taught By</th>
+                                            <th>Book</th>
                                             <th>Number of Session</th>
                                             <th>Description</th>
                                             <th>Status</th>
                                         </tr>
-                                        <?php foreach($all_subjects as $row){ ?>
+                                        <?php 
+                                            $current_subject = '';
+                                            foreach($all_subjects as $row){ 
+                                                
+                                        ?>
+                                        <?php if($current_subject != $row['subject_name']) { ?>
                                         <tr>
                                             <td><?php echo $row['subject_name']; ?></td>
                                             <td><?php echo $row['fullname']; ?></td>
+                                            <td><?php echo $row['book_name']; ?></td>
                                             <td><?php echo $row['number_of_session']; ?></td>
                                             <td><?php echo $row['academic_program_subject_description']; ?></td>
                                             <td><?php echo ($row['status']== 0) ? 'Not Available' : 'Available'; ?></td>
                                         </tr>
-                                        <?php } ?>
+                                        <?php }else{ ?>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td><?php echo $row['book_name']; ?></td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <?php } // end if ?>
+                                        <?php 
+                                            $current_subject = $row['subject_name'];
+                                        } // end foreach
+                                        ?>
+                                    </table>
+                                    
+                                </div>
+                                <div class="tab-pane " id="students">
+                                    <table class="table table-striped table-bordered">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Fullname</th>
+                                            <th>Fullname in Khmer</th>
+                                            <th>Sex</th>
+                                            <th>Effective From</th>
+                                            <th>Effective End</th>
+                                            <th>Status</th>
+                                        </tr>
+                                        <?php $order_number = 1; ?>
+                                        <?php foreach($all_students as $row){ ?>
+                                        <tr>
+                                            <td><?php echo $order_number++; ?></td>
+                                            <td><?php echo $row['fullname']; ?></td>
+                                            <td><?php echo $row['fullname_in_khmer']; ?></td>
+                                            <td><?php echo $row['sex']; ?></td>
+                                            <td><?php echo $row['effective_from']; ?></td>
+                                            <td><?php echo $row['effective_end']; ?></td>
+                                            <td><?php echo ($row['status']== 0) ? 'Inactive' : 'In Progress'; ?></td>
+                                        </tr>
+                                        
+                                        <?php } // end foreach ?>
                                     </table>
                                     
                                 </div>

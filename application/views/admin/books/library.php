@@ -72,6 +72,7 @@
                                 <th>Edition</th>
                                 <th>Book Position</th>
                                 <th>Shelf Number</th>
+                                <th>Price</th>
                                 <th>Copy</th>
                                 <th class="td-actions">Action</th>
                             </tr>
@@ -86,9 +87,10 @@
                                 <td><?php echo $res['edition']; ?></td>
                                 <td><?php echo $res['book_position']; ?></td>
                                 <td><?php echo $res['shelf_no']; ?></td>
+                                <td><?php echo $res['price']; ?></td>
                                 <td><?php echo $res['copy']; ?></td>
                                 <td class="td-actions">
-                                    <a href="<?php echo base_url(); ?>index.php/admin/library/borrow/<?php echo $res['id']; ?>"><button class="btn btn-warning">Borrow</button></a>
+                                    <a href="<?php echo base_url(); ?>index.php/admin/library/borrow/<?php echo $res['id']; ?>"><button class="btn btn-warning">Lend</button></a>
                                     <a href="<?php echo base_url(); ?>index.php/admin/books/detail/<?php echo $res['id']; ?>"><button class="btn btn-info">Detail</button></a>
                                     <a href="<?php echo base_url(); ?>index.php/admin/library/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
                                     <a onclick="confirm_delete('admin/library/delete/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>

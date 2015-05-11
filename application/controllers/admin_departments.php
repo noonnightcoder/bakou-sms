@@ -90,7 +90,8 @@ class Admin_departments extends CI_Controller {
                                        'department_phone1' => $this->input->post('department_phone1'),
                                        'department_phone2' => $this->input->post('department_phone2'),
                                        'department_fax' => $this->input->post('department_fax'),
-                                       'department_description' => $this->input->post('department_description'));
+                                       'department_description' => $this->input->post('department_description'),
+                                       'modified_date' => date('Y-m-d H:i:s'));
                 //if the insert has returned true then we show the flash message
                 if($this->departments_model->update($id, $data_to_store) == TRUE)
                 {

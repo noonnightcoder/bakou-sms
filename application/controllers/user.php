@@ -12,6 +12,7 @@ class User extends CI_Controller {
         parent::__construct();
         $this->load->model('Users_model');
         $this->load->model('noticeboards_model');
+        $this->load->model('school_model');
 
     }
     
@@ -50,9 +51,13 @@ class User extends CI_Controller {
 
         if($is_valid)
         {
+            // find school info
+            $data['school'] = $this->school_model->get_all();
+            $school = $data['school'];
             $data = array(
                     'user_name' => $user_name,
-                    'is_logged_in' => true
+                    'is_logged_in' => true,
+                    'school_name' => $school[0]['school_name']
             );
             $this->session->set_userdata($data);
             redirect('admin/dashboard');
@@ -120,9 +125,23 @@ class User extends CI_Controller {
 	
     function dashboard()
     {
+        if(!$this->session->userdata('is_logged_in')){
+            redirect('admin/login');
+        }
         $data['notices'] = $this->noticeboards_model->get_all();
         //load the view
         $data['main_content'] = 'admin/dashboard';
+        $this->load->view('includes/template', $data);
+    }
+    
+    function test()
+    {
+        if(!$this->session->userdata('is_logged_in')){
+            redirect('admin/login');
+        }
+        $data['notices'] = $this->noticeboards_model->get_all();
+        //load the view
+        $data['main_content'] = 'admin/test';
         $this->load->view('includes/template', $data);
     }
     

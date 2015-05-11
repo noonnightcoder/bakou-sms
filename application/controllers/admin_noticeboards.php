@@ -116,13 +116,13 @@ class Admin_noticeboards extends CI_Controller {
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
-
                 $data_to_store = array('notice_title' => $this->input->post('notice_title'),
                                        'notice_description' => $this->input->post('notice_description'),
                                        'start_date' => $this->input->post('start_date'),
                                        'end_date' => $this->input->post('end_date'),
                                        'start_time' => $this->input->post('hour1').':'.$this->input->post('minute1').':00',
-                                       'end_time' => $this->input->post('hour2').':'.$this->input->post('minute2').':00');
+                                       'end_time' => $this->input->post('hour2').':'.$this->input->post('minute2').':00',
+                                       'modified_date' => date('Y-m-d H:i:s'));
                 //if the insert has returned true then we show the flash message
                 if($this->noticeboards_model->update($id, $data_to_store) == TRUE)
                 {

@@ -99,7 +99,8 @@ class Admin_classroom_types extends CI_Controller {
             if ($this->form_validation->run())
             {
                 $data_to_store = array('classroom_type' => $this->input->post('classroom_type'),
-                                       'classroom_type_description' => $this->input->post('classroom_type_description'));
+                                       'classroom_type_description' => $this->input->post('classroom_type_description'),
+                                       'modified_date' => date('Y-m-d H:i:s'));
                 //if the insert has returned true then we show the flash message
                 if($this->classroom_types_model->update($id, $data_to_store) == TRUE){
                     $data['flash_message'] = TRUE; 

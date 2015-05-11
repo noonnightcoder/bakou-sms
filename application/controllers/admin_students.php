@@ -9,6 +9,7 @@ class Admin_students extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('students_model');
+        $this->load->model('academic_programs_model');
 
         if(!$this->session->userdata('is_logged_in')){
             redirect('admin/login');
@@ -169,7 +170,8 @@ class Admin_students extends CI_Controller {
                                            'phone1' => $this->input->post('phone1'),
                                            'phone2' => $this->input->post('phone2'),
                                            'student_description' => $this->input->post('student_description'),
-                                           'birthplace' => $this->input->post('birthplace'));
+                                           'birthplace' => $this->input->post('birthplace'),
+                                           'modified_date' => date('Y-m-d H:i:s'));
                 }else{
                     $file_root = $this->upload->data();
                     $data_to_store = array('fullname' => $this->input->post('fullname'),
@@ -181,7 +183,8 @@ class Admin_students extends CI_Controller {
                                            'phone2' => $this->input->post('phone2'),
                                            'student_description' => $this->input->post('student_description'),
                                            'birthplace' => $this->input->post('birthplace'),
-                                           'photo' => '/sms'.substr($config['upload_path'],1).$file_root['file_name']);
+                                           'photo' => '/sms'.substr($config['upload_path'],1).$file_root['file_name'],
+                                           'modified_date' => date('Y-m-d H:i:s'));
                 }
                 //if the insert has returned true then we show the flash message
                 if($this->students_model->update($id, $data_to_store) == TRUE)
@@ -214,6 +217,52 @@ class Admin_students extends CI_Controller {
             redirect('admin/students'); 
         }
     }//delete
+    
+    public function admission()
+    {
+        $student_id = $this->uri->segment(3);
+        // find classes
+        $data['academic_programs'] = $this->academic_programs_model->get_all_academic_programs();
+        //if save button was clicked, get the data sent via post
+        if ($this->input->server('REQUEST_METHOD') === 'POST')
+        {
+            $this->form_validation->set_rules('academic_program_id', 'academic_program_id', 'required');
+            $this->form_validation->set_rules('amount', 'amount', 'required|numeric');
+            $this->form_validation->set_rules('effective_from', 'effective_from', 'required');
+            $this->form_validation->set_rules('effective_end', 'effective_end', 'required');
+            $this->form_validation->set_rules('student_academic_program_description', 'student_academic_program_description', '');
+            $this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
+
+            $academic_program_id = $this->input->post('academic_program_id');
+            if($academic_program_id)
+            {    
+                $data['result'] = $this->academic_programs_model->get_by_id($academic_program_id);
+            }
+            
+            //if the form has passed through the validation
+            if ($this->form_validation->run())
+            {
+                $data_to_store = array('student_id' => $student_id,
+                                       'academic_program_id' => $this->input->post('academic_program_id'),
+                                       'amount' => $this->input->post('amount'),
+                                       'effective_from' => $this->input->post('effective_from'),
+                                       'effective_end' => $this->input->post('effective_end'),
+                                       'student_academic_program_description' => $this->input->post('student_academic_program_description'));
+                //if the insert has returned true then we show the flash message
+                if($this->students_model->admission($student_id, $this->input->post('academic_program_id'), 
+                                                    $this->input->post('amount'), $this->input->post('effective_from'), 
+                                                    $this->input->post('effective_end'), $this->input->post('student_academic_program_description')))
+                {
+                    $data['flash_message'] = TRUE; 
+                }else{
+                    $data['flash_message'] = FALSE; 
+                }
+            }
+        }
+        //load the view
+        $data['main_content'] = 'admin/students/admission';
+        $this->load->view('includes/template', $data);  
+    }
 
 
 }                 

@@ -3,7 +3,7 @@
   
 <head>
 <meta charset="utf-8">
-<title>404 - Bootstrap Admin Template</title>
+<title>404 - School Management System</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes"> 
@@ -32,15 +32,15 @@
 				<span class="icon-bar"></span>
 			</a>
 			
-			<a class="brand" href="index.html">
-				Bootstrap Admin Template				
+			<a class="brand" href="<?php echo base_url(); ?>index.php/admin/dashboard">
+				<?php echo $this->session->userdata('school_name'); ?>				
 			</a>		
 			
 			<div class="nav-collapse">
 				<ul class="nav pull-right">
 					
 					<li class="">						
-						<a href="index.html" class="">
+						<a href="<?php echo base_url(); ?>index.php/admin/dashboard" class="">
 							<i class="icon-chevron-left"></i>
 							Back to Dashboard
 						</a>
@@ -70,12 +70,12 @@
 				<h2>Who! bad trip man. No more pixesl for you.</h2>
 				
 				<div class="error-details">
-					Sorry, an error has occured! Why not try going back to the <a href="index.html">home page</a> or perhaps try following!
+					Sorry, an error has occured! Why not try going back to the <a href="<?php echo base_url(); ?>index.php/admin/dashboard">home page</a> or perhaps try following!
 					
 				</div> <!-- /error-details -->
 				
 				<div class="error-actions">
-					<a href="index.html" class="btn btn-large btn-primary">
+					<a href="<?php echo base_url(); ?>index.php/admin/dashboard" class="btn btn-large btn-primary">
 						<i class="icon-chevron-left"></i>
 						&nbsp;
 						Back to Dashboard						

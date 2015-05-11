@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Dashboard - Bootstrap Admin Template</title>
+<title><?php echo ucfirst($this->uri->segment(2)); ?> - School Management System</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
@@ -12,6 +12,9 @@
 <link href="<?php echo base_url(); ?>assets/css/pages/dashboard.css" rel="stylesheet">
 <link href="<?php echo base_url(); ?>assets/css/pages/faq.css" rel="stylesheet">
 <link href="<?php echo base_url(); ?>assets/css/datepicker.css" rel="stylesheet">
+
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap-multiselect.css" type="text/css">
+        
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -23,7 +26,7 @@
     <div class="container"> 
     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
     <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </a>
-    <a class="brand" href="<?php echo base_url(); ?>index.php/admin/dashboard">Bootstrap Admin Template </a>
+    <a class="brand" href="<?php echo base_url(); ?>index.php/admin/dashboard"><?php echo $this->session->userdata('school_name'); ?></a>
       <div class="nav-collapse">
         <ul class="nav pull-right">
           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
@@ -51,11 +54,11 @@
         <li><a href="guidely.html"><i class="icon-facetime-video"></i><span>App Tour</span> </a></li>
         <li><a href="charts.html"><i class="icon-bar-chart"></i><span>Charts</span> </a> </li>
         <li><a href="shortcodes.html"><i class="icon-code"></i><span>Shortcodes</span> </a> </li>
-        <li <?php if(($this->uri->segment(2) == 'students') or ($this->uri->segment(2) == 'parents')) { ?> class="active" <?php } ?>><a href="<?php echo base_url(); ?>index.php/admin/students"><i class="icon-user"></i><span>Student</span> </a> </li>
+        <li <?php if(($this->uri->segment(2) == 'students') or ($this->uri->segment(2) == 'admission') or ($this->uri->segment(2) == 'parents')) { ?> class="active" <?php } ?>><a href="<?php echo base_url(); ?>index.php/admin/students"><i class="icon-user"></i><span>Student</span> </a> </li>
         <li <?php if(($this->uri->segment(2) == 'academics') or ($this->uri->segment(2) == 'academic_programs')) { ?> class="active" <?php } ?>><a href="<?php echo base_url(); ?>index.php/admin/academics"><i class="icon-sitemap"></i><span>Academic</span> </a> </li>
         <li <?php if(($this->uri->segment(2) == 'transports') or ($this->uri->segment(2) == 'vehicles')) { ?> class="active" <?php } ?>><a href="<?php echo base_url(); ?>index.php/admin/transports"><i class="icon-road"></i><span>Transport</span> </a> </li>
         <li <?php if(($this->uri->segment(2) == 'library') or ($this->uri->segment(2) == 'books') or ($this->uri->segment(2) == 'memberships')) { ?> class="active" <?php } ?>><a href="<?php echo base_url(); ?>index.php/admin/library"><i class="icon-book"></i><span>Library</span> </a> </li>
-        <li <?php if(($this->uri->segment(2) == 'school') or ($this->uri->segment(2) == 'buildings') or ($this->uri->segment(2) == 'staffs') or ($this->uri->segment(2) == 'faculties') or ($this->uri->segment(2) == 'services') or ($this->uri->segment(2) == 'classrooms') or ($this->uri->segment(2) == 'classroom_types') or ($this->uri->segment(2) == 'positions') or ($this->uri->segment(2) == 'departments') or ($this->uri->segment(2) == 'classes') or ($this->uri->segment(2) == 'subjects')) { ?> class="dropdown active" <?php }else{ ?> class="dropdown" <?php } ?>><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-list"></i><span>Setting</span> <b class="caret"></b></a>
+        <li <?php if(($this->uri->segment(2) == 'school') or ($this->uri->segment(2) == 'buildings') or ($this->uri->segment(2) == 'staffs') or ($this->uri->segment(2) == 'faculties') or ($this->uri->segment(2) == 'services') or ($this->uri->segment(2) == 'classrooms') or ($this->uri->segment(2) == 'classroom_types') or ($this->uri->segment(2) == 'positions') or ($this->uri->segment(2) == 'departments') or ($this->uri->segment(2) == 'classes') or ($this->uri->segment(2) == 'subjects') or ($this->uri->segment(2) == 'noticeboards')) { ?> class="dropdown active" <?php }else{ ?> class="dropdown" <?php } ?>><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-list"></i><span>Setting</span> <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="<?php echo base_url(); ?>index.php/admin/school/update/1">School Info</a></li>
             <li><a href="<?php echo base_url(); ?>index.php/admin/buildings">Campus / Building Info</a></li>

@@ -47,6 +47,8 @@ class Classrooms_model extends CI_Model {
             $this->db->like('lower(classroom_name)', strtolower($search_string));
         }
         $this->db->group_by('classrooms.id');
+        
+        $this->db->order_by('classrooms.id', 'desc');
 
         $query = $this->db->get();
 

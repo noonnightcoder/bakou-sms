@@ -11,7 +11,8 @@
 
                     <div class="widget-content">
 
-                        <a href="<?php echo site_url("admin").'/'.$this->uri->segment(2); ?>/add" class="btn btn-large btn-success btn-support-ask">Add New</a> 
+                        <a href="<?php echo site_url("admin").'/'.$this->uri->segment(2); ?>/add" class="btn btn-large btn-success btn-support-ask">Add New</a>
+                        <a target="_blank" href="<?php echo site_url("admin").'/transport_memberships'; ?>" class="btn btn-large btn-info btn-support-ask">Show Membership</a>
 
                     </div> <!-- /widget-content -->
 

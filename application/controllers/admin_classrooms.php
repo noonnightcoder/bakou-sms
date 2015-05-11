@@ -88,7 +88,8 @@ class Admin_classrooms extends CI_Controller {
                 $data_to_store = array('classroom_type_id' => $this->input->post('classroom_type_id'),
                                        'classroom_name' => $this->input->post('classroom_name'),
                                        'number_of_student' => $this->input->post('number_of_student'),
-                                       'classroom_description' => $this->input->post('classroom_description'));
+                                       'classroom_description' => $this->input->post('classroom_description'),
+                                       'modified_date' => date('Y-m-d H:i:s'));
                 //if the insert has returned true then we show the flash message
                 if($this->classrooms_model->update($id, $data_to_store) == TRUE)
                 {

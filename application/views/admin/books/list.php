@@ -28,7 +28,7 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3>Books</h3>
+                        <h3><a href="<?php echo base_url(); ?>index.php/admin/subjects/<?php echo $subject['class_id']; ?>">Subjects</a> / Books</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">

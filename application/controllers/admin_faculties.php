@@ -117,7 +117,8 @@ class Admin_faculties extends CI_Controller {
                                        'faculty_phone1' => $this->input->post('faculty_phone1'),
                                        'faculty_phone2' => $this->input->post('faculty_phone2'),
                                        'faculty_fax' => $this->input->post('faculty_fax'),
-                                       'faculty_description' => $this->input->post('faculty_description'));
+                                       'faculty_description' => $this->input->post('faculty_description'),
+                                       'modified_date' => date('Y-m-d H:i:s'));
                 //if the insert has returned true then we show the flash message
                 if($this->faculties_model->update($id, $data_to_store) == TRUE)
                 {

@@ -130,7 +130,8 @@ class Admin_staffs extends CI_Controller {
                                        'phone1' => $this->input->post('phone1'),
                                        'phone2' => $this->input->post('phone2'),
                                        'email' => $this->input->post('email'),
-                                       'staff_description' => $this->input->post('staff_description'),);
+                                       'staff_description' => $this->input->post('staff_description'),
+                                       'modified_date' => date('Y-m-d H:i:s'));
                 //if the insert has returned true then we show the flash message
                 if($this->staffs_model->update($id, $data_to_store) == TRUE)
                 {

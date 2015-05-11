@@ -45,6 +45,8 @@ class Classes_model extends CI_Model {
         }
         $this->db->group_by('id');
 
+        $this->db->order_by('classes.id', 'desc');
+        
         $query = $this->db->get();
 
         return $query->result_array();  

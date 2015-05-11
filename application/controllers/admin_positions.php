@@ -101,7 +101,8 @@ class Admin_positions extends CI_Controller {
             if ($this->form_validation->run())
             {
                 $data_to_store = array('position' => $this->input->post('position'),
-                                       'position_description' => $this->input->post('position_description'));
+                                       'position_description' => $this->input->post('position_description'),
+                                       'modified_date' => date('Y-m-d H:i:s'));
                 //if the insert has returned true then we show the flash message
                 if($this->positions_model->update($id, $data_to_store) == TRUE){
                     $data['flash_message'] = TRUE; 

@@ -28,7 +28,7 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3>Classes</h3>
+                        <h3><a href="<?php echo base_url(); ?>index.php/admin/departments/<?php echo $department['faculty_id']; ?>">Departments</a> / Classes</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">

@@ -45,6 +45,8 @@ class Vehicles_model extends CI_Model {
         }
         $this->db->group_by('id');
 
+        $this->db->order_by('id', 'desc');
+        
         $query = $this->db->get();
 
         return $query->result_array();  
@@ -67,9 +69,12 @@ class Vehicles_model extends CI_Model {
     
     public function get_membership($id)
     {
-        $this->db->select('*');
+        $this->db->select('student_vehicle.*, vehicles.transport_id, vehicles.vehicle_brand, vehicles.vehicle_identity_number');
+        $this->db->select('transports.route_name');
         $this->db->from('student_vehicle');
-        $this->db->where('id', $id);
+        $this->db->join('vehicles', 'student_vehicle.vehicle_id = vehicles.id');
+        $this->db->join('transports', 'vehicles.transport_id = transports.id');
+        $this->db->where('student_vehicle.id', $id);
         $query = $this->db->get();
         return $query->row_array();  
     }

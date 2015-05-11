@@ -11,7 +11,7 @@
 
                     <div class="widget-content">
 
-                        <a href="<?php echo site_url("admin").'/'.$this->uri->segment(2); ?>/add/<?php echo $this->uri->segment(3); ?>" class="btn btn-large btn-success btn-support-ask">Add New Membership</a>
+                        <a href="<?php echo site_url("admin").'/transports'; ?>/add_membership" class="btn btn-large btn-success btn-support-ask">Add New Membership</a>
 
                     </div> <!-- /widget-content -->
 
@@ -28,12 +28,12 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3><a href="<?php echo base_url(); ?>index.php/admin/library">Vehicle</a> / Membership</h3>
+                        <h3><a href="<?php echo base_url(); ?>index.php/admin/transports">Transport</a> / Membership</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">
                         
-                        <form action="<?php echo base_url(); ?>index.php/admin/memberships" method="post" class="form-horizontal">
+                        <form action="<?php echo base_url(); ?>index.php/admin/transports_memberships" method="post" class="form-horizontal">
                             <div class="control-group">
                                 <label class="control-label" for="radiobtns">Student Name: </label>                                            
                                 <div class="controls">
@@ -49,6 +49,9 @@
                         <table class="table table-striped table-bordered">
                             <thead>
                             <tr>
+                                <th>Transport Name</th>
+                                <th>Vehicle Brand</th>
+                                <th>ID Number</th>
                                 <th>Student Fullname</th>
                                 <th>Effective From</th>
                                 <th>Effective End</th>
@@ -59,14 +62,17 @@
                             <tbody>
                             <?php foreach($result as $res){ ?>
                             <tr>
+                                <td><?php echo $res['route_name']; ?></td>
+                                <td><?php echo $res['vehicle_brand']; ?></td>
+                                <td><?php echo $res['vehicle_identity_number']; ?></td>
                                 <td><?php echo $res['fullname']; ?></td>
                                 <td><?php echo $res['effective_from']; ?></td>
                                 <td><?php echo $res['effective_end']; ?></td>
-                                <td><?php echo $res['student_library_description']; ?></td>
+                                <td><?php echo $res['student_vehicle_description']; ?></td>
                                 <td class="td-actions">
-                                    <a href="<?php echo base_url(); ?>index.php/admin/memberships/detail/<?php echo $res['id']; ?>"><button class="btn btn-info">Detail</button></a>
-                                    <a href="<?php echo base_url(); ?>index.php/admin/memberships/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
-                                    <a onclick="confirm_delete('admin/memberships/delete/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
+                                    <a href="<?php echo base_url(); ?>index.php/admin/transports/detail_membership/<?php echo $res['id']; ?>"><button class="btn btn-info">Detail</button></a>
+                                    <a href="<?php echo base_url(); ?>index.php/admin/transports/update_membership/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
+                                    <a onclick="confirm_delete('admin/transports/delete_membership/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
                                 </td>
                             </tr>
                             <?php } ?>  

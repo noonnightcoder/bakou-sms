@@ -48,6 +48,7 @@ $route['admin/login'] = 'user/index';
 $route['admin/logout'] = 'user/logout';
 $route['admin/login/validate_credentials'] = 'user/validate_credentials';
 $route['admin/dashboard'] = 'user/dashboard';
+$route['admin/test'] = 'user/test';
 
 /* monoci auto crud */
 $route['admin/monoci'] = 'monoci/index';
@@ -145,6 +146,8 @@ $route['admin/library/borrow'] = 'admin_books/borrow_book';
 $route['admin/library/borrow/(:any)'] = 'admin_books/borrow_book/$1';
 $route['admin/library/return'] = 'admin_books/return_book';
 $route['admin/library/return/(:any)'] = 'admin_books/return_book/$1';
+$route['admin/library/purchase'] = 'admin_books/purchase_book';
+$route['admin/library/purchase/(:any)'] = 'admin_books/purchase_book/$1';
 $route['admin/library/delete/(:any)'] = 'admin_books/delete_book/$1';
 $route['admin/library/(:any)'] = 'admin_books/library/$1'; //$1 = page number
 // membership
@@ -154,6 +157,10 @@ $route['admin/memberships/update'] = 'admin_books/update_membership';
 $route['admin/memberships/update/(:any)'] = 'admin_books/update_membership/$1';
 $route['admin/memberships/detail'] = 'admin_books/detail_membership';
 $route['admin/memberships/detail/(:any)'] = 'admin_books/detail_membership/$1';
+$route['admin/memberships/borrow'] = 'admin_books/membership_borrow_book';
+$route['admin/memberships/borrow/(:any)'] = 'admin_books/membership_borrow_book/$1';
+$route['admin/memberships/purchase'] = 'admin_books/membership_purchase_book';
+$route['admin/memberships/purchase/(:any)'] = 'admin_books/membership_purchase_book/$1';
 $route['admin/memberships/delete/(:any)'] = 'admin_books/delete_membership/$1';
 $route['admin/memberships/(:any)'] = 'admin_books/memberships/$1'; //$1 = page number
                     
@@ -162,6 +169,15 @@ $route['admin/transports/add'] = 'admin_transports/add';
 $route['admin/transports/update'] = 'admin_transports/update';
 $route['admin/transports/update/(:any)'] = 'admin_transports/update/$1';
 $route['admin/transports/delete/(:any)'] = 'admin_transports/delete/$1';
+$route['admin/transport_memberships'] = 'admin_transports/memberships';
+$route['admin/transports/detail_membership'] = 'admin_transports/detail_membership';
+$route['admin/transports/detail_membership/(:any)'] = 'admin_transports/detail_membership/$1';
+$route['admin/transports/delete_membership'] = 'admin_transports/delete_membership';
+$route['admin/transports/delete_membership/(:any)'] = 'admin_transports/delete_membership/$1';
+$route['admin/transports/add_membership'] = 'admin_transports/add_membership';
+$route['admin/transports/add_membership/(:any)'] = 'admin_transports/add_membership/$1';
+$route['admin/transports/update_membership'] = 'admin_transports/update_membership';
+$route['admin/transports/update_membership/(:any)'] = 'admin_transports/update_membership/$1';
 $route['admin/transports/(:any)'] = 'admin_transports/index/$1'; //$1 = page number
                     
 $route['admin/vehicles'] = 'admin_vehicles/index';
@@ -214,6 +230,9 @@ $route['admin/parents/detail'] = 'admin_parents/detail';
 $route['admin/parents/detail/(:any)'] = 'admin_parents/detail/$1';
 $route['admin/parents/delete/(:any)'] = 'admin_parents/delete/$1';
 $route['admin/parents/(:any)'] = 'admin_parents/index/$1'; //$1 = page number
+
+$route['admin/admission'] = 'admin_students/admission';
+$route['admin/admission/(:any)'] = 'admin_students/admission/$1';
                     
 $route['admin/services'] = 'admin_services/index';
 $route['admin/services/add'] = 'admin_services/add';

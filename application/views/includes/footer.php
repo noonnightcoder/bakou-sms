@@ -1,21 +1,24 @@
 <!-- Le javascript
 ================================================== --> 
 <!-- Placed at the end of the document so the pages load faster --> 
-<script src="<?php echo base_url(); ?>assets/js/jquery-1.7.2.min.js"></script> 
+<script src="<?php echo base_url(); ?>assets/js/jquery-1.7.2.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/excanvas.min.js"></script> 
 <script src="<?php echo base_url(); ?>assets/js/chart.min.js" type="text/javascript"></script> 
 <script src="<?php echo base_url(); ?>assets/js/bootstrap.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/base.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/faq.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/bootbox.min.js"></script>
-<script>
-    /*$(document).on("click", ".alert", function(e) {
-        bootbox.confirm("Are you sure?", function(result) {
-            if(result)
-                alert("Confirm result: "+result);
+
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootstrap-multiselect.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example-post').multiselect({
+                includeSelectAllOption: true,
+                enableFiltering: true
         });
-    });*/
-    
+    });
+</script>
+<script>
     function confirm_delete(url){
         bootbox.confirm("Are you sure to do this?", function(result) {
             if(result)

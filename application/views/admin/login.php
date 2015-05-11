@@ -3,7 +3,7 @@
   
 <head>
 <meta charset="utf-8">
-<title>Login - Bootstrap Admin Template</title>
+<title>Login - School Management System</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes"> 
@@ -33,8 +33,8 @@
 				<span class="icon-bar"></span>
 			</a>
 			
-			<a class="brand" href="index.html">
-				Bootstrap Admin Template				
+			<a class="brand" href="<?php echo base_url(); ?>index.php/admin/dashboard">
+				School Management System				
 			</a>		
 			
 			<div class="nav-collapse">

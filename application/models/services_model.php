@@ -53,6 +53,8 @@ class Services_model extends CI_Model {
           $this->db->limit($limit_start, $limit_end);    
         }
 
+        $this->db->order_by('id', 'desc');
+        
         $query = $this->db->get();
 
         return $query->result_array();  

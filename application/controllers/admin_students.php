@@ -10,6 +10,8 @@ class Admin_students extends CI_Controller {
         parent::__construct();
         $this->load->model('students_model');
         $this->load->model('academic_programs_model');
+        $this->load->model('promotions_model');
+        $this->load->model('services_model');
 
         if(!$this->session->userdata('is_logged_in')){
             redirect('admin/login');
@@ -62,6 +64,7 @@ class Admin_students extends CI_Controller {
         //if save button was clicked, get the data sent via post
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
+            $this->form_validation->set_rules('registered_date', 'registered_date', 'required');
             $this->form_validation->set_rules('fullname', 'fullname', 'required');
             $this->form_validation->set_rules('fullname_in_khmer', 'fullname_in_khmer', 'required');
             $this->form_validation->set_rules('birthday', 'birthday', 'required');
@@ -98,7 +101,8 @@ class Admin_students extends CI_Controller {
                                            'phone2' => $this->input->post('phone2'),
                                            'student_description' => $this->input->post('student_description'),
                                            'birthplace' => $this->input->post('birthplace'),
-                                           'photo' => '/sms/attachments/index.png');
+                                           'photo' => '/sms/attachments/index.png',
+                                           'registered_date' => $this->input->post('registered_date'));
                 }else{
                     
                     $file_root = $this->upload->data();
@@ -112,7 +116,8 @@ class Admin_students extends CI_Controller {
                                            'phone2' => $this->input->post('phone2'),
                                            'student_description' => $this->input->post('student_description'),
                                            'birthplace' => $this->input->post('birthplace'),
-                                           'photo' => '/sms'.substr($config['upload_path'],1).$file_root['file_name']); 
+                                           'photo' => '/sms'.substr($config['upload_path'],1).$file_root['file_name'],
+                                           'registered_date' => $this->input->post('registered_date')); 
                 }
                 //if the insert has returned true then we show the flash message
                 if($this->students_model->store_data($data_to_store))
@@ -136,6 +141,7 @@ class Admin_students extends CI_Controller {
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
             //form validation
+            $this->form_validation->set_rules('registered_date', 'registered_date', 'required');
             $this->form_validation->set_rules('fullname', 'fullname', 'required');
             $this->form_validation->set_rules('fullname_in_khmer', 'fullname_in_khmer', 'required');
             $this->form_validation->set_rules('birthday', 'birthday', 'required');
@@ -171,7 +177,8 @@ class Admin_students extends CI_Controller {
                                            'phone2' => $this->input->post('phone2'),
                                            'student_description' => $this->input->post('student_description'),
                                            'birthplace' => $this->input->post('birthplace'),
-                                           'modified_date' => date('Y-m-d H:i:s'));
+                                           'modified_date' => date('Y-m-d H:i:s'),
+                                           'registered_date' => $this->input->post('registered_date'));
                 }else{
                     $file_root = $this->upload->data();
                     $data_to_store = array('fullname' => $this->input->post('fullname'),
@@ -184,7 +191,8 @@ class Admin_students extends CI_Controller {
                                            'student_description' => $this->input->post('student_description'),
                                            'birthplace' => $this->input->post('birthplace'),
                                            'photo' => '/sms'.substr($config['upload_path'],1).$file_root['file_name'],
-                                           'modified_date' => date('Y-m-d H:i:s'));
+                                           'modified_date' => date('Y-m-d H:i:s'),
+                                           'registered_date' => $this->input->post('registered_date'));
                 }
                 //if the insert has returned true then we show the flash message
                 if($this->students_model->update($id, $data_to_store) == TRUE)
@@ -220,14 +228,16 @@ class Admin_students extends CI_Controller {
     
     public function admission()
     {
-        $student_id = $this->uri->segment(3);
+        $student_id = $this->uri->segment(4);
         // find classes
         $data['academic_programs'] = $this->academic_programs_model->get_all_academic_programs();
+        $data['promotion'] = $this->promotions_model->get_promotion_by_type('Admission');
         //if save button was clicked, get the data sent via post
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
             $this->form_validation->set_rules('academic_program_id', 'academic_program_id', 'required');
             $this->form_validation->set_rules('amount', 'amount', 'required|numeric');
+            $this->form_validation->set_rules('admission_date', 'admission_date', 'required');
             $this->form_validation->set_rules('effective_from', 'effective_from', 'required');
             $this->form_validation->set_rules('effective_end', 'effective_end', 'required');
             $this->form_validation->set_rules('student_academic_program_description', 'student_academic_program_description', '');
@@ -242,16 +252,24 @@ class Admin_students extends CI_Controller {
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
-                $data_to_store = array('student_id' => $student_id,
-                                       'academic_program_id' => $this->input->post('academic_program_id'),
-                                       'amount' => $this->input->post('amount'),
-                                       'effective_from' => $this->input->post('effective_from'),
-                                       'effective_end' => $this->input->post('effective_end'),
-                                       'student_academic_program_description' => $this->input->post('student_academic_program_description'));
+                // check discount
+                $p_dis_per = ($this->input->post('discount_percentage')) ? $this->input->post('discount_percentage') : 0;
+                $p_dis_amt = ($this->input->post('discount_amount')) ? $this->input->post('discount_amount') : 0;
+                
+                $service_id = $this->input->post('service_id');
+
+                foreach($service_id as $s_id)
+                {
+                    // find book detail
+                    $service = $this->services_model->get_by_id($s_id);
+                    //if the insert has returned true then we show the flash message
+                    $this->students_model->service($student_id, $s_id, $service['service_price'], $this->input->post('admission_date'));
+                }
                 //if the insert has returned true then we show the flash message
                 if($this->students_model->admission($student_id, $this->input->post('academic_program_id'), 
                                                     $this->input->post('amount'), $this->input->post('effective_from'), 
-                                                    $this->input->post('effective_end'), $this->input->post('student_academic_program_description')))
+                                                    $this->input->post('effective_end'), $this->input->post('student_academic_program_description'),
+                                                    $p_dis_per, $p_dis_amt, $this->input->post('admission_date')))
                 {
                     $data['flash_message'] = TRUE; 
                 }else{

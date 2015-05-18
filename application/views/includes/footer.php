@@ -33,6 +33,10 @@
 <script>   
     // for date picker
     $(function(){
+        $('#dp2').datepicker();
+    });
+    
+    $(function(){
         $('#dp3').datepicker();
     });
     

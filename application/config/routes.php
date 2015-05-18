@@ -219,6 +219,8 @@ $route['admin/students/add'] = 'admin_students/add';
 $route['admin/students/update'] = 'admin_students/update';
 $route['admin/students/update/(:any)'] = 'admin_students/update/$1';
 $route['admin/students/delete/(:any)'] = 'admin_students/delete/$1';
+$route['admin/students/admission'] = 'admin_students/admission';
+$route['admin/students/admission/(:any)'] = 'admin_students/admission/$1';
 $route['admin/students/(:any)'] = 'admin_students/index/$1'; //$1 = page number
                     
 $route['admin/parents'] = 'admin_parents/index';
@@ -231,8 +233,19 @@ $route['admin/parents/detail/(:any)'] = 'admin_parents/detail/$1';
 $route['admin/parents/delete/(:any)'] = 'admin_parents/delete/$1';
 $route['admin/parents/(:any)'] = 'admin_parents/index/$1'; //$1 = page number
 
-$route['admin/admission'] = 'admin_students/admission';
-$route['admin/admission/(:any)'] = 'admin_students/admission/$1';
+$route['admin/admission'] = 'admin_admissions/step1';
+$route['admin/admission/parent'] = 'admin_admissions/step2';
+$route['admin/admission/parent/(:any)'] = 'admin_admissions/step2/$1';
+$route['admin/admission/admission'] = 'admin_admissions/step3';
+$route['admin/admission/admission/(:any)'] = 'admin_admissions/step3/$1';
+$route['admin/admission/purchase'] = 'admin_admissions/step4';
+$route['admin/admission/purchase/(:any)'] = 'admin_admissions/step4/$1';
+$route['admin/admission/transportation'] = 'admin_admissions/step5';
+$route['admin/admission/transportation/(:any)'] = 'admin_admissions/step5/$1';
+$route['admin/admission/library'] = 'admin_admissions/step6';
+$route['admin/admission/library/(:any)'] = 'admin_admissions/step6/$1';
+$route['admin/admission/service'] = 'admin_admissions/step7';
+$route['admin/admission/service/(:any)'] = 'admin_admissions/step7/$1';
                     
 $route['admin/services'] = 'admin_services/index';
 $route['admin/services/add'] = 'admin_services/add';
@@ -249,5 +262,24 @@ $route['admin/noticeboards/detail'] = 'admin_noticeboards/detail';
 $route['admin/noticeboards/detail/(:any)'] = 'admin_noticeboards/detail/$1';
 $route['admin/noticeboards/delete/(:any)'] = 'admin_noticeboards/delete/$1';
 $route['admin/noticeboards/(:any)'] = 'admin_noticeboards/index/$1'; //$1 = page number
+                    
+$route['admin/promotions'] = 'admin_promotions/index';
+$route['admin/promotions/add'] = 'admin_promotions/add';
+$route['admin/promotions/update'] = 'admin_promotions/update';
+$route['admin/promotions/update/(:any)'] = 'admin_promotions/update/$1';
+$route['admin/promotions/delete/(:any)'] = 'admin_promotions/delete/$1';
+$route['admin/promotions/(:any)'] = 'admin_promotions/index/$1'; //$1 = page number
+                    
+// cash collection
+$route['admin/fees/paid'] = 'admin_fees/paid';
+$route['admin/fees/to_be_paid'] = 'admin_fees/to_be_paid'; 
+
+// comments
+$route['admin/comments'] = 'admin_comments/index';
+$route['admin/comments/add'] = 'admin_comments/add';
+$route['admin/comments/update'] = 'admin_comments/update';
+$route['admin/comments/update/(:any)'] = 'admin_comments/update/$1';
+$route['admin/comments/delete/(:any)'] = 'admin_comments/delete/$1';
+$route['admin/comments/(:any)'] = 'admin_comments/index/$1'; //$1 = page number
                     
                     

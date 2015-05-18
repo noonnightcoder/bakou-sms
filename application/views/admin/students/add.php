@@ -42,6 +42,16 @@
                                 ?>
                                 
                                 <div class="control-group">                                         
+                                    <label class="control-label" for="firstname">Registered Date</label>
+                                    <div class="controls">
+                                        <div class="input-append date" id="dp2" data-date="<?php echo date("Y-m-d"); ?>" data-date-format="yyyy-mm-dd">
+                                            <input name="registered_date" class="span2" size="16" type="text" value="<?php echo set_value('registered_date'); ?>" readonly>
+                                            <span class="add-on"><i class="icon-calendar"></i></span>
+                                        </div>
+                                    </div> <!-- /controls -->               
+                                </div> <!-- /control-group -->
+                                
+                                <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Photo</label>
                                     <div class="controls">
                                         <input type="file" class="span6" id="photo" name="photo" >

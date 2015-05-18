@@ -12,10 +12,13 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3><a href="<?php echo base_url(); ?>index.php/admin/memberships">Library Membership</a> / Add New</h3>
+                        <h3>Step 5 of 7 -> Transportation</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">
+                        <div class="progress progress-striped active">
+                            <div class="bar" style="width:68%;"></div>
+                        </div>
                         <?php if($promotion != NULL){ ?>
                         <div class="alert alert-info">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -27,8 +30,26 @@
                             <h5>Description: <?php echo $promotion['promotion_description']; ?></h5>
                         </div>
                         <?php } ?>
+                        <?php
+                        $js = 'onChange="this.form.submit()" class="span6"';
                         
-                        <form action="<?php echo base_url(); ?>index.php/admin/memberships/add" method="post" id="edit-profile" class="form-horizontal">
+                        $options_transport = array('' => "Select");
+                        foreach ($transports as $row)
+                        {
+                          $options_transport[$row['id']] = $row['route_name'];
+                        }
+                        
+                        $options_vehicle = array('' => "Select");
+                        if(isset($vehicles))
+                        {
+                            foreach ($vehicles as $row)
+                            {
+                              $options_vehicle[$row['id']] = $row['vehicle_brand'].' ('.$row['vehicle_identity_number'].')';
+                            }
+                        }
+                        
+                        ?>
+                        <form action="<?php echo base_url(); ?>index.php/admin/admission/transportation/<?php echo $this->uri->segment(4); ?>" method="post" id="edit-profile" class="form-horizontal">
                             <fieldset>
                                 <?php
                                     //flash messages
@@ -53,15 +74,31 @@
                                 ?>
                                 
                                 <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Student Name</label>
+                                    <label class="control-label" for="firstname">Required?</label>
                                     <div class="controls">
-                                        <select id="example-post" name="student_id[]" multiple="multiple">
-                                            <?php foreach($students as $row) { ?>
-                                            <option value="<?php echo $row['id']; ?>"><?php echo $row['fullname']; ?></option>
-                                            <?php } ?>
-                                        </select>
+                                        <input type="checkbox" class="span6" id="photo" name="required" value="1" checked="checked" />
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
+                                
+                                <?php
+                                echo '<div class="control-group">';
+                                  echo '<label for="manufacture_id" class="control-label">Transports</label>';
+                                  echo '<div class="controls">';
+                                    echo form_dropdown('transport_id', $options_transport, set_value('transport_id'), $js);
+                                  echo '</div>';
+                                echo '</div>';
+                                ?>
+                                <?php
+                                if(isset($vehicles))
+                                {
+                                    echo '<div class="control-group">';
+                                      echo '<label for="manufacture_id" class="control-label">Vehicle</label>';
+                                      echo '<div class="controls">';
+                                        echo form_dropdown('vehicle_id', $options_vehicle, set_value('vehicle_id'), 'class="span6"');
+                                      echo '</div>';
+                                    echo '</div>';
+                                }
+                                ?>
                                 
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Amount (USD)</label>
@@ -119,12 +156,12 @@
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Description</label>
                                     <div class="controls">
-                                        <textarea class="span6" id="student_library_description" name="student_library_description"><?php echo set_value('student_library_description'); ?></textarea>
+                                        <textarea class="span6" id="student_vehicle_description" name="student_vehicle_description"><?php echo set_value('student_vehicle_description'); ?></textarea>
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
 
                                 <div class="form-actions">
-                                    <button type="submit" class="btn btn-primary">Save</button> 
+                                    <button type="submit" class="btn btn-primary">Register, and go to step 6</button> 
                                     <button class="btn">Cancel</button>
                                 </div> <!-- /form-actions -->
 

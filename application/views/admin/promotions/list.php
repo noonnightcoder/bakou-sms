@@ -28,14 +28,14 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3>Students</h3>
+                        <h3>Promotions</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">
 
-                        <form action="<?php echo base_url(); ?>index.php/admin/students" method="post" class="form-horizontal">
+                        <form action="<?php echo base_url(); ?>index.php/admin/promotions" method="post" class="form-horizontal">
                             <div class="control-group">
-                                <label class="control-label" for="radiobtns">Student Name: </label>                                            
+                                <label class="control-label" for="radiobtns">Promotion Name: </label>                                            
                                 <div class="controls">
                                    <div class="input-append">
                                       <input class="span2 m-wrap" id="appendedInputButton" type="text" name="search" value="<?php echo @$search; ?>">
@@ -48,26 +48,26 @@
                         <table class="table table-striped table-bordered">
                             <thead>
                             <tr>
-                                <th>Fullname</th>
-                                <th>Fullname in Khmer</th>
-                                <th>Sex</th>
-                                <th>Phone Line 1</th>
-                                <th>Registered Date</th>
+                                <th>Type</th>
+                                <th>Promotion Name</th>
+                                <th>Discount %</th>
+                                <th>Discount Amount</th>
+                                <th>Effective From</th>
+                                <th>Effective End</th>
                                 <th class="td-actions">Action</th></tr>
                             </thead>
                             <tbody>
-                            <?php foreach($result as $res){ ?> 
+                            <?php foreach($result as $res){ ?>
                             <tr>
-                                <td><?php echo $res['fullname']; ?></td>
-                                <td><?php echo $res['fullname_in_khmer']; ?></td>
-                                <td><?php echo $res['sex']; ?></td>
-                                <td><?php echo $res['phone1']; ?></td>
-                                <td><?php echo $res['registered_date']; ?></td>
+                                <td><?php echo $res['promotion_type']; ?></td>
+                                <td><?php echo $res['promotion_name']; ?></td>
+                                <td><?php echo $res['discount_percentage']; ?></td>
+                                <td><?php echo $res['discount_amount']; ?></td>
+                                <td><?php echo $res['effective_from']; ?></td>
+                                <td><?php echo $res['effective_end']; ?></td>
                                 <td class="td-actions">
-                                    <a href="<?php echo base_url(); ?>index.php/admin/students/admission/<?php echo $res['id']; ?>"><button class="btn btn-invert">Admission</button></a>
-                                    <a href="<?php echo base_url(); ?>index.php/admin/parents/<?php echo $res['id']; ?>"><button class="btn btn-info">Parent</button></a>
-                                    <a href="<?php echo base_url(); ?>index.php/admin/students/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
-                                    <a onclick="confirm_delete('admin/students/delete/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
+                                    <a href="<?php echo base_url(); ?>index.php/admin/promotions/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
+                                    <a onclick="confirm_delete('admin/promotions/delete/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
                                 </td>
                             </tr>
                             <?php } ?>  

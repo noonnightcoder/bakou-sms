@@ -11,6 +11,7 @@ class Admin_transports extends CI_Controller {
         $this->load->model('transports_model');
         $this->load->model('students_model');
         $this->load->model('vehicles_model');
+        $this->load->model('promotions_model');
 
         if(!$this->session->userdata('is_logged_in')){
             redirect('admin/login');
@@ -192,6 +193,7 @@ class Admin_transports extends CI_Controller {
     {
         $data['students'] = $this->students_model->get_all();
         $data['transports'] = $this->transports_model->get_all();
+        $data['promotion'] = $this->promotions_model->get_promotion_by_type('Transportation');
         //if save button was clicked, get the data sent via post
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
@@ -199,6 +201,7 @@ class Admin_transports extends CI_Controller {
             $this->form_validation->set_rules('transport_id', 'transport_id', 'required');
             $this->form_validation->set_rules('vehicle_id', 'vehicle_id', 'required');
             $this->form_validation->set_rules('amount', 'amount', 'required|numeric');
+            $this->form_validation->set_rules('payment_date', 'payment_date', 'required');
             $this->form_validation->set_rules('effective_from', 'effective_from', 'required');
             $this->form_validation->set_rules('effective_end', 'effective_end', 'required');
             $this->form_validation->set_rules('student_vehicle_description', 'student_vehicle_description', '');
@@ -213,22 +216,23 @@ class Admin_transports extends CI_Controller {
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
-                $data_to_store = array('student_id' => $this->input->post('student_id'),
-                                       'vehicle_id' => $this->input->post('vehicle_id'),
-                                       'amount' => $this->input->post('amount'),
-                                       'effective_from' => $this->input->post('effective_from'),
-                                       'effective_end' => $this->input->post('effective_end'),
-                                       'student_vehicle_description' => $this->input->post('student_vehicle_description'));
-                //if the insert has returned true then we show the flash message
-                if($this->vehicles_model->add_membership($this->input->post('student_id'), $this->input->post('vehicle_id'), 
-                                                         $this->input->post('amount'), $this->input->post('effective_from'), 
-                                                         $this->input->post('effective_end'), $this->input->post('student_vehicle_description')))
+                $p_dis_per = ($this->input->post('discount_percentage')) ? $this->input->post('discount_percentage') : 0;
+                $p_dis_amt = ($this->input->post('discount_amount')) ? $this->input->post('discount_amount') : 0;
+                $student_id = $this->input->post('student_id');
+                
+                foreach($student_id as $s_id)
                 {
-                    $data['flash_message'] = TRUE; 
-                }else{
-                    $data['flash_message'] = FALSE; 
+                    if($this->vehicles_model->add_membership($s_id, $this->input->post('vehicle_id'), 
+                                                             $this->input->post('amount'), $this->input->post('effective_from'), 
+                                                             $this->input->post('effective_end'), $this->input->post('student_vehicle_description'),
+                                                             $p_dis_per, $p_dis_amt, $this->input->post('payment_date')))
+                    {
+                        // do nothing 
+                    }else{
+                        $data['flash_message'] = FALSE; 
+                    }
                 }
-
+                $data['flash_message'] = TRUE;
             }
 
         }
@@ -248,10 +252,9 @@ class Admin_transports extends CI_Controller {
         //if save button was clicked, get the data sent via post
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
-            $this->form_validation->set_rules('student_id', 'student_id', 'required');
             $this->form_validation->set_rules('transport_id', 'transport_id', 'required');
             $this->form_validation->set_rules('vehicle_id', 'vehicle_id', 'required');
-            $this->form_validation->set_rules('amount', 'amount', 'required|numeric');
+            $this->form_validation->set_rules('payment_date', 'payment_date', 'required');
             $this->form_validation->set_rules('effective_from', 'effective_from', 'required');
             $this->form_validation->set_rules('effective_end', 'effective_end', 'required');
             $this->form_validation->set_rules('student_vehicle_description', 'student_vehicle_description', '');
@@ -266,9 +269,8 @@ class Admin_transports extends CI_Controller {
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
-                $data_to_store = array('student_id' => $this->input->post('student_id'),
-                                       'vehicle_id' => $this->input->post('vehicle_id'),
-                                       'amount' => $this->input->post('amount'),
+                $data_to_store = array('vehicle_id' => $this->input->post('vehicle_id'),
+                                       'payment_date' => $this->input->post('payment_date'),
                                        'effective_from' => $this->input->post('effective_from'),
                                        'effective_end' => $this->input->post('effective_end'),
                                        'student_vehicle_description' => $this->input->post('student_vehicle_description'));

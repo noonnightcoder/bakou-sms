@@ -12,10 +12,14 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3><a href="<?php echo base_url(); ?>index.php/admin/students">Students</a> / Add New Admission</h3>
+                        <h3>Step 3 of 7 -> Add New Admission</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">
+                        <div class="progress progress-striped active">
+                            <div class="bar" style="width:34%;"></div>
+                        </div>
+                        
                         <?php if($promotion != NULL){ ?>
                         <div class="alert alert-info">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -26,7 +30,7 @@
                             <h5>Effective End: <?php echo $promotion['effective_end']; ?></h5>
                             <h5>Description: <?php echo $promotion['promotion_description']; ?></h5>
                         </div>
-                        <?php } ?>
+                        <?php } ?>              
                         <?php
                         $js = 'onChange="this.form.submit()" class="span6"';
                         
@@ -36,7 +40,7 @@
                           $options_academic_program[$row['id']] = 'Faculty: '.$row['faculty_name'].' Department: '.$row['department_name'].' Class: '.$row['class_name'];
                         }
                         ?>
-                        <form action="<?php echo base_url(); ?>index.php/admin/students/admission/<?php echo $this->uri->segment(4); ?>" method="post" id="edit-profile" class="form-horizontal">
+                        <form action="<?php echo base_url(); ?>index.php/admin/admission/admission/<?php echo $this->uri->segment(4); ?>" method="post" id="edit-profile" class="form-horizontal">
                             <fieldset>
                                 <?php
                                     //flash messages
@@ -172,6 +176,7 @@
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
                                 <?php } ?>
+                                
 
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Effective From</label>
@@ -212,7 +217,7 @@
                                 </div> <!-- /control-group -->
                                 
                                 <div class="form-actions">
-                                    <button type="submit" class="btn btn-primary">Save</button> 
+                                    <button type="submit" class="btn btn-primary">Save, and go to step 4</button> 
                                     <button class="btn">Cancel</button>
                                 </div> <!-- /form-actions -->
 

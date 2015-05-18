@@ -153,9 +153,9 @@ class Vehicles_model extends CI_Model {
         $this->db->delete('vehicles'); 
     }
 
-    public function add_membership($p_student_id, $p_vehicle_id, $p_amount, $p_effective_from, $p_effective_end, $p_student_vehicle_description)
+    public function add_membership($p_student_id, $p_vehicle_id, $p_amount, $p_effective_from, $p_effective_end, $p_student_vehicle_description, $p_dis_per, $p_dis_amt, $p_payment_date)
     {
-    	$sql = "CALL add_vehicle_membership($p_student_id, $p_vehicle_id, $p_amount, '".$p_effective_from."', '".$p_effective_end."', '".$p_student_vehicle_description."')";
+    	$sql = "CALL add_vehicle_membership($p_student_id, $p_vehicle_id, $p_amount, '".$p_effective_from."', '".$p_effective_end."', '".$p_student_vehicle_description."', $p_dis_per, $p_dis_amt, '".$p_payment_date."')";
     	return $this->db->query($sql);
     }
     

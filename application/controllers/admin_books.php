@@ -11,6 +11,7 @@ class Admin_books extends CI_Controller {
         $this->load->model('books_model');
         $this->load->model('subjects_model');
         $this->load->model('students_model');
+        $this->load->model('promotions_model');
 
         if(!$this->session->userdata('is_logged_in')){
             redirect('admin/login');
@@ -369,6 +370,7 @@ class Admin_books extends CI_Controller {
         {
             $this->form_validation->set_rules('student_id', 'student_id', 'required');
             $this->form_validation->set_rules('amount', 'amount', 'required|numeric');
+            $this->form_validation->set_rules('payment_date', 'payment_date', 'required');
             $this->form_validation->set_rules('effective_from', 'effective_from', 'required');
             $this->form_validation->set_rules('effective_end', 'effective_end', 'required');
             $this->form_validation->set_rules('student_library_description', 'student_library_description', '');
@@ -377,24 +379,27 @@ class Admin_books extends CI_Controller {
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
-                $data_to_store = array('student_id' => $this->input->post('student_id'),
-                                       'amount' => $this->input->post('amount'),
-                                       'effective_from' => $this->input->post('effective_from'),
-                                       'effective_end' => $this->input->post('effective_end'),
-                                       'student_library_description' => $this->input->post('student_library_description'));
+                $p_dis_per = ($this->input->post('discount_percentage')) ? $this->input->post('discount_percentage') : 0;
+                $p_dis_amt = ($this->input->post('discount_amount')) ? $this->input->post('discount_amount') : 0;
+                $student_id = $this->input->post('student_id');
                 //if the insert has returned true then we show the flash message
                 //if($this->books_model->store_membership($data_to_store))
-                if($this->books_model->add_membership($this->input->post('student_id'), $this->input->post('amount'),
-                                                      $this->input->post('effective_from'), $this->input->post('effective_end'),
-                                                      $this->input->post('student_library_description')))
+                foreach($student_id as $s_id)
                 {
-                    $data['flash_message'] = TRUE; 
-                }else{
-                    $data['flash_message'] = FALSE; 
+                    if($this->books_model->add_membership($s_id, $this->input->post('amount'),
+                                                          $this->input->post('effective_from'), $this->input->post('effective_end'),
+                                                          $this->input->post('student_library_description'), $p_dis_per, $p_dis_amt, $this->input->post('payment_date')))
+                    {
+                        // do nothing 
+                    }else{
+                        $data['flash_message'] = FALSE; 
+                    }
                 }
+                $data['flash_message'] = TRUE;
             }
         }
         //load the view
+        $data['promotion'] = $this->promotions_model->get_promotion_by_type('Library');
         $data['main_content'] = 'admin/books/add_membership';
         $this->load->view('includes/template', $data);  
     }
@@ -408,6 +413,9 @@ class Admin_books extends CI_Controller {
         {
             $this->form_validation->set_rules('student_id', 'student_id', 'required');
             $this->form_validation->set_rules('amount', 'amount', 'required|numeric');
+            $this->form_validation->set_rules('discount_percentage', 'discount_percentage', 'required|numeric');
+            $this->form_validation->set_rules('discount_amount', 'discount_amount', 'required|numeric');
+            $this->form_validation->set_rules('payment_date', 'payment_date', 'required');
             $this->form_validation->set_rules('effective_from', 'effective_from', 'required');
             $this->form_validation->set_rules('effective_end', 'effective_end', 'required');
             $this->form_validation->set_rules('student_library_description', 'student_library_description', '');
@@ -418,6 +426,9 @@ class Admin_books extends CI_Controller {
             {
                 $data_to_store = array('student_id' => $this->input->post('student_id'),
                                        'amount' => $this->input->post('amount'),
+                                       'discount_percentage' => $this->input->post('discount_percentage'),
+                                       'discount_amount' => $this->input->post('discount_amount'),
+                                       'payment_date' => $this->input->post('payment_date'),
                                        'effective_from' => $this->input->post('effective_from'),
                                        'effective_end' => $this->input->post('effective_end'),
                                        'student_library_description' => $this->input->post('student_library_description'),

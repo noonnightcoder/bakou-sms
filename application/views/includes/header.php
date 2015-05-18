@@ -50,15 +50,20 @@
     <div class="container">
       <ul class="mainnav">
         <li <?php if($this->uri->segment(2) == 'dashboard') { ?> class="active" <?php } ?>><a href="<?php echo base_url(); ?>index.php/admin/dashboard"><i class="icon-dashboard"></i><span>Dashboard</span> </a> </li>
-        <li><a href="reports.html"><i class="icon-list-alt"></i><span>Reports</span> </a> </li>
-        <li><a href="guidely.html"><i class="icon-facetime-video"></i><span>App Tour</span> </a></li>
-        <li><a href="charts.html"><i class="icon-bar-chart"></i><span>Charts</span> </a> </li>
-        <li><a href="shortcodes.html"><i class="icon-code"></i><span>Shortcodes</span> </a> </li>
-        <li <?php if(($this->uri->segment(2) == 'students') or ($this->uri->segment(2) == 'admission') or ($this->uri->segment(2) == 'parents')) { ?> class="active" <?php } ?>><a href="<?php echo base_url(); ?>index.php/admin/students"><i class="icon-user"></i><span>Student</span> </a> </li>
+        <li <?php if(($this->uri->segment(2) == 'comments')) { ?> class="active" <?php } ?>><a href="<?php echo base_url(); ?>index.php/admin/comments"><i class="icon-comment-alt"></i><span>Comment</span> </a> </li>
+        <li <?php if(($this->uri->segment(2) == 'admission')) { ?> class="active" <?php } ?>><a href="<?php echo base_url(); ?>index.php/admin/admission"><i class="icon-pencil"></i><span>Admission</span> </a> </li>
+        <li <?php if(($this->uri->segment(2) == 'students') or ($this->uri->segment(2) == 'parents')) { ?> class="active" <?php } ?>><a href="<?php echo base_url(); ?>index.php/admin/students"><i class="icon-user"></i><span>Student</span> </a> </li>
         <li <?php if(($this->uri->segment(2) == 'academics') or ($this->uri->segment(2) == 'academic_programs')) { ?> class="active" <?php } ?>><a href="<?php echo base_url(); ?>index.php/admin/academics"><i class="icon-sitemap"></i><span>Academic</span> </a> </li>
         <li <?php if(($this->uri->segment(2) == 'transports') or ($this->uri->segment(2) == 'vehicles')) { ?> class="active" <?php } ?>><a href="<?php echo base_url(); ?>index.php/admin/transports"><i class="icon-road"></i><span>Transport</span> </a> </li>
         <li <?php if(($this->uri->segment(2) == 'library') or ($this->uri->segment(2) == 'books') or ($this->uri->segment(2) == 'memberships')) { ?> class="active" <?php } ?>><a href="<?php echo base_url(); ?>index.php/admin/library"><i class="icon-book"></i><span>Library</span> </a> </li>
-        <li <?php if(($this->uri->segment(2) == 'school') or ($this->uri->segment(2) == 'buildings') or ($this->uri->segment(2) == 'staffs') or ($this->uri->segment(2) == 'faculties') or ($this->uri->segment(2) == 'services') or ($this->uri->segment(2) == 'classrooms') or ($this->uri->segment(2) == 'classroom_types') or ($this->uri->segment(2) == 'positions') or ($this->uri->segment(2) == 'departments') or ($this->uri->segment(2) == 'classes') or ($this->uri->segment(2) == 'subjects') or ($this->uri->segment(2) == 'noticeboards')) { ?> class="dropdown active" <?php }else{ ?> class="dropdown" <?php } ?>><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-list"></i><span>Setting</span> <b class="caret"></b></a>
+        <li <?php if(($this->uri->segment(2) == 'fees')){ ?> class="dropdown active" <?php }else{ ?> class="dropdown" <?php } ?> ><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-money"></i><span>Fee Collection</span> <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="<?php echo base_url(); ?>index.php/admin/fees/paid">Paid</a></li>
+            <li><a href="<?php echo base_url(); ?>index.php/admin/fees/to_be_paid">To Be Paid</a></li>
+          </ul>
+        </li>
+        <li><a href="reports.html"><i class="icon-list-alt"></i><span>Reports</span> </a> </li>
+        <li <?php if(($this->uri->segment(2) == 'school') or ($this->uri->segment(2) == 'buildings') or ($this->uri->segment(2) == 'staffs') or ($this->uri->segment(2) == 'faculties') or ($this->uri->segment(2) == 'services') or ($this->uri->segment(2) == 'classrooms') or ($this->uri->segment(2) == 'classroom_types') or ($this->uri->segment(2) == 'positions') or ($this->uri->segment(2) == 'departments') or ($this->uri->segment(2) == 'classes') or ($this->uri->segment(2) == 'subjects') or ($this->uri->segment(2) == 'noticeboards') or ($this->uri->segment(2) == 'promotions')) { ?> class="dropdown active" <?php }else{ ?> class="dropdown" <?php } ?>><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-list"></i><span>Setting</span> <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="<?php echo base_url(); ?>index.php/admin/school/update/1">School Info</a></li>
             <li><a href="<?php echo base_url(); ?>index.php/admin/buildings">Campus / Building Info</a></li>
@@ -66,6 +71,7 @@
             <li><a href="<?php echo base_url(); ?>index.php/admin/faculties">Faculty Info</a></li>
             <li><a href="<?php echo base_url(); ?>index.php/admin/services">Additional Service</a></li>
             <li><a href="<?php echo base_url(); ?>index.php/admin/noticeboards">Noticeboard</a></li>
+            <li><a href="<?php echo base_url(); ?>index.php/admin/promotions">Promotion</a></li>
           </ul>
         </li>
       </ul>

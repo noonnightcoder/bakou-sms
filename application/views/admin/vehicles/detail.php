@@ -114,13 +114,18 @@
                                 </div>
 
                                 <div class="tab-pane " id="newmember">
-                                    <?php
-                                    $options_student = array('' => "Select");
-                                    foreach ($students as $row)
-                                    {
-                                      $options_student[$row['id']] = $row['fullname'];
-                                    }
-                                    ?>
+                                    <?php if($promotion != NULL){ ?>
+                                    <div class="alert alert-info">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <h4>Promotion! <?php echo $promotion['promotion_name']; ?></h4>
+                                        <h5>Discount Percentage: <?php echo $promotion['discount_percentage']; ?> %</h5>
+                                        <h5>Discount Amount: <?php echo $promotion['discount_amount']; ?> USD</h5>
+                                        <h5>Effective From: <?php echo $promotion['effective_from']; ?></h5>
+                                        <h5>Effective End: <?php echo $promotion['effective_end']; ?></h5>
+                                        <h5>Description: <?php echo $promotion['promotion_description']; ?></h5>
+                                    </div>
+                                    <?php } ?>
+                                    
                                     <form action="<?php echo base_url(); ?>index.php/admin/vehicles/detail/<?php echo $this->uri->segment(4).'/'.$this->uri->segment(5); ?>" method="post" id="edit-profile" class="form-horizontal">
                                     <fieldset>
                                         <?php
@@ -130,7 +135,7 @@
                                                 {
                                                   echo '<div class="alert alert-success">';
                                                     echo '<button type="button" class="close" data-dismiss="alert">&times;</button>';
-                                                    echo '<strong>Well done!</strong> updated with success.';
+                                                    echo '<strong>Well done!</strong> created with success.';
                                                   echo '</div>';       
                                                 }else{
                                                   echo '<div class="alert">';
@@ -145,14 +150,16 @@
                                             echo validation_errors(); 
                                         ?>
                                         
-                                        <?php
-                                        echo '<div class="control-group">';
-                                          echo '<label for="manufacture_id" class="control-label">Student Name</label>';
-                                          echo '<div class="controls">';
-                                            echo form_dropdown('student_id', $options_student, set_value('student_id'), 'class="span2"');
-                                          echo '</div>';
-                                        echo '</div>';
-                                        ?>
+                                        <div class="control-group">                                         
+                                            <label class="control-label" for="firstname">Student Name</label>
+                                            <div class="controls">
+                                                <select id="example-post" name="student_id[]" multiple="multiple">
+                                                    <?php foreach($students as $row) { ?>
+                                                    <option value="<?php echo $row['id']; ?>"><?php echo $row['fullname']; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div> <!-- /controls -->               
+                                        </div> <!-- /control-group -->
                                         
                                         <div class="control-group">                                         
                                             <label class="control-label" for="firstname">Amount (USD)</label>
@@ -161,10 +168,36 @@
                                             </div> <!-- /controls -->               
                                         </div> <!-- /control-group -->
 
+                                        <?php if($promotion != NULL){ ?>
+                                        <div class="control-group">                                         
+                                            <label class="control-label" for="firstname">Discount Percentage</label>
+                                            <div class="controls">
+                                                <input type="text" class="span6" id="discount_percentage" name="discount_percentage" value="<?php echo $promotion['discount_percentage']; ?>">
+                                            </div> <!-- /controls -->               
+                                        </div> <!-- /control-group -->
+
+                                        <div class="control-group">                                         
+                                            <label class="control-label" for="firstname">Discount Amount (USD)</label>
+                                            <div class="controls">
+                                                <input type="text" class="span6" id="discount_amount" name="discount_amount" value="<?php echo $promotion['discount_amount']; ?>">
+                                            </div> <!-- /controls -->               
+                                        </div> <!-- /control-group -->
+                                        <?php } ?>
+                                        
+                                        <div class="control-group">                                         
+                                            <label class="control-label" for="firstname">Payment Date</label>
+                                            <div class="controls">
+                                                <div class="input-append date" id="dp2" data-date="<?php echo date("Y-m-d"); ?>" data-date-format="yyyy-mm-dd">
+                                                    <input name="payment_date" class="span2" size="16" type="text" value="<?php echo set_value('payment_date'); ?>" readonly>
+                                                    <span class="add-on"><i class="icon-calendar"></i></span>
+                                                </div>
+                                            </div> <!-- /controls -->               
+                                        </div> <!-- /control-group -->
+                                        
                                         <div class="control-group">                                         
                                             <label class="control-label" for="firstname">Effective From</label>
                                             <div class="controls">
-                                                <div class="input-append date" id="dp3" data-date="2015-01-01" data-date-format="yyyy-mm-dd">
+                                                <div class="input-append date" id="dp3" data-date="<?php echo date("Y-m-01"); ?>" data-date-format="yyyy-mm-dd">
                                                     <input name="effective_from" class="span2" size="16" type="text" value="<?php echo set_value('effective_from'); ?>" readonly>
                                                     <span class="add-on"><i class="icon-calendar"></i></span>
                                                 </div>
@@ -174,7 +207,7 @@
                                         <div class="control-group">                                         
                                             <label class="control-label" for="firstname">Effective End</label>
                                             <div class="controls">
-                                                <div class="input-append date" id="dp4" data-date="2015-01-01" data-date-format="yyyy-mm-dd">
+                                                <div class="input-append date" id="dp4" data-date="<?php echo date("Y-m-d"); ?>" data-date-format="yyyy-mm-dd">
                                                     <input name="effective_end" class="span2" size="16" type="text" value="<?php echo set_value('effective_end'); ?>" readonly>
                                                     <span class="add-on"><i class="icon-calendar"></i></span>
                                                 </div>

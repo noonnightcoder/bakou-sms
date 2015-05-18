@@ -85,8 +85,13 @@ class Students_model extends CI_Model {
     */
     function store_data($data)
     {
-        $insert = $this->db->insert('students', $data);
-        return $insert;
+        //$insert = $this->db->insert('students', $data);
+        //return $insert;
+        $this->db->trans_start();
+        $this->db->insert('students', $data);
+        $insert_id = $this->db->insert_id();
+        $this->db->trans_complete();
+        return  $insert_id;
     }
 
     /**
@@ -118,9 +123,15 @@ class Students_model extends CI_Model {
         $this->db->delete('students'); 
     }
 
-    public function admission($p_student_id, $p_academic_program_id, $p_amount, $p_effective_from, $p_effective_end, $p_student_academic_program_description)
+    public function admission($p_student_id, $p_academic_program_id, $p_amount, $p_effective_from, $p_effective_end, $p_student_academic_program_description, $p_discount_per, $p_discount_amt, $p_admission_date)
     {
-    	$sql = "CALL admission($p_student_id, $p_academic_program_id, $p_amount, '".$p_effective_from."', '".$p_effective_end."', '".$p_student_academic_program_description."')";
+    	$sql = "CALL admission($p_student_id, $p_academic_program_id, $p_amount, '".$p_effective_from."', '".$p_effective_end."', '".$p_student_academic_program_description."', $p_discount_per, $p_discount_amt, '".$p_admission_date."')";
+    	return $this->db->query($sql);
+    }
+    
+    public function service($p_student_id, $p_service_id, $p_amount, $p_payment_date)
+    {
+    	$sql = "CALL service($p_student_id, $p_service_id, $p_amount, '".$p_payment_date."')";
     	return $this->db->query($sql);
     }
     

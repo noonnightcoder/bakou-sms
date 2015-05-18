@@ -69,7 +69,7 @@
                                 echo '<div class="control-group">';
                                   echo '<label for="manufacture_id" class="control-label">Student</label>';
                                   echo '<div class="controls">';
-                                    echo form_dropdown('student_id', $options_student, $result['student_id'], 'class="span6"');
+                                    echo form_dropdown('student_id', $options_student, $result['student_id'], 'class="span6" readonly="readonly"');
                                   echo '</div>';
                                 echo '</div>';
                                 ?>
@@ -110,19 +110,43 @@
                                 ?>
                                 
                                 <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Old Amount (USD)</label>
+                                    <label class="control-label" for="firstname">Amount (USD)</label>
                                     <div class="controls">
-                                        <?php echo $result['amount']; ?>
+                                        <input type="text" class="span6" id="amount" name="amount" value="<?php echo $result['amount']; ?>" readonly="readonly">
+                                    </div> <!-- /controls -->               
+                                </div> <!-- /control-group -->
+
+                                <div class="control-group">                                         
+                                    <label class="control-label" for="firstname">Discount Percentage</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6" id="discount_percentage" name="discount_percentage" value="<?php echo $result['discount_percentage']; ?>" readonly="readonly">
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
                                 
                                 <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Amount (USD)</label>
+                                    <label class="control-label" for="firstname">Discount Amount (USD)</label>
                                     <div class="controls">
-                                        <input type="text" class="span6" id="amount" name="amount" value="<?php echo set_value('amount'); ?>">
+                                        <input type="text" class="span6" id="discount_amount" name="discount_amount" value="<?php echo $result['discount_amount']; ?>" readonly="readonly">
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
 
+                                <div class="control-group">                                         
+                                    <label class="control-label" for="firstname">Old Payment Date</label>
+                                    <div class="controls">
+                                        <?php echo $result['payment_date']; ?>
+                                    </div> <!-- /controls -->               
+                                </div> <!-- /control-group -->
+                                
+                                <div class="control-group">                                         
+                                    <label class="control-label" for="firstname">Payment Date</label>
+                                    <div class="controls">
+                                        <div class="input-append date" id="dp2" data-date="<?php echo $result['payment_date']; ?>" data-date-format="yyyy-mm-dd">
+                                            <input name="payment_date" class="span2" size="16" type="text" value="<?php echo set_value('payment_date'); ?>" readonly>
+                                            <span class="add-on"><i class="icon-calendar"></i></span>
+                                        </div>
+                                    </div> <!-- /controls -->               
+                                </div> <!-- /control-group -->
+                                
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Old Effective From</label>
                                     <div class="controls">

@@ -214,9 +214,9 @@ class Books_model extends CI_Model {
         return $insert;
     }
 
-    public function add_membership($p_student_id, $p_amount, $p_effective_from, $p_effective_end, $p_student_library_description)
+    public function add_membership($p_student_id, $p_amount, $p_effective_from, $p_effective_end, $p_student_library_description, $p_dis_per, $p_dis_amt, $p_payment_date)
     {
-    	$sql = "CALL add_library_membership($p_student_id, $p_amount, '".$p_effective_from."', '".$p_effective_end."', '".$p_student_library_description."')";
+    	$sql = "CALL add_library_membership($p_student_id, $p_amount, '".$p_effective_from."', '".$p_effective_end."', '".$p_student_library_description."', $p_dis_per, $p_dis_amt, '".$p_payment_date."')";
     	return $this->db->query($sql);
     }
     /**
@@ -274,9 +274,9 @@ class Books_model extends CI_Model {
     	return $this->db->query($sql);
     }
     
-    public function purchase_book($p_book_id, $p_student_id, $p_amount, $p_purchased_date, $p_description)
+    public function purchase_book($p_book_id, $p_student_id, $p_amount, $p_purchased_date, $p_description, $p_dis_per, $p_dis_amt)
     {
-    	$sql = "CALL purchase_book($p_book_id, $p_student_id, $p_amount, '".$p_purchased_date."', '".$p_description."')";
+    	$sql = "CALL purchase_book($p_book_id, $p_student_id, $p_amount, '".$p_purchased_date."', '".$p_description."', $p_dis_per, $p_dis_amt)";
     	return $this->db->query($sql);
     }
     

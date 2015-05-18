@@ -1,5 +1,4 @@
 <div class="main">
-    
     <div class="main-inner">
 
         <div class="container">
@@ -28,14 +27,14 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3>Students</h3>
+                        <h3>Comments</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">
 
-                        <form action="<?php echo base_url(); ?>index.php/admin/students" method="post" class="form-horizontal">
+                        <form action="<?php echo base_url(); ?>index.php/admin/comments" method="post" class="form-horizontal">
                             <div class="control-group">
-                                <label class="control-label" for="radiobtns">Student Name: </label>                                            
+                                <label class="control-label" for="radiobtns">Subject Name: </label>                                            
                                 <div class="controls">
                                    <div class="input-append">
                                       <input class="span2 m-wrap" id="appendedInputButton" type="text" name="search" value="<?php echo @$search; ?>">
@@ -48,26 +47,18 @@
                         <table class="table table-striped table-bordered">
                             <thead>
                             <tr>
-                                <th>Fullname</th>
-                                <th>Fullname in Khmer</th>
-                                <th>Sex</th>
-                                <th>Phone Line 1</th>
-                                <th>Registered Date</th>
+                                <th>Subject Name</th>
+                                <th>Comments</th>
                                 <th class="td-actions">Action</th></tr>
                             </thead>
                             <tbody>
                             <?php foreach($result as $res){ ?> 
                             <tr>
-                                <td><?php echo $res['fullname']; ?></td>
-                                <td><?php echo $res['fullname_in_khmer']; ?></td>
-                                <td><?php echo $res['sex']; ?></td>
-                                <td><?php echo $res['phone1']; ?></td>
-                                <td><?php echo $res['registered_date']; ?></td>
+                                <td><?php echo $res['subject_name']; ?></td>
+                                <td><?php echo $res['comments']; ?></td>
                                 <td class="td-actions">
-                                    <a href="<?php echo base_url(); ?>index.php/admin/students/admission/<?php echo $res['id']; ?>"><button class="btn btn-invert">Admission</button></a>
-                                    <a href="<?php echo base_url(); ?>index.php/admin/parents/<?php echo $res['id']; ?>"><button class="btn btn-info">Parent</button></a>
-                                    <a href="<?php echo base_url(); ?>index.php/admin/students/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
-                                    <a onclick="confirm_delete('admin/students/delete/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
+                                    <a href="<?php echo base_url(); ?>index.php/admin/comments/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
+                                    <a onclick="confirm_delete('admin/comments/delete/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
                                 </td>
                             </tr>
                             <?php } ?>  

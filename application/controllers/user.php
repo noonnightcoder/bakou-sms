@@ -13,7 +13,7 @@ class User extends CI_Controller {
         $this->load->model('Users_model');
         $this->load->model('noticeboards_model');
         $this->load->model('school_model');
-
+        $this->load->model('comments_model');
     }
     
     /**
@@ -129,6 +129,7 @@ class User extends CI_Controller {
             redirect('admin/login');
         }
         $data['notices'] = $this->noticeboards_model->get_all();
+        $data['comments'] = $this->comments_model->get_all();
         //load the view
         $data['main_content'] = 'admin/dashboard';
         $this->load->view('includes/template', $data);

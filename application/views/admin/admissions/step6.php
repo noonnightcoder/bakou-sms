@@ -12,10 +12,13 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3><a href="<?php echo base_url(); ?>index.php/admin/memberships">Library Membership</a> / Add New</h3>
+                        <h3>Step 6 of 7 -> Library</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">
+                        <div class="progress progress-striped active">
+                            <div class="bar" style="width:85%;"></div>
+                        </div>
                         <?php if($promotion != NULL){ ?>
                         <div class="alert alert-info">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -27,8 +30,7 @@
                             <h5>Description: <?php echo $promotion['promotion_description']; ?></h5>
                         </div>
                         <?php } ?>
-                        
-                        <form action="<?php echo base_url(); ?>index.php/admin/memberships/add" method="post" id="edit-profile" class="form-horizontal">
+                        <form action="<?php echo base_url(); ?>index.php/admin/admission/library/<?php echo $this->uri->segment(4); ?>" method="post" id="edit-profile" class="form-horizontal">
                             <fieldset>
                                 <?php
                                     //flash messages
@@ -53,13 +55,9 @@
                                 ?>
                                 
                                 <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Student Name</label>
+                                    <label class="control-label" for="firstname">Required?</label>
                                     <div class="controls">
-                                        <select id="example-post" name="student_id[]" multiple="multiple">
-                                            <?php foreach($students as $row) { ?>
-                                            <option value="<?php echo $row['id']; ?>"><?php echo $row['fullname']; ?></option>
-                                            <?php } ?>
-                                        </select>
+                                        <input type="checkbox" class="span6" id="photo" name="required" value="1" checked="checked" />
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
                                 
@@ -124,7 +122,7 @@
                                 </div> <!-- /control-group -->
 
                                 <div class="form-actions">
-                                    <button type="submit" class="btn btn-primary">Save</button> 
+                                    <button type="submit" class="btn btn-primary">Register, and go to step 7</button> 
                                     <button class="btn">Cancel</button>
                                 </div> <!-- /form-actions -->
 

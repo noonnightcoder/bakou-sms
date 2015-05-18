@@ -149,7 +149,7 @@
                                         echo '<div class="control-group">';
                                           echo '<label for="manufacture_id" class="control-label">Student Name</label>';
                                           echo '<div class="controls">';
-                                            echo form_dropdown('student_id', $options_student, $member['student_id'], 'class="span2"');
+                                            echo form_dropdown('student_id', $options_student, $member['student_id'], 'class="span2" readonly="readonly"');
                                           echo '</div>';
                                         echo '</div>';
                                         ?>
@@ -157,10 +157,34 @@
                                         <div class="control-group">                                         
                                             <label class="control-label" for="firstname">Amount (USD)</label>
                                             <div class="controls">
-                                                <input type="text" class="span6" id="amount" name="amount" value="<?php echo $member['amount']; ?>">
+                                                <input type="text" class="span6" id="amount" name="amount" value="<?php echo $member['amount']; ?>" readonly="readonly">
                                             </div> <!-- /controls -->               
                                         </div> <!-- /control-group -->
 
+                                        <div class="control-group">                                         
+                                            <label class="control-label" for="firstname">Discount Percentage</label>
+                                            <div class="controls">
+                                                <input type="text" class="span6" id="discount_percentage" name="discount_percentage" value="<?php echo $member['discount_percentage']; ?>" readonly="readonly">
+                                            </div> <!-- /controls -->               
+                                        </div> <!-- /control-group -->
+
+                                        <div class="control-group">                                         
+                                            <label class="control-label" for="firstname">Discount Amount (USD)</label>
+                                            <div class="controls">
+                                                <input type="text" class="span6" id="discount_amount" name="discount_amount" value="<?php echo $member['discount_amount']; ?>" readonly="readonly">
+                                            </div> <!-- /controls -->               
+                                        </div> <!-- /control-group -->
+
+                                        <div class="control-group">                                         
+                                            <label class="control-label" for="firstname">Payment Date</label>
+                                            <div class="controls">
+                                                <div class="input-append date" id="dp2" data-date="<?php echo $member['payment_date']; ?>" data-date-format="yyyy-mm-dd">
+                                                    <input name="payment_date" class="span2" size="16" type="text" value="<?php echo $member['payment_date']; ?>" readonly>
+                                                    <span class="add-on"><i class="icon-calendar"></i></span>
+                                                </div>
+                                            </div> <!-- /controls -->               
+                                        </div> <!-- /control-group -->
+                                        
                                         <div class="control-group">                                         
                                             <label class="control-label" for="firstname">Effective From</label>
                                             <div class="controls">

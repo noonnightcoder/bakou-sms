@@ -49,7 +49,7 @@
                             <thead>
                             <tr>
                                 <th>Service</th>
-                                <th>Price</th>
+                                <th>Price (USD)</th>
                                 <th>Description</th>
                                 <th class="td-actions">Action</th></tr>
                             </thead>

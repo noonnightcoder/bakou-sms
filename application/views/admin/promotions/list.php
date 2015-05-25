@@ -51,7 +51,7 @@
                                 <th>Type</th>
                                 <th>Promotion Name</th>
                                 <th>Discount %</th>
-                                <th>Discount Amount</th>
+                                <th>Discount Amount (USD)</th>
                                 <th>Effective From</th>
                                 <th>Effective End</th>
                                 <th class="td-actions">Action</th></tr>

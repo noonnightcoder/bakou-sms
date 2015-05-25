@@ -52,6 +52,7 @@
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Description</th>
+                                <th>Status</th>
                                 <th class="td-actions">Action</th></tr>
                             </thead>
                             <tbody>
@@ -61,6 +62,7 @@
                                 <td><?php echo $res['start_date']; ?></td>
                                 <td><?php echo $res['end_date']; ?></td>
                                 <td><?php echo $res['academic_description']; ?></td>
+                                <td><?php echo ($res['status'] == 1) ? 'On Processing' : 'Inactive'; ?></td>
                                 <td class="td-actions">
                                     <a href="<?php echo base_url(); ?>index.php/admin/academic_programs/<?php echo $res['id']; ?>"><button class="btn btn-info">Academic Program</button></a>
                                     <a href="<?php echo base_url(); ?>index.php/admin/academics/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>

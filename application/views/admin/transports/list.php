@@ -50,7 +50,7 @@
                             <thead>
                             <tr>
                                 <th>Transport Name</th>
-                                <th>Fare</th>
+                                <th>Montly Fee (USD)</th>
                                 <th>Number of Vehicle</th>
                                 <th>Description</th>
                                 <th class="td-actions">Action</th></tr>

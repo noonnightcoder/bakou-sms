@@ -16,7 +16,13 @@
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">
-
+                        <?php
+                        $options_student_type = array('' => "Select");
+                        foreach ($student_types as $row)
+                        {
+                          $options_student_type[$row['id']] = $row['student_type'];
+                        }
+                        ?>
                         <form action="<?php echo base_url(); ?>index.php/admin/students/update/<?php echo $this->uri->segment(4); ?>" method="post" id="edit-profile" class="form-horizontal" enctype="multipart/form-data">
                             <fieldset>
                                 <?php
@@ -40,6 +46,14 @@
                                     //form validation
                                     echo validation_errors(); 
                                 ?>
+                                <?php
+                                echo '<div class="control-group">';
+                                  echo '<label for="manufacture_id" class="control-label">Student Type</label>';
+                                  echo '<div class="controls">';
+                                    echo form_dropdown('student_type_id', $options_student_type, $result['student_type_id'], 'class="span2"');
+                                  echo '</div>';
+                                echo '</div>';
+                                ?>
                                 
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Registered Date</label>
@@ -48,6 +62,13 @@
                                             <input name="registered_date" class="span2" size="16" type="text" value="<?php echo $result['registered_date']; ?>" readonly>
                                             <span class="add-on"><i class="icon-calendar"></i></span>
                                         </div>
+                                    </div> <!-- /controls -->               
+                                </div> <!-- /control-group -->
+                                
+                                <div class="control-group">                                         
+                                    <label class="control-label" for="firstname">ID Number</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6" id="student_id_number" name="student_id_number" value="<?php echo $result['student_id_number']; ?>">
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
                                 

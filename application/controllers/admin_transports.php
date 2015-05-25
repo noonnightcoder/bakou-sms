@@ -232,7 +232,7 @@ class Admin_transports extends CI_Controller {
                         $data['flash_message'] = FALSE; 
                     }
                 }
-                $data['flash_message'] = TRUE;
+                redirect('admin/transport_memberships');
             }
 
         }

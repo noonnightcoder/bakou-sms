@@ -78,6 +78,18 @@ class Vehicles_model extends CI_Model {
         $query = $this->db->get();
         return $query->row_array();  
     }
+    
+    public function get_vehicles_by_student_id($student_id)
+    {
+        $this->db->select('student_vehicle.*, vehicles.transport_id, vehicles.vehicle_brand, vehicles.vehicle_identity_number');
+        $this->db->select('transports.route_name');
+        $this->db->from('student_vehicle');
+        $this->db->join('vehicles', 'student_vehicle.vehicle_id = vehicles.id');
+        $this->db->join('transports', 'vehicles.transport_id = transports.id');
+        $this->db->where('student_vehicle.student_id', $student_id);
+        $query = $this->db->get();
+        return $query->result_array();  
+    }
 
     /**
     * Count the number of rows

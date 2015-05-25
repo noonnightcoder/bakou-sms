@@ -67,7 +67,7 @@
                                 </div> <!-- /control-group -->
 
                                 <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Discount Amount</label>
+                                    <label class="control-label" for="firstname">Discount Amount (USD)</label>
                                     <div class="controls">
                                         <input type="text" class="span6" id="discount_amount" name="discount_amount" value="<?php echo set_value('discount_amount'); ?>">
                                     </div> <!-- /controls -->               
@@ -76,7 +76,7 @@
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Effective From</label>
                                     <div class="controls">
-                                        <div class="input-append date" id="dp3" data-date="2015-01-01" data-date-format="yyyy-mm-dd">
+                                        <div class="input-append date" id="dp3" data-date="<?php echo date("Y-m-01"); ?>" data-date-format="yyyy-mm-dd">
                                             <input name="effective_from" class="span2" size="16" type="text" value="<?php echo set_value('effective_from'); ?>" readonly>
                                             <span class="add-on"><i class="icon-calendar"></i></span>
                                         </div>
@@ -86,7 +86,7 @@
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Effective End</label>
                                     <div class="controls">
-                                        <div class="input-append date" id="dp4" data-date="2015-01-01" data-date-format="yyyy-mm-dd">
+                                        <div class="input-append date" id="dp4" data-date="<?php echo date("Y-m-d"); ?>" data-date-format="yyyy-mm-dd">
                                             <input name="effective_end" class="span2" size="16" type="text" value="<?php echo set_value('effective_end'); ?>" readonly>
                                             <span class="add-on"><i class="icon-calendar"></i></span>
                                         </div>

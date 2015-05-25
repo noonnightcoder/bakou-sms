@@ -161,22 +161,19 @@
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
                                 
-                                <?php if($promotion != NULL){ ?>
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Discount Percentage</label>
                                     <div class="controls">
-                                        <input type="text" class="span6" id="discount_percentage" name="discount_percentage" value="<?php echo $promotion['discount_percentage']; ?>">
+                                        <input type="text" class="span6" id="discount_percentage" name="discount_percentage" value="<?php echo @$promotion['discount_percentage']; ?>">
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
                                 
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Discount Amount (USD)</label>
                                     <div class="controls">
-                                        <input type="text" class="span6" id="discount_amount" name="discount_amount" value="<?php echo $promotion['discount_amount']; ?>">
+                                        <input type="text" class="span6" id="discount_amount" name="discount_amount" value="<?php echo @$promotion['discount_amount']; ?>">
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
-                                <?php } ?>
-                                
 
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Effective From</label>

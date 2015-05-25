@@ -1,4 +1,4 @@
- <?php
+<?php
 class Admin_admissions extends CI_Controller {
 
     /**
@@ -17,6 +17,7 @@ class Admin_admissions extends CI_Controller {
         $this->load->model('parents_model');
         $this->load->model('services_model');
         $this->load->model('promotions_model');
+        $this->load->model('student_types_model');
 
         if(!$this->session->userdata('is_logged_in')){
             redirect('admin/login');
@@ -25,9 +26,13 @@ class Admin_admissions extends CI_Controller {
 
     public function step1()
     {
+        // have to find student type
+        $data['student_types'] = $this->student_types_model->get_all();
         //if save button was clicked, get the data sent via post
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
+            $this->form_validation->set_rules('student_type_id', 'student_type_id', 'required');
+            $this->form_validation->set_rules('student_id_number', 'student_id_number', '');
             $this->form_validation->set_rules('fullname', 'fullname', 'required');
             $this->form_validation->set_rules('fullname_in_khmer', 'fullname_in_khmer', 'required');
             $this->form_validation->set_rules('registered_date', 'registered_date', 'required');
@@ -66,7 +71,8 @@ class Admin_admissions extends CI_Controller {
                                            'phone2' => $this->input->post('phone2'),
                                            'student_description' => $this->input->post('student_description'),
                                            'birthplace' => $this->input->post('birthplace'),
-                                           'photo' => '/sms/attachments/index.png');
+                                           'photo' => '/sms/attachments/index.png',
+                                           'student_type_id' => $this->input->post('student_type_id'));
                 }else{
                     
                     $file_root = $this->upload->data();
@@ -81,7 +87,8 @@ class Admin_admissions extends CI_Controller {
                                            'phone2' => $this->input->post('phone2'),
                                            'student_description' => $this->input->post('student_description'),
                                            'birthplace' => $this->input->post('birthplace'),
-                                           'photo' => '/sms'.substr($config['upload_path'],1).$file_root['file_name']); 
+                                           'photo' => '/sms'.substr($config['upload_path'],1).$file_root['file_name'],
+                                           'student_type_id' => $this->input->post('student_type_id')); 
                 }
                 //if the insert has returned true then we show the flash message
                 $student_id = $this->students_model->store_data($data_to_store);
@@ -243,6 +250,7 @@ class Admin_admissions extends CI_Controller {
     {
         $student_id = $this->uri->segment(4);
         $data['promotion'] = $this->promotions_model->get_promotion_by_type('Stationery');
+        $data['services'] = $this->services_model->get_all();
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
             if($this->input->post('required'))
@@ -369,13 +377,15 @@ class Admin_admissions extends CI_Controller {
                                                           $this->input->post('student_library_description'), $p_dis_per, $p_dis_amt,
                                                           $this->input->post('payment_date')))
                     {
-                        redirect('admin/admission/service/'.$student_id); 
+                        //redirect('admin/admission/service/'.$student_id); 
+                        redirect('admin/students/history/'.$student_id);
                     }else{
                         $data['flash_message'] = FALSE; 
                     }
                 }
             }else{
-                redirect('admin/admission/service/'.$student_id);
+                redirect('admin/students/history/'.$student_id);
+                //redirect('admin/admission/service/'.$student_id);
             }
             
         }

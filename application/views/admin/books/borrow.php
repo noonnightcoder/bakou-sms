@@ -97,7 +97,7 @@
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Start Date</label>
                                     <div class="controls">
-                                        <div class="input-append date" id="dp3" data-date="2015-01-01" data-date-format="yyyy-mm-dd">
+                                        <div class="input-append date" id="dp3" data-date="<?php echo date("Y-m-d"); ?>" data-date-format="yyyy-mm-dd">
                                             <input name="start_date" class="span2" size="16" type="text" value="<?php echo set_value('start_date'); ?>" readonly>
                                             <span class="add-on"><i class="icon-calendar"></i></span>
                                         </div>
@@ -107,7 +107,7 @@
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Return Date</label>
                                     <div class="controls">
-                                        <div class="input-append date" id="dp4" data-date="2015-01-01" data-date-format="yyyy-mm-dd">
+                                        <div class="input-append date" id="dp4" data-date="<?php echo date("Y-m-d"); ?>" data-date-format="yyyy-mm-dd">
                                             <input name="return_date" class="span2" size="16" type="text" value="<?php echo set_value('return_date'); ?>" readonly>
                                             <span class="add-on"><i class="icon-calendar"></i></span>
                                         </div>

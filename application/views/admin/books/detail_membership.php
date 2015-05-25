@@ -162,18 +162,24 @@
                                 <div class="tab-pane " id="purchase">
                                     <table class="table table-striped table-bordered">
                                         <tr>
+                                            <th>Purchased Date</th>
                                             <th>Subject</th>
                                             <th>Book Name</th>
                                             <th>Price</th>
-                                            <th>Purchased Date</th>
+                                            <th>Discount Percentage</th>
+                                            <th>Discount Amount</th>
+                                            <th>Last Amount</th>
                                             <th>Description</th>
                                         </tr>
                                         <?php foreach($purchase_books as $row){ ?>
                                         <tr>
+                                            <td><?php echo $row['purchased_date']; ?></td>
                                             <td><?php echo $row['subject_name']; ?></td>
                                             <td><?php echo $row['book_name']; ?></td>
                                             <td><?php echo $row['amount']; ?></td>
-                                            <td><?php echo $row['purchased_date']; ?></td>
+                                            <td><?php echo $row['discount_percentage']; ?></td>
+                                            <td><?php echo $row['discount_amount']; ?></td>
+                                            <td><?php echo $row['last_amount']; ?></td>
                                             <td><?php echo $row['student_book_purchase_description']; ?></td>
                                         </tr>
                                         <?php } ?>

@@ -48,7 +48,7 @@
                                 </div> <!-- /control-group -->
                                 
                                 <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Price</label>
+                                    <label class="control-label" for="firstname">Price (USD)</label>
                                     <div class="controls">
                                         <input type="text" class="span6" id="service_price" name="service_price" value="<?php echo $result['service_price']; ?>">
                                     </div> <!-- /controls -->               

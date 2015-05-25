@@ -49,10 +49,10 @@
                         <table class="table table-striped table-bordered">
                             <thead>
                             <tr>
+                                <th>Student Fullname</th>
                                 <th>Transport Name</th>
                                 <th>Vehicle Brand</th>
                                 <th>ID Number</th>
-                                <th>Student Fullname</th>
                                 <th>Effective From</th>
                                 <th>Effective End</th>
                                 <th>Description</th>
@@ -62,10 +62,10 @@
                             <tbody>
                             <?php foreach($result as $res){ ?>
                             <tr>
+                                <td><?php echo $res['fullname']; ?></td>
                                 <td><?php echo $res['route_name']; ?></td>
                                 <td><?php echo $res['vehicle_brand']; ?></td>
                                 <td><?php echo $res['vehicle_identity_number']; ?></td>
-                                <td><?php echo $res['fullname']; ?></td>
                                 <td><?php echo $res['effective_from']; ?></td>
                                 <td><?php echo $res['effective_end']; ?></td>
                                 <td><?php echo $res['student_vehicle_description']; ?></td>

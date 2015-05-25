@@ -19,6 +19,13 @@
                         <div class="progress progress-striped active">
                             <div class="bar" style="width:0%;"></div>
                         </div>
+                        <?php
+                        $options_student_type = array('' => "Select");
+                        foreach ($student_types as $row)
+                        {
+                          $options_student_type[$row['id']] = $row['student_type'];
+                        }
+                        ?>
                         <form action="<?php echo base_url(); ?>index.php/admin/admission" method="post" id="edit-profile" class="form-horizontal" enctype="multipart/form-data">
                             <fieldset>
                                 <?php
@@ -43,13 +50,29 @@
                                     echo validation_errors(); 
                                 ?>
                                 
+                                <?php
+                                echo '<div class="control-group">';
+                                  echo '<label for="manufacture_id" class="control-label">Student Type</label>';
+                                  echo '<div class="controls">';
+                                    echo form_dropdown('student_type_id', $options_student_type, set_value('student_type_id'), 'class="span2"');
+                                  echo '</div>';
+                                echo '</div>';
+                                ?>
+                                
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Registered Date</label>
                                     <div class="controls">
                                         <div class="input-append date" id="dp2" data-date="<?php echo date("Y-m-d"); ?>" data-date-format="yyyy-mm-dd">
-                                            <input name="registered_date" class="span2" size="16" type="text" value="<?php echo set_value('registered_date'); ?>" readonly>
+                                            <input name="registered_date" class="span2" size="16" type="text" value="<?php echo date("Y-m-d"); ?>" readonly>
                                             <span class="add-on"><i class="icon-calendar"></i></span>
                                         </div>
+                                    </div> <!-- /controls -->               
+                                </div> <!-- /control-group -->
+                                
+                                <div class="control-group">                                         
+                                    <label class="control-label" for="firstname">ID Number</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6" id="student_id_number" name="student_id_number" value="<?php echo set_value('student_id_number'); ?>">
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
                                 

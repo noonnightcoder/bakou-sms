@@ -12,6 +12,9 @@ class Admin_students extends CI_Controller {
         $this->load->model('academic_programs_model');
         $this->load->model('promotions_model');
         $this->load->model('services_model');
+        $this->load->model('books_model');
+        $this->load->model('vehicles_model');
+        $this->load->model('student_types_model');
 
         if(!$this->session->userdata('is_logged_in')){
             redirect('admin/login');
@@ -61,9 +64,13 @@ class Admin_students extends CI_Controller {
 
     public function add()
     {
+        // have to find student type
+        $data['student_types'] = $this->student_types_model->get_all();
         //if save button was clicked, get the data sent via post
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
+            $this->form_validation->set_rules('student_type_id', 'student_type_id', 'required');
+            $this->form_validation->set_rules('student_id_number', 'student_id_number', '');
             $this->form_validation->set_rules('registered_date', 'registered_date', 'required');
             $this->form_validation->set_rules('fullname', 'fullname', 'required');
             $this->form_validation->set_rules('fullname_in_khmer', 'fullname_in_khmer', 'required');
@@ -102,7 +109,9 @@ class Admin_students extends CI_Controller {
                                            'student_description' => $this->input->post('student_description'),
                                            'birthplace' => $this->input->post('birthplace'),
                                            'photo' => '/sms/attachments/index.png',
-                                           'registered_date' => $this->input->post('registered_date'));
+                                           'registered_date' => $this->input->post('registered_date'),
+                                           'student_type_id' => $this->input->post('student_type_id'),
+                                           'student_id_number' => $this->input->post('student_id_number'));
                 }else{
                     
                     $file_root = $this->upload->data();
@@ -117,7 +126,9 @@ class Admin_students extends CI_Controller {
                                            'student_description' => $this->input->post('student_description'),
                                            'birthplace' => $this->input->post('birthplace'),
                                            'photo' => '/sms'.substr($config['upload_path'],1).$file_root['file_name'],
-                                           'registered_date' => $this->input->post('registered_date')); 
+                                           'registered_date' => $this->input->post('registered_date'),
+                                           'student_type_id' => $this->input->post('student_type_id'),
+                                           'student_id_number' => $this->input->post('student_id_number')); 
                 }
                 //if the insert has returned true then we show the flash message
                 if($this->students_model->store_data($data_to_store))
@@ -136,11 +147,14 @@ class Admin_students extends CI_Controller {
     public function update()
     {
         $id = $this->uri->segment(4);
-
+        // have to find student type
+        $data['student_types'] = $this->student_types_model->get_all();
         //if save button was clicked, get the data sent via post
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
             //form validation
+            $this->form_validation->set_rules('student_type_id', 'student_type_id', 'required');
+            $this->form_validation->set_rules('student_id_number', 'student_id_number', '');
             $this->form_validation->set_rules('registered_date', 'registered_date', 'required');
             $this->form_validation->set_rules('fullname', 'fullname', 'required');
             $this->form_validation->set_rules('fullname_in_khmer', 'fullname_in_khmer', 'required');
@@ -178,7 +192,9 @@ class Admin_students extends CI_Controller {
                                            'student_description' => $this->input->post('student_description'),
                                            'birthplace' => $this->input->post('birthplace'),
                                            'modified_date' => date('Y-m-d H:i:s'),
-                                           'registered_date' => $this->input->post('registered_date'));
+                                           'registered_date' => $this->input->post('registered_date'),
+                                           'student_type_id' => $this->input->post('student_type_id'),
+                                           'student_id_number' => $this->input->post('student_id_number'));
                 }else{
                     $file_root = $this->upload->data();
                     $data_to_store = array('fullname' => $this->input->post('fullname'),
@@ -192,7 +208,9 @@ class Admin_students extends CI_Controller {
                                            'birthplace' => $this->input->post('birthplace'),
                                            'photo' => '/sms'.substr($config['upload_path'],1).$file_root['file_name'],
                                            'modified_date' => date('Y-m-d H:i:s'),
-                                           'registered_date' => $this->input->post('registered_date'));
+                                           'registered_date' => $this->input->post('registered_date'),
+                                           'student_type_id' => $this->input->post('student_type_id'),
+                                           'student_id_number' => $this->input->post('student_id_number'));
                 }
                 //if the insert has returned true then we show the flash message
                 if($this->students_model->update($id, $data_to_store) == TRUE)
@@ -232,6 +250,7 @@ class Admin_students extends CI_Controller {
         // find classes
         $data['academic_programs'] = $this->academic_programs_model->get_all_academic_programs();
         $data['promotion'] = $this->promotions_model->get_promotion_by_type('Admission');
+        $data['services'] = $this->services_model->get_all();
         //if save button was clicked, get the data sent via post
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
@@ -271,7 +290,7 @@ class Admin_students extends CI_Controller {
                                                     $this->input->post('effective_end'), $this->input->post('student_academic_program_description'),
                                                     $p_dis_per, $p_dis_amt, $this->input->post('admission_date')))
                 {
-                    $data['flash_message'] = TRUE; 
+                    redirect('admin/students/history'.$student_id); 
                 }else{
                     $data['flash_message'] = FALSE; 
                 }
@@ -282,6 +301,28 @@ class Admin_students extends CI_Controller {
         $this->load->view('includes/template', $data);  
     }
 
+    public function history()
+    {
+        $id = $this->uri->segment(4);
+        // have to find student type
+        $data['student_types'] = $this->student_types_model->get_all();
+        //product data 
+        $data['result'] = $this->students_model->get_by_id($id);
+        // admission detail 
+        $data['admissions'] = $this->academic_programs_model->get_by_student_id($id);
+        // service detail 
+        $data['services'] = $this->services_model->get_by_student_id($id);
+        // book detail 
+        $data['books'] = $this->books_model->get_all_purchase_books_by_student($id);
+        // vehicle detail 
+        $data['vehicles'] = $this->vehicles_model->get_vehicles_by_student_id($id);
+        // library detail 
+        $data['memberships'] = $this->books_model->get_membership_by_student_id($id);
+        //load the view
+        $data['main_content'] = 'admin/students/history';
+        $this->load->view('includes/template', $data);            
+
+    }//update
 
 }                 
                     

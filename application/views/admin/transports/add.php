@@ -48,7 +48,7 @@
                                 </div> <!-- /control-group -->
 
                                 <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Fare</label>
+                                    <label class="control-label" for="firstname">Monthly Fee (USD)</label>
                                     <div class="controls">
                                         <input type="text" class="span6" id="route_fare" name="route_fare" value="<?php echo set_value('route_fare'); ?>">
                                     </div> <!-- /controls -->               

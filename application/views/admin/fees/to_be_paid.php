@@ -22,6 +22,7 @@
                             <tr>
                                 <th>Due Date</th>
                                 <th>Student Name</th>
+                                <th>Student Type</th>
                                 <th>Fee Type</th>
                                 <th>Last Amount</th>
                                 <th>Last Discount Percentage</th>
@@ -34,6 +35,7 @@
                             <tr>
                                 <td><?php echo $res['due_date']; ?></td>
                                 <td><?php echo $res['fullname']; ?></td>
+                                <td><?php echo $res['student_type']; ?></td>
                                 <td><?php echo $res['fee_type']; ?></td>
                                 <td><?php echo $res['amount']; ?></td>
                                 <td><?php echo $res['discount_percentage']; ?></td>

@@ -36,10 +36,9 @@ class Academics_model extends CI_Model {
     */
     public function get_all($search_string=null, $limit_start=null, $limit_end=null)
     {
-
         $this->db->select('*');
         $this->db->from('academics');
-        $this->db->where('status', 1);
+        
         if($search_string){
             $this->db->like('lower(name)', strtolower($search_string));
         }

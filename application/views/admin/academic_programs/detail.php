@@ -156,6 +156,8 @@
                                 <li><a href="#newsubject" data-toggle="tab">Add New Subject</a></li>
                                 <li><a href="#subjects" data-toggle="tab">Subjects</a></li>
                                 <li><a href="#students" data-toggle="tab">Students</a></li>
+                                <li><a href="#markabsence" data-toggle="tab">Mark Absence</a></li>
+                                <li><a href="#absences" data-toggle="tab">Absences</a></li>
                             </ul>
 
                             <div class="tab-content">
@@ -965,6 +967,7 @@
                                             <th>Number of Session</th>
                                             <th>Description</th>
                                             <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                         <?php 
                                             $current_subject = '';
@@ -979,12 +982,18 @@
                                             <td><?php echo $row['number_of_session']; ?></td>
                                             <td><?php echo $row['academic_program_subject_description']; ?></td>
                                             <td><?php echo ($row['status']== 0) ? 'Not Available' : 'Available'; ?></td>
+                                            <?php if($row['status'] == 1) { ?>
+                                            <td><a onclick="confirm_delete('admin/academic_programs/delete_subject/<?php echo $this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$row['id']; ?>')"><button class="btn btn-danger">Remove</button></a></td>
+                                            <?php }else{ ?>
+                                            <td>&nbsp;</td>
+                                            <?php } ?>
                                         </tr>
                                         <?php }else{ ?>
                                         <tr>
                                             <td>&nbsp;</td>
                                             <td>&nbsp;</td>
                                             <td><?php echo $row['book_name']; ?></td>
+                                            <td>&nbsp;</td>
                                             <td>&nbsp;</td>
                                             <td>&nbsp;</td>
                                             <td>&nbsp;</td>
@@ -1022,7 +1031,101 @@
                                         
                                         <?php } // end foreach ?>
                                     </table>
-                                    
+                                </div>
+                                <div class="tab-pane " id="markabsence">
+                                    <?php
+                                    $options_subject = array('' => "Select");
+                                    foreach ($all_subjects as $row)
+                                    {
+                                      $options_subject[$row['id']] = $row['subject_name'];
+                                    }
+                                    ?>
+                                    <form action="<?php echo base_url(); ?>index.php/admin/academic_programs/attendance/<?php echo $this->uri->segment(4).'/'.$this->uri->segment(5); ?>" method="post" id="edit-profile" class="form-horizontal">
+                                        <fieldset>
+                                            <?php
+                                                //flash messages
+                                                if(isset($flash_message)){
+                                                    if(@$flash_message == TRUE)
+                                                    {
+                                                      echo '<div class="alert alert-success">';
+                                                        echo '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+                                                        echo '<strong>Well done!</strong> marked absence with success.';
+                                                      echo '</div>';       
+                                                    }else{
+                                                      echo '<div class="alert">';
+                                                        echo '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+                                                        echo '<strong>Oh snap!</strong> change a few things up and try submitting again.';
+                                                      echo '</div>';          
+                                                    }
+                                                }
+                                            ?>
+                                            <?php 
+                                                //form validation
+                                                echo validation_errors(); 
+                                            ?>
+                                            <?php
+                                            echo '<div class="control-group">';
+                                              echo '<label for="manufacture_id" class="control-label">Subject</label>';
+                                              echo '<div class="controls">';
+                                                echo form_dropdown('academic_program_subject_id', $options_subject, set_value('academic_program_subject_id'), 'class="span6"');
+                                              echo '</div>';
+                                            echo '</div>';
+                                            ?>
+
+                                            <div class="control-group">                                         
+                                                <label class="control-label" for="firstname">Date</label>
+                                                <div class="controls">
+                                                    <div class="input-append date" id="dp2" data-date="<?php echo date("Y-m-d"); ?>" data-date-format="yyyy-mm-dd">
+                                                        <input name="absent_date" class="span2" size="16" type="text" value="<?php echo set_value('absent_date'); ?>" readonly>
+                                                        <span class="add-on"><i class="icon-calendar"></i></span>
+                                                    </div>
+                                                </div> <!-- /controls -->               
+                                            </div> <!-- /control-group -->
+
+                                            <div class="control-group">                                         
+                                                <label class="control-label" for="firstname">Session</label>
+                                                <div class="controls">
+                                                    <input type="text" class="span6" id="session" name="session" value="<?php echo set_value('session'); ?>">
+                                                </div> <!-- /controls -->               
+                                            </div> <!-- /control-group -->
+
+                                            <?php foreach($all_students as $row){ ?>
+                                            <div class="control-group">                                         
+                                                <label class="control-label" for="firstname"><?php echo $row['fullname']; ?></label>
+                                                <div class="controls">
+                                                    <input type="checkbox" name="student_id[]" value="<?php echo $row['student_id']; ?>" > Absence                                        
+                                                </div> <!-- /controls -->               
+                                            </div> <!-- /control-group -->
+                                            <?php } ?>
+                                            <div class="form-actions">
+                                                <button type="submit" class="btn btn-primary">Mark Absence</button> 
+                                                <button class="btn" type="reset">Cancel</button>
+                                            </div> <!-- /form-actions -->
+
+                                        </fieldset>
+                                    </form> 
+                                </div>
+                                <div class="tab-pane " id="absences">
+                                    <table class="table table-striped table-bordered">
+                                        <tr>
+                                            <th>Absent Date</th>
+                                            <th>Subject Name</th>
+                                            <th>Fullname</th>
+                                            <th>Fullname in Khmer</th>
+                                            <th>Session</th>
+                                        </tr>
+                                        
+                                        <?php foreach($absences as $row){ ?>
+                                        <tr>
+                                            <td><?php echo $row['absent_date']; ?></td>
+                                            <td><?php echo $row['subject_name']; ?></td>
+                                            <td><?php echo $row['fullname']; ?></td>
+                                            <td><?php echo $row['fullname_in_khmer']; ?></td>
+                                            <td><?php echo $row['session']; ?></td>
+                                        </tr>
+                                        
+                                        <?php } // end foreach ?>
+                                    </table>
                                 </div>
                             </div>
                         </div>

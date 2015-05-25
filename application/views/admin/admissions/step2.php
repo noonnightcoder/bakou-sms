@@ -44,9 +44,9 @@
                                 ?>
                                 
                                 <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Required?</label>
+                                    <label class="control-label" for="firstname">Skip this step?</label>
                                     <div class="controls">
-                                        <input type="checkbox" class="span6" id="photo" name="required" value="1" checked="checked"/>
+                                        <a href="<?php echo base_url(); ?>index.php/admin/admission/admission/<?php echo $this->uri->segment(4); ?>"><button class="btn btn-danger">Yes, skip</button></a>
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
                                 
@@ -63,6 +63,7 @@
                                         <select id="relationship" name="relationship">
                                             <option value="Father" <?php if(set_value('relationship') == 'Father'){ ?> selected="selected" <?php } ?>>Father</option>
                                             <option value="Mother" <?php if(set_value('relationship') == 'Mother'){ ?> selected="selected" <?php } ?>>Mother</option>
+                                            <option value="Guardian" <?php if(set_value('relationship') == 'Guardian'){ ?> selected="selected" <?php } ?>>Guardian</option>
                                         </select>
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->

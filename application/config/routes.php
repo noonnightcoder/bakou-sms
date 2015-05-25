@@ -210,6 +210,8 @@ $route['admin/academic_programs/update'] = 'admin_academic_programs/update';
 $route['admin/academic_programs/update/(:any)'] = 'admin_academic_programs/update/$1';
 $route['admin/academic_programs/detail'] = 'admin_academic_programs/detail';
 $route['admin/academic_programs/detail/(:any)'] = 'admin_academic_programs/detail/$1';
+$route['admin/academic_programs/attendance'] = 'admin_academic_programs/attendance';
+$route['admin/academic_programs/attendance/(:any)'] = 'admin_academic_programs/attendance/$1';
 $route['admin/academic_programs/delete/(:any)'] = 'admin_academic_programs/delete/$1';
 $route['admin/academic_programs/delete_subject/(:any)'] = 'admin_academic_programs/delete_subject/$1';
 $route['admin/academic_programs/(:any)'] = 'admin_academic_programs/index/$1'; //$1 = page number
@@ -221,6 +223,8 @@ $route['admin/students/update/(:any)'] = 'admin_students/update/$1';
 $route['admin/students/delete/(:any)'] = 'admin_students/delete/$1';
 $route['admin/students/admission'] = 'admin_students/admission';
 $route['admin/students/admission/(:any)'] = 'admin_students/admission/$1';
+$route['admin/students/history'] = 'admin_students/history';
+$route['admin/students/history/(:any)'] = 'admin_students/history/$1';
 $route['admin/students/(:any)'] = 'admin_students/index/$1'; //$1 = page number
                     
 $route['admin/parents'] = 'admin_parents/index';
@@ -281,5 +285,12 @@ $route['admin/comments/update'] = 'admin_comments/update';
 $route['admin/comments/update/(:any)'] = 'admin_comments/update/$1';
 $route['admin/comments/delete/(:any)'] = 'admin_comments/delete/$1';
 $route['admin/comments/(:any)'] = 'admin_comments/index/$1'; //$1 = page number
+                    
+$route['admin/student_types'] = 'admin_student_types/index';
+$route['admin/student_types/add'] = 'admin_student_types/add';
+$route['admin/student_types/update'] = 'admin_student_types/update';
+$route['admin/student_types/update/(:any)'] = 'admin_student_types/update/$1';
+$route['admin/student_types/delete/(:any)'] = 'admin_student_types/delete/$1';
+$route['admin/student_types/(:any)'] = 'admin_student_types/index/$1'; //$1 = page number
                     
                     

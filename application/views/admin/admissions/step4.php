@@ -55,20 +55,9 @@
                                 ?>
                                 
                                 <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Required?</label>
+                                    <label class="control-label" for="firstname">Skip this step?</label>
                                     <div class="controls">
-                                        <input type="checkbox" class="span6" id="photo" name="required" value="1" checked="checked" />
-                                    </div> <!-- /controls -->               
-                                </div> <!-- /control-group -->
-                                
-                                <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Books</label>
-                                    <div class="controls">
-                                        <select id="example-post" name="book_id[]" multiple="multiple">
-                                            <?php foreach($result as $row) { ?>
-                                            <option value="<?php echo $row['id']; ?>"><?php echo $row['subject_name'].' -> '.$row['book_name']; ?></option>
-                                            <?php } ?>
-                                        </select>
+                                        <a href="<?php echo base_url(); ?>index.php/admin/admission/transportation/<?php echo $this->uri->segment(4); ?>"><button class="btn btn-danger">Yes, skip</button></a>
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
 
@@ -82,21 +71,30 @@
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
                                 
-                                <?php if($promotion != NULL){ ?>
+                                <div class="control-group">                                         
+                                    <label class="control-label" for="firstname">Suggested Books</label>
+                                    <div class="controls">
+                                        <select id="example-post" name="book_id[]" multiple="multiple">
+                                            <?php foreach($result as $row) { ?>
+                                            <option value="<?php echo $row['id']; ?>"><?php echo $row['subject_name'].' -> '.$row['book_name']; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div> <!-- /controls -->               
+                                </div> <!-- /control-group -->
+                                
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Discount Percentage</label>
                                     <div class="controls">
-                                        <input type="text" class="span6" id="discount_percentage" name="discount_percentage" value="<?php echo $promotion['discount_percentage']; ?>">
+                                        <input type="text" class="span6" id="discount_percentage" name="discount_percentage" value="<?php echo @$promotion['discount_percentage']; ?>">
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
                                 
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Discount Amount (USD)</label>
                                     <div class="controls">
-                                        <input type="text" class="span6" id="discount_amount" name="discount_amount" value="<?php echo $promotion['discount_amount']; ?>">
+                                        <input type="text" class="span6" id="discount_amount" name="discount_amount" value="<?php echo @$promotion['discount_amount']; ?>">
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
-                                <?php } ?>
 
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Description</label>

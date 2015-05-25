@@ -36,13 +36,14 @@ class Students_model extends CI_Model {
     */
     public function get_all($search_string=null, $limit_start=null, $limit_end=null)
     {
-        $this->db->select('*');
+        $this->db->select('students.*, student_types.student_type');
         $this->db->from('students');
-        $this->db->where('status', 1);
+        $this->db->join('student_types', 'students.student_type_id = student_types.id');
+        $this->db->where('students.status', 1);
         if($search_string){
             $this->db->like('lower(fullname)', strtolower($search_string));
         }
-        $this->db->group_by('id');
+        $this->db->group_by('students.id');
 
         if($limit_start && $limit_end){
           $this->db->limit($limit_start, $limit_end);   

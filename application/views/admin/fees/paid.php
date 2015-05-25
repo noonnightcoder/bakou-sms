@@ -46,11 +46,12 @@
                             <tr>
                                 <th>Payment Date</th>
                                 <th>Student Name</th>
+                                <th>Student Type</th>
                                 <th>Fee Type</th>
-                                <th>Amount</th>
+                                <th>Amount (USD)</th>
                                 <th>Discount Percentage</th>
-                                <th>Discount Amount</th>
-                                <th>Last Amount</th>
+                                <th>Discount Amount (USD)</th>
+                                <th>Last Amount (USD)</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -68,6 +69,7 @@
                             <tr>
                                 <td><?php echo $res['payment_date']; ?></td>
                                 <td><?php echo $res['fullname']; ?></td>
+                                <td><?php echo $res['student_type']; ?></td>
                                 <td><?php echo $res['fee_type']; ?></td>
                                 <td><?php echo $res['amount']; ?></td>
                                 <td><?php echo $res['discount_percentage']; ?></td>
@@ -76,7 +78,7 @@
                             </tr>
                             <?php } ?>
                             <tr>
-                                <td colspan="3">Total:</td>
+                                <td colspan="4">Total:</td>
                                 <td><?php echo $total_amount; ?></td>
                                 <td>&nbsp;</td>
                                 <td><?php echo $total_discount_amount; ?></td>

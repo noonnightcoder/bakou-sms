@@ -12,12 +12,12 @@
 
                     <div class="widget-header">
                         <i class="icon-pushpin"></i>
-                        <h3><a href="<?php echo base_url(); ?>index.php/admin/transports">Transports</a> / Update</h3>
+                        <h3><a href="<?php echo base_url(); ?>index.php/admin/student_types">Student Types</a> / Update</h3>
                     </div> <!-- /widget-header -->
 
                     <div class="widget-content">
 
-                        <form action="<?php echo base_url(); ?>index.php/admin/transports/update/<?php echo $this->uri->segment(4); ?>" method="post" id="edit-profile" class="form-horizontal">
+                        <form action="<?php echo base_url(); ?>index.php/admin/student_types/update/<?php echo $this->uri->segment(4); ?>" method="post" id="edit-profile" class="form-horizontal">
                             <fieldset>
                                 <?php
                                     //flash messages
@@ -41,30 +41,16 @@
                                     echo validation_errors(); 
                                 ?>
                                 <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Transport Name</label>
+                                    <label class="control-label" for="firstname">Student Type</label>
                                     <div class="controls">
-                                        <input type="text" class="span6" id="route_name" name="route_name" value="<?php echo $result['route_name']; ?>">
-                                    </div> <!-- /controls -->               
-                                </div> <!-- /control-group -->
-
-                                <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Monthly Fee (USD)</label>
-                                    <div class="controls">
-                                        <input type="text" class="span6" id="route_fare" name="route_fare" value="<?php echo $result['route_fare']; ?>">
-                                    </div> <!-- /controls -->               
-                                </div> <!-- /control-group -->
-
-                                <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Number of Vehicle</label>
-                                    <div class="controls">
-                                        <input type="text" class="span6" id="number_of_vehicle" name="number_of_vehicle" value="<?php echo $result['number_of_vehicle']; ?>">
+                                        <input type="text" class="span6" id="student_type" name="student_type" value="<?php echo $result['student_type']; ?>">
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
 
                                 <div class="control-group">                                         
                                     <label class="control-label" for="firstname">Description</label>
                                     <div class="controls">
-                                        <textarea class="span6" id="transport_description" name="transport_description"><?php echo $result['transport_description']; ?></textarea>
+                                        <textarea class="span6" id="student_type_description" name="student_type_description"><?php echo $result['student_type_description']; ?></textarea>
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
 

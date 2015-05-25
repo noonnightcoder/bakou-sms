@@ -12,6 +12,7 @@
                     <div class="widget-content">
 
                         <a href="<?php echo site_url("admin").'/'.$this->uri->segment(2); ?>/add" class="btn btn-large btn-success btn-support-ask">Add New</a> 
+                        <a target="_blank" href="<?php echo site_url("admin").'/student_types'; ?>" class="btn btn-large btn-info btn-support-ask">Show Student Type</a>
 
                     </div> <!-- /widget-content -->
 
@@ -48,6 +49,8 @@
                         <table class="table table-striped table-bordered">
                             <thead>
                             <tr>
+                                <th>Student Type</th>
+                                <th>ID Number</th>
                                 <th>Fullname</th>
                                 <th>Fullname in Khmer</th>
                                 <th>Sex</th>
@@ -58,6 +61,8 @@
                             <tbody>
                             <?php foreach($result as $res){ ?> 
                             <tr>
+                                <td><?php echo $res['student_type']; ?></td>
+                                <td><?php echo $res['student_id_number']; ?></td>
                                 <td><?php echo $res['fullname']; ?></td>
                                 <td><?php echo $res['fullname_in_khmer']; ?></td>
                                 <td><?php echo $res['sex']; ?></td>
@@ -66,6 +71,7 @@
                                 <td class="td-actions">
                                     <a href="<?php echo base_url(); ?>index.php/admin/students/admission/<?php echo $res['id']; ?>"><button class="btn btn-invert">Admission</button></a>
                                     <a href="<?php echo base_url(); ?>index.php/admin/parents/<?php echo $res['id']; ?>"><button class="btn btn-info">Parent</button></a>
+                                    <a href="<?php echo base_url(); ?>index.php/admin/students/history/<?php echo $res['id']; ?>"><button class="btn btn-warning">History</button></a>
                                     <a href="<?php echo base_url(); ?>index.php/admin/students/update/<?php echo $res['id']; ?>"><button class="btn btn-success">Update</button></a>
                                     <a onclick="confirm_delete('admin/students/delete/<?php echo $res['id']; ?>')"><button class="btn btn-danger">Remove</button></a>
                                 </td>

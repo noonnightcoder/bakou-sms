@@ -53,6 +53,7 @@
                                         <select id="relationship" name="relationship">
                                             <option value="Father" <?php if(set_value('relationship') == 'Father'){ ?> selected="selected" <?php } ?>>Father</option>
                                             <option value="Mother" <?php if(set_value('relationship') == 'Mother'){ ?> selected="selected" <?php } ?>>Mother</option>
+                                            <option value="Guardian" <?php if(set_value('relationship') == 'Guardian'){ ?> selected="selected" <?php } ?>>Guardian</option>
                                         </select>
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->

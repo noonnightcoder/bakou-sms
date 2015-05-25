@@ -26,6 +26,19 @@ class Academic_programs_model extends CI_Model {
         $query = $this->db->get();
         return $query->row_array(); 
     }    
+    
+    public function get_by_student_id($student_id)
+    {
+        $this->db->select('student_academic_program.*, academic_programs.academic_program_description, classes.class_name, departments.department_name, faculties.faculty_name');
+        $this->db->from('student_academic_program');
+        $this->db->join('academic_programs', 'student_academic_program.academic_program_id = academic_programs.id');
+        $this->db->join('classes', 'academic_programs.class_id = classes.id');
+        $this->db->join('departments', 'classes.department_id = departments.id');
+        $this->db->join('faculties', 'departments.faculty_id = faculties.id');
+        $this->db->where('student_academic_program.student_id', $student_id);
+        $query = $this->db->get();
+        return $query->result_array(); 
+    }
 
     /**
     * Fetch manufacturers data from the database
@@ -190,8 +203,8 @@ class Academic_programs_model extends CI_Model {
         $this->db->where('student_academic_program.academic_program_id', $academic_program_id);
         
         $this->db->group_by('student_academic_program.id');
+        $this->db->order_by('students.fullname', 'desc');
         $query = $this->db->get();
-
         return $query->result_array();  
     }
     
@@ -246,6 +259,27 @@ class Academic_programs_model extends CI_Model {
     function delete_subject($id){
         $this->db->where('id', $id);
         $this->db->delete('academic_program_subjects'); 
+    }
+    
+    function mark_absence($data)
+    {
+        $insert = $this->db->insert('student_absences', $data);
+        return $insert;
+    }
+    
+    function get_absences($academic_program_id)
+    {
+        $sql = "SELECT t1.*, t2.fullname, t2.fullname_in_khmer, t4.subject_name
+                FROM student_absences t1
+                JOIN students t2 ON t1.student_id = t2.id
+                JOIN academic_program_subjects t3 ON t1.academic_program_subject_id = t3.id
+                JOIN subjects t4 ON t3.subject_id = t4.id
+                WHERE t3.academic_program_id = $academic_program_id
+                GROUP BY t1.absent_date, t4.subject_name
+                ORDER BY t1.absent_date";
+        $query = $this->db->query($sql);
+		
+        return $query->result_array();
     }
 }
 ?>                 

@@ -395,7 +395,7 @@ class Admin_books extends CI_Controller {
                         $data['flash_message'] = FALSE; 
                     }
                 }
-                $data['flash_message'] = TRUE;
+                redirect('admin/memberships');
             }
         }
         //load the view
@@ -499,7 +499,7 @@ class Admin_books extends CI_Controller {
                 //if the insert has returned true then we show the flash message
                 if($this->books_model->borrow_book($this->input->post('book_id'), $this->input->post('student_id'), $this->input->post('start_date'), $this->input->post('return_date')))
                 {
-                    $data['flash_message'] = TRUE; 
+                    redirect('admin/library/return'); 
                 }else{
                     $data['flash_message'] = FALSE; 
                 }

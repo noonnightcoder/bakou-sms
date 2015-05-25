@@ -31,7 +31,7 @@
 
                     <div class="widget-content">
                         
-                        <form action="<?php echo base_url(); ?>index.php/admin/library" method="post" class="form-horizontal">
+                        <form action="<?php echo base_url(); ?>index.php/admin/library/return" method="post" class="form-horizontal">
                             <div class="control-group">
                                 <label class="control-label" for="radiobtns">Book Name: </label>                                            
                                 <div class="controls">

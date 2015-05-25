@@ -165,6 +165,15 @@ class Books_model extends CI_Model {
         return $query->row_array(); 
     }
     
+    public function get_membership_by_student_id($student_id)
+    {
+        $this->db->select('*');
+        $this->db->from('student_library');
+        $this->db->where('student_id', $student_id);
+        $query = $this->db->get();
+        return $query->row_array(); 
+    }
+    
     /**
     * Count the number of rows
     * @param int $search_string

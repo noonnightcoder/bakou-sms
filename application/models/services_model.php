@@ -22,7 +22,17 @@ class Services_model extends CI_Model {
         $this->db->where('id', $id);
         $query = $this->db->get();
         return $query->row_array(); 
-    }    
+    }
+    
+    public function get_by_student_id($student_id)
+    {
+        $this->db->select('student_service.*, services.service_name, services.service_description');
+        $this->db->from('student_service');
+        $this->db->join('services','student_service.service_id = services.id');
+        $this->db->where('student_service.student_id', $student_id);
+        $query = $this->db->get();
+        return $query->result_array(); 
+    }
 
     /**
     * Fetch manufacturers data from the database

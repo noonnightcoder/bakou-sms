@@ -154,7 +154,7 @@ class Admin_academic_programs extends CI_Controller {
             //form validation
             $this->form_validation->set_rules('subject_id', 'subject_id', 'required');
             $this->form_validation->set_rules('taught_by', 'taught_by', 'required');
-            $this->form_validation->set_rules('number_of_session', 'number_of_session', '');
+            $this->form_validation->set_rules('number_of_session', 'number_of_session', 'required');
             //$this->form_validation->set_rules('time_start', 'time_start', 'required');
             //$this->form_validation->set_rules('time_end', 'time_end', 'required');
             //$this->form_validation->set_rules('day', 'day', 'required');
@@ -211,6 +211,8 @@ class Admin_academic_programs extends CI_Controller {
         $data['all_subjects'] = $this->academic_programs_model->get_all_subjects($id);
         // find students related to this academic program
         $data['all_students'] = $this->academic_programs_model->get_all_students($id);
+        // find absence related to this academic program
+        $data['absences'] = $this->academic_programs_model->get_absences($id);
         // find staffs
         $data['staffs'] = $this->staffs_model->get_all();
         // find subjects
@@ -223,6 +225,56 @@ class Admin_academic_programs extends CI_Controller {
         $data['saturday_subjects'] = $this->academic_programs_model->get_all_aca_pro_subs($id, 'saturday');
         //load the view
         $data['main_content'] = 'admin/academic_programs/detail';
+        $this->load->view('includes/template', $data);            
+
+    }//update
+    
+    public function attendance()
+    {
+        $academic_id = $this->uri->segment(4);
+        $id = $this->uri->segment(5);
+        //academic program data 
+        $data['result'] = $this->academic_programs_model->get_by_id($id);
+        $academic_program = $data['result'];
+        
+        //if save button was clicked, get the data sent via post
+        if ($this->input->server('REQUEST_METHOD') === 'POST')
+        {
+            $this->form_validation->set_rules('academic_program_subject_id', 'academic_program_subject_id', 'required');
+            $this->form_validation->set_rules('absent_date', 'absent_date', 'required');
+            $this->form_validation->set_rules('session', 'session', 'required|numeric');
+            $this->form_validation->set_rules('student_id', 'student_id', 'required');
+            $this->form_validation->set_error_delimiters('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>', '</strong></div>');
+            
+            if ($this->form_validation->run())
+            {
+                $student_id = $this->input->post('student_id');
+                foreach($student_id as $s_id)
+                {
+                    $data_to_store = array('student_id' => $s_id,
+                                           'academic_program_subject_id' => $this->input->post('academic_program_subject_id'),
+                                           'session' => $this->input->post('session'),
+                                           'absent_date' => $this->input->post('absent_date')
+                                          );
+                    //if the insert has returned true then we show the flash message
+                    if($this->academic_programs_model->mark_absence($data_to_store))
+                    {
+                        $data['flash_message'] = TRUE; 
+                    }else{
+                        $data['flash_message'] = FALSE; 
+                    }
+                }
+                redirect('admin/academic_programs/detail/'.$academic_id.'/'.$id);
+            }
+        } 
+        
+        // find subject related to this academic program
+        $data['all_subjects'] = $this->academic_programs_model->get_all_subjects($id);
+        // find students related to this academic program
+        $data['all_students'] = $this->academic_programs_model->get_all_students($id);
+        
+        //load the view
+        $data['main_content'] = 'admin/academic_programs/attendance';
         $this->load->view('includes/template', $data);            
 
     }//update

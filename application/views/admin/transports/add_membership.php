@@ -33,7 +33,7 @@
                         $options_transport = array('' => "Select");
                         foreach ($transports as $row)
                         {
-                          $options_transport[$row['id']] = $row['route_name'];
+                          $options_transport[$row['id']] = $row['route_name'].' (Monthly fee: '.$row['route_fare'].' USD)';
                         }
                         
                         $options_vehicle = array('' => "Select");

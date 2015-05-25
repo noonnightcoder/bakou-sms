@@ -50,6 +50,7 @@
                         
                         ?>
                         <form action="<?php echo base_url(); ?>index.php/admin/admission/transportation/<?php echo $this->uri->segment(4); ?>" method="post" id="edit-profile" class="form-horizontal">
+                            <input type="hidden" class="span6" id="required" name="required" value="1">
                             <fieldset>
                                 <?php
                                     //flash messages
@@ -74,9 +75,9 @@
                                 ?>
                                 
                                 <div class="control-group">                                         
-                                    <label class="control-label" for="firstname">Required?</label>
+                                    <label class="control-label" for="firstname">Skip this step?</label>
                                     <div class="controls">
-                                        <input type="checkbox" class="span6" id="photo" name="required" value="1" checked="checked" />
+                                        <a href="<?php echo base_url(); ?>index.php/admin/admission/library/<?php echo $this->uri->segment(4); ?>"><b>Yes, skip</b></a>
                                     </div> <!-- /controls -->               
                                 </div> <!-- /control-group -->
                                 
